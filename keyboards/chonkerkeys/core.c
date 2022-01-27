@@ -1,6 +1,7 @@
 #include "quantum.h"
 #include "keyconfig.h"
 #include "rgb_strands/rgb_strands.h"
+#include <math.h>
 
 // This file is not meant to be compiled directly, but included in keymap.c
 // LAYER_COUNT, keymaps etc are defined in config.c
@@ -80,39 +81,85 @@ void from_firmware_to_app_origin(uint8_t *x, uint8_t *y) {
     from_app_to_firmware_origin(x, y);
 }
 
-void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim) {
+float ch_max(float a, float b, float c) {
+   return ((a > b)? (a > c ? a : c) : (b > c ? b : c));
+}
+
+float ch_min(float a, float b, float c) {
+   return ((a < b)? (a < c ? a : c) : (b < c ? b : c));
+}
+
+int rgb_to_hsv(float r, float g, float b, float *h, float *s, float *v) {
+   // R, G, B values are divided by 255
+   // to change the range from 0..255 to 0..1:
+   float inv255 = 1.0f / 255.0f;
+   r *= inv255;
+   g *= inv255;
+   b *= inv255;
+   float cmax = ch_max(r, g, b); // maximum of r, g, b
+   float cmin = ch_min(r, g, b); // minimum of r, g, b
+   float diff = cmax-cmin; // diff of cmax and cmin.
+   if (cmax == cmin)
+      *h = 0;
+   else if (cmax == r)
+      *h = fmod((60 * ((g - b) / diff) + 360), 360.0);
+   else if (cmax == g)
+      *h = fmod((60 * ((b - r) / diff) + 120), 360.0);
+   else if (cmax == b)
+      *h = fmod((60 * ((r - g) / diff) + 240), 360.0);
+   // if cmax equal zero
+      if (cmax == 0)
+         *s = 0;
+      else
+         *s = (diff / cmax) * 100;
+   // compute v
+   *v = cmax * 100;
+   return 0;
+}
+
+void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim, uint8_t r, uint8_t g, uint8_t b) {
     from_app_to_firmware_origin(&x, &y);
     uint8_t rgb_strand = from_x_y_to_index(x, y);
+    const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
+    rgb_strand_anim_config_t cfg;
+    memcpy(&cfg, &dcfg, sizeof(rgb_strand_anim_config_t));
+    float h;
+    float s;
+    float v;
+    rgb_to_hsv(r, g, b, &h, &s, &v);
+    cfg.color.h = h;
+    cfg.color.s = s;
+    cfg.color.v = v;
     rgb_strand_animation_start(rgb_strand, anim,
-        get_default_rgb_strand_anim_config(anim),
+        &cfg,
         RGB_STRAND_ANIM_STATE_STEADY);
-    rgb_strand_animation_set_state(rgb_strand, RGB_STRAND_ANIM_STATE_START);
+    if (anim != RGB_STRAND_EFFECT_STATIC) {
+        rgb_strand_animation_set_state(rgb_strand, RGB_STRAND_ANIM_STATE_START);
+    }
 }
 
 void set_led_off(uint8_t key_x, uint8_t key_y) {
-    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_NONE);
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_STATIC, 0, 0, 0);
 }
 
 void set_led_steady(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
-    // Seems STATIC isn't working, use momentary for now
-    // TODO: Fix STATIC
-    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_MOMENTARY);
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_STATIC, r, g, b);
 }
 
 void set_led_blink(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint8_t frequency_tbc) {
-    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_BLINKY);
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_BLINKY, r, g, b);
 }
 
 void set_led_like(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
-    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_LIKE);
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_LIKE, r, g, b);
 }
 
 void set_led_leave_meeting(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b) {
-    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_DRAINSWIRL);
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_DRAINSWIRL, r, g, b);
 }
 
 void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint32_t duration_ms) {
-    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_MOMENTARY);
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_MOMENTARY, r, g, b);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
