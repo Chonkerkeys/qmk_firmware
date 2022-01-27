@@ -63,6 +63,7 @@ gen/gen-config.sh gen-original
     		]
 		],
 		// TBC if empty array is acceptable in QMK, otherwise insert KC_NO
+		// Max macro length is 3
 		"customActions:" [
 			[
 				[[],[],[],[]],
