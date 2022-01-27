@@ -31,7 +31,8 @@ gen/gen-config.sh gen-original
 {
     "layers":<array of layer_type (in layer_type.h)>,
 	"sizeOrdinals": <nested array of the size + ordinal (specified below) of each key, in each row, in each layer>,
-	"keymaps": <nested array of the custom_keycodes (in keyconfig.h) of each key, in each row, in each layer>
+	"keymaps": <nested array of the custom_keycodes (in keyconfig.h) of each key, in each row, in each layer>,
+	"customActions": <nested array of QMK's key code, e.g. KC_A for each action of each key, in each row, in each layer>
 }
 ```
 
@@ -54,12 +55,23 @@ gen/gen-config.sh gen-original
 		"keymaps": [
    			[
         		["CH_ZOOM_RAISE_HAND_TOGGLE", "CH_ZOOM_LEAVE_MEETING", "KC_NO", "KC_NO"],
-        		["CH_ZOOM_MUTE_TOGGLE", "CH_ZOOM_VIDEO_TOGGLE", "KC_NO", "CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE"]
+        		["CH_ZOOM_MUTE_TOGGLE", "CH_ZOOM_VIDEO_TOGGLE", "KC_NO", "CH_CUSTOM"]
     		],
     		[
         		["CH_ZOOM_RAISE_HAND_TOGGLE", "CH_ZOOM_LEAVE_MEETING", "KC_NO", "KC_NO"],
-        		["CH_ZOOM_MUTE_TOGGLE", "CH_ZOOM_VIDEO_TOGGLE", "KC_NO", "CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE"]
+        		["CH_ZOOM_MUTE_TOGGLE", "CH_ZOOM_VIDEO_TOGGLE", "KC_NO", "CH_CUSTOM"]
     		]
+		],
+		// TBC if empty array is acceptable in QMK, otherwise insert KC_NO
+		"customActions:" [
+			[
+				[[],[],[],[]],
+				[[],[],[],[KC_LSHIFT, KC_A, KC_NO]]
+			],
+			[
+				[[],[],[],[]],
+				[[],[],[],[KC_LSHIFT, KC_A, KC_NO]]
+			]
 		]
 }
 ```
