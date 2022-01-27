@@ -32,7 +32,8 @@ gen/gen-config.sh gen-original
     "layers":<array of layer_type (in layer_type.h)>,
 	"sizeOrdinals": <nested array of the size + ordinal (specified below) of each key, in each row, in each layer>,
 	"keymaps": <nested array of the custom_keycodes (in keyconfig.h) of each key, in each row, in each layer>,
-	"customActions": <nested array of QMK's key code, e.g. KC_A for each action of each key, in each row, in each layer>
+	"customActions": <nested array of QMK's key code, e.g. KC_A for each action of each key, in each row, in each layer>,
+	"icons": <nested array of the icon of each key>
 }
 ```
 
@@ -72,6 +73,17 @@ gen/gen-config.sh gen-original
 			[
 				[[],[],[],[]],
 				[[],[],[],[KC_LSHIFT, KC_A, KC_NO]]
+			]
+		],
+		// Icon spec is TBC, currently use enum Icon { CH_EMPTY, CH_RAISE_HAND, CH_LEAVE_MEETING, CH_MUTE, CH_VIDEO, CH_SHARE_SCREEN }
+		"icons": [
+			[
+				[CH_RAISE_HAND, CH_LEAVE_MEETING, CH_EMPTY, CH_EMPTY],
+				[CH_MUTE, CH_VIDEO, CH_EMPTY, CH_SCREEN]
+			],
+			[
+				[CH_RAISE_HAND, CH_LEAVE_MEETING, CH_EMPTY, CH_EMPTY],
+				[CH_MUTE, CH_VIDEO, CH_EMPTY, CH_SCREEN]
 			]
 		]
 }
