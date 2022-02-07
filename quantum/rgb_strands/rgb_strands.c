@@ -43,7 +43,7 @@ static rgb_strand_anim_config_t default_configs[] = {
     {}, // RGB_STRAND_EFFECT_NONE
     // RGB_STRAND_EFFECT_STATIC,
     {
-        .color = {HSV_OFF}
+        .color = {HSV_GREEN}
     },
     // RGB_STRAND_EFFECT_DRAINSWIRL,
     {
