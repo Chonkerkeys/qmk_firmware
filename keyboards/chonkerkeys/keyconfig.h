@@ -11,6 +11,7 @@ enum custom_keycodes {
     CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE,
     CH_ZOOM_RAISE_HAND_TOGGLE,
     CH_ZOOM_LEAVE_MEETING,
+    CH_ZOOM_RECORD_START_STOP_TOGGLE,
     // teams
     CH_TEAMS_MUTE_TOGGLE,
     CH_TEAMS_VIDEO_TOGGLE,
@@ -35,7 +36,7 @@ enum custom_keycodes {
 };
 
 #define KEY_MACROS_MAX_COUNT  3
-#define KEYCODE_COUNT 22
+#define KEYCODE_COUNT 23
 
 const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_NO, KC_NO, KC_NO },
@@ -45,6 +46,7 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LALT, KC_S, KC_NO },
     { KC_LALT, KC_Y, KC_NO },
     { KC_LALT, KC_Q, KC_NO },
+    { KC_LALT, KC_R, KC_NO },
     // teams
     { KC_LCTRL, KC_LSHIFT, KC_M },
     { KC_LCTRL, KC_LSHIFT, KC_O },
@@ -75,6 +77,7 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LGUI, KC_LSHIFT, KC_S },
     { KC_LALT, KC_Y, KC_NO },
     { KC_LGUI, KC_W, KC_NO },
+    { KC_LGUI, KC_LSHIFT, KC_R },
     // teams
     { KC_LSHIFT, KC_LGUI, KC_M },
     { KC_LCTRL, KC_LGUI, KC_O },
