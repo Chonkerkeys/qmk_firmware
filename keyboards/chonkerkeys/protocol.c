@@ -24,7 +24,7 @@ void _get_config_data_writer(void* user_data) {
         send_protocol(get_layer_type(layer));
         // chonkerkeys firmware origin is top-right, chonkerkeys app is bottom-left, invert both X and Y.
         for (int8_t y = MATRIX_ROWS - 1; y >= 0; --y) {
-            for (uint8_t x = MATRIX_COLS - 1; x >= 0; --x) {
+            for (int8_t x = MATRIX_COLS - 1; x >= 0; --x) {
                 send_protocol(get_key_size_and_ordinal(layer, x, y));
                 send_protocol(get_key_action_type(layer, x, y));
                 _send_uint32(get_key_icon(layer, x, y));
