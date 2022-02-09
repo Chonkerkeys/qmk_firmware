@@ -24,3 +24,7 @@ struct command_set_led {
         uint8_t momentary_duration_10ms;
     } animation_data;
 };
+
+struct command_switch_layer {
+    uint8_t layer_index;
+};

@@ -72,6 +72,7 @@ uint8_t command_type = 0;
 uint16_t remaining_bytes = 0;
 union command_t {
     struct command_set_led set_led;
+    struct command_switch_layer switch_layer;
 } command;
 
 const uint8_t index_command_type = 0;
@@ -123,6 +124,15 @@ void key_down(uint8_t layer, uint8_t x, uint8_t y) {
     _send_event_raw(event_type_key_down, 3, &_key_down_data_writer, &key_down);
 }
 
+void _layer_switched_data_writer(void* user_data) {
+    uint8_t *index = (uint8_t*) user_data;
+    send_protocol(*index);
+}
+
+void layer_switched(uint8_t index) {
+    _send_event_raw(event_type_layer_switched, 1, &_layer_switched_data_writer, &index);
+}
+
 void _parse_data(uint8_t index, uint8_t c) {
     // TODO: Is jump table easier to maintain and has smaller binary size?
     if (command_type == command_type_get_version) {
@@ -136,6 +146,9 @@ void _parse_data(uint8_t index, uint8_t c) {
     } else if (command_type == command_type_set_led) {
         uint8_t* set_led = (uint8_t*) &command.set_led;
         set_led[index] = c;
+    } else if (command_type == command_type_switch_layer) {
+        uint8_t* switch_layer = (uint8_t*) &command.switch_layer;
+        switch_layer[index] = c;
     }
 }
 
@@ -180,5 +193,7 @@ void _dispatch_command(void) {
         on_reset();
     } else if (command_type == command_type_set_led) {
         on_set_led(&command.set_led);
+    } else if (command_type == command_type_switch_layer) {
+        on_switch_layer(command.switch_layer.layer_index);
     }
 }

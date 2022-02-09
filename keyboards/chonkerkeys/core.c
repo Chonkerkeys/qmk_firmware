@@ -162,6 +162,10 @@ void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8
     start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_MOMENTARY, r, g, b);
 }
 
+void on_switch_layer(uint8_t index) {
+    layer_on(index);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool is_either_pressed = false;
     uint8_t app_x = record->event.key.col;
@@ -214,4 +218,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
     }
     return false;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+  for (uint32_t i = 0; i < LAYER_COUNT; ++i) {
+      if (IS_LAYER_ON_STATE(state, i)) {
+          layer_switched(i);
+          break;
+      }
+  }
+  return state;
 }

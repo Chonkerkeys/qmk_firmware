@@ -26,6 +26,8 @@ void set_led_leave_meeting(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, u
 
 void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint32_t duration_ms);
 
+void on_switch_layer(uint8_t index);
+
 uint8_t get_layer_count(void);
 
 uint8_t get_layer_type(uint8_t index);
@@ -41,6 +43,8 @@ void process_protocol(uint8_t c);
 void send_protocol(uint8_t c);
 
 void key_down(uint8_t layer, uint8_t x, uint8_t y);
+
+void layer_switched(uint8_t index);
 
 // @param index The 0-based index within the data section.
 void _parse_data(uint8_t index, uint8_t c);
