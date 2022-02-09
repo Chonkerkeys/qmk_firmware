@@ -37,10 +37,10 @@ then
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"CH_ZOOM_RAISE_HAND_TOGGLE\"], \
         		[\"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
     		], \
-    		[ \
-        		[\"CH_ZOOM_RAISE_HAND_TOGGLE\", \"CH_ZOOM_LEAVE_MEETING\", \"KC_NO\", \"KC_NO\"], \
-        		[\"CH_ZOOM_MUTE_TOGGLE\", \"CH_ZOOM_VIDEO_TOGGLE\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\"] \
-    		] \
+   			[ \
+        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"CH_ZOOM_RAISE_HAND_TOGGLE\"], \
+        		[\"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
+    		], \
 		] \
 	}"
 elif [[ "$TARGET" == "gen-max" ]]
@@ -51,12 +51,12 @@ then
 		\"sizeOrdinals\": [ \
 			[ \
 				[0, 0, 129, 0], \
-				[1, 1, 1, 68], \
+				[1, 1, 1, 66], \
 				[1, 1, 1, 68] \
 			], \
 			[ \
 				[0, 0, 129, 0], \
-				[1, 1, 1, 68], \
+				[1, 1, 1, 66], \
 				[1, 1, 1, 68] \
 			] \
 		], \
@@ -66,11 +66,11 @@ then
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_RAISE_HAND_TOGGLE\", \"CH_ZOOM_VIDEO_TOGGLE\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
     		], \
-    		[ \
-        		[\"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"KC_NO\", \"KC_NO\"], \
-        		[\"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_RAISE_HAND_TOGGLE\", \"KC_NO\", \"KC_NO\"], \
-        		[\"CH_ZOOM_MUTE_TOGGLE\", \"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"KC_NO\"] \
-    		] \
+   			[ \
+        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"KC_NO\"], \
+        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_RAISE_HAND_TOGGLE\", \"CH_ZOOM_VIDEO_TOGGLE\"], \
+        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
+    		], \
 		] \
 	}"
 fi
