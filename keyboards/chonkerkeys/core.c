@@ -127,9 +127,9 @@ void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim, uint8_t r, ui
     float s;
     float v;
     rgb_to_hsv(r, g, b, &h, &s, &v);
-    cfg.color.h = h;
-    cfg.color.s = s;
-    cfg.color.v = v;
+    cfg.color.h = (uint8_t) (h / 360.0f * 255.0f);
+    cfg.color.s = (uint8_t) (s / 100.0f * 255.0f);
+    cfg.color.v = (uint8_t) (v / 100.0f * 255.0f);
     rgb_strand_animation_start(rgb_strand, anim,
         &cfg,
         RGB_STRAND_ANIM_STATE_STEADY);
