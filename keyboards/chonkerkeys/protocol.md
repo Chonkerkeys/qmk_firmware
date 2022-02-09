@@ -148,6 +148,14 @@ No data.
 |key x|1||
 |key y|1||
 
+#### SwitchLayerCommand
+
+|data|size in byte|Note|
+|--|--|--|
+|layer index|1|type is uint8_t. Note that this is the index of the layer array|
+
 #### LayerSwitchedEvent
 
-TODO
+|data|size in byte|Note|
+|--|--|--|
+|layer index|1|type is uint8_t. Note that this is the index of the layer array. To get the layer type just use the index in the layer array|
