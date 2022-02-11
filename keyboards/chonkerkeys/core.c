@@ -33,7 +33,7 @@ bool is_windows(uint8_t layer) {
     return layer % 2 == 0;
 }
 
-uint8_t get_current_layer(void) {
+uint16_t get_current_layer(void) {
     uint16_t current_layer = 0;
     for (uint16_t i = 0; i < LAYER_COUNT; ++i) {
         if (IS_LAYER_ON(i)) {
@@ -44,14 +44,18 @@ uint8_t get_current_layer(void) {
     return current_layer;
 }
 
-void switch_layer(void) {
-    uint8_t current_layer = get_current_layer();
+void switch_layer(uint16_t index) {
     layer_clear();
+    layer_on(index);
+}
+
+void switch_to_next_layer(void) {
+    uint16_t current_layer = get_current_layer();
     uint16_t next_layer = current_layer + 1;
     if (next_layer >= LAYER_COUNT) {
         next_layer = 0;
     }
-    layer_on(next_layer);
+    switch_layer(next_layer);
 }
 
 void virtser_recv(uint8_t c) {
@@ -163,7 +167,7 @@ void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8
 }
 
 void on_switch_layer(uint8_t index) {
-    layer_on(index);
+    switch_layer(index);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -176,7 +180,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (app_y == 0 && app_x <= 1) {
         if (record->event.pressed) {   
             if (is_either_pressed) {
-                switch_layer();
+                switch_to_next_layer();
                 return false;
             }
         }
