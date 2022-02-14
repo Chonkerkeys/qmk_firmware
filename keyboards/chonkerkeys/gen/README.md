@@ -33,7 +33,9 @@ gen/gen-config.sh gen-original
 	"sizeOrdinals": <nested array of the size + ordinal (specified below) of each key, in each row, in each layer>,
 	"keymaps": <nested array of the custom_keycodes (in keyconfig.h) of each key, in each row, in each layer>,
 	"customActions": <nested array of QMK's key code, e.g. KC_A for each action of each key, in each row, in each layer>,
-	"icons": <nested array of the icon of each key>
+	"icons": <nested array of the icon of each key>,
+	"keyOffColors": <nested array of ARGB color (encode in 4 bytes, 1 byte for each channel) of each key, in each row, in each layer>,
+	"keyOnColors": <nested array of ARGB color (encode in 4 bytes, 1 byte for each channel) of each key, in each row, in each layer>
 }
 ```
 
@@ -85,7 +87,28 @@ gen/gen-config.sh gen-original
 				[CH_RAISE_HAND, CH_LEAVE_MEETING, CH_EMPTY, CH_EMPTY],
 				[CH_MUTE, CH_VIDEO, CH_EMPTY, CH_SCREEN]
 			]
-		]
+		],
+		// 16711680 = red, 65280 = green, 16777215 = white
+		"keyOffColors: [
+			[
+				[16711680, 0, 0, 0],
+				[65280, 16711680, 0, 16777215]
+			],
+			[
+				[16711680, 0, 0, 0],
+				[65280, 16711680, 0, 16777215]
+			]
+		],
+		"keyOnColors: [
+			[
+				[65280, 0, 0, 0],
+				[16711680, 65280, 0, 16777215]
+			],
+			[
+				[65280, 0, 0, 0],
+				[16711680, 65280, 0, 65280]
+			]
+		],
 }
 ```
 
