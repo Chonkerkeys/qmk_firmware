@@ -32,6 +32,20 @@ def map_element_or_list_mapper(element, func):
 def map_element_or_list(func, array):
     return list(map(lambda e: map_element_or_list_mapper(e, func), array))
 
+def simplify_key_action(action):
+    if ('MUTE_TOGGLE' in action):
+        return "MUTE_TOGGLE"
+    elif ('VIDEO_TOGGLE' in action):
+        return "VIDEO_TOGGLE"
+    elif ("SHARE_SCREEN_START_STOP_TOGGLE" in action):
+        return "SHARE_SCREEN_START_STOP_TOGGLE"
+    elif ("RAISE_HAND_TOGGLE" in action):
+        return "RAISE_HAND_TOGGLE"
+    elif ("LEAVE_MEETING" in action):
+        return "LEAVE_MEETING"
+    else:
+        return ""
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--firmware-version", type=int, required=True)
 parser.add_argument("--config", type=str, required=True)
@@ -46,14 +60,14 @@ layer_count = len(layers)
 size_ordinals = config["sizeOrdinals"]
 keymaps = config["keymaps"]
 actionTypeToAnimationMaps = {
-    "CH_ZOOM_MUTE_TOGGLE": "RGB_STRAND_EFFECT_MOMENTARY",
-    "CH_ZOOM_VIDEO_TOGGLE": "RGB_STRAND_EFFECT_MOMENTARY",
-    "CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE": "RGB_STRAND_EFFECT_BLINKY",
-    "CH_ZOOM_RAISE_HAND_TOGGLE": "RGB_STRAND_EFFECT_LIKE",
-    "CH_ZOOM_LEAVE_MEETING": "RGB_STRAND_EFFECT_DRAINSWIRL"
+    "MUTE_TOGGLE": "RGB_STRAND_EFFECT_MOMENTARY",
+    "VIDEO_TOGGLE": "RGB_STRAND_EFFECT_MOMENTARY",
+    "SHARE_SCREEN_START_STOP_TOGGLE": "RGB_STRAND_EFFECT_BLINKY",
+    "RAISE_HAND_TOGGLE": "RGB_STRAND_EFFECT_LIKE",
+    "LEAVE_MEETING": "RGB_STRAND_EFFECT_DRAINSWIRL"
 }
 noAnimation = "RGB_STRAND_EFFECT_NONE"
-animations = map_element_or_list(lambda k: actionTypeToAnimationMaps.get(k) or noAnimation, keymaps)
+animations = map_element_or_list(lambda k: actionTypeToAnimationMaps.get(simplify_key_action(k)) or noAnimation, keymaps)
 
 if (len(size_ordinals) != layer_count or len(keymaps) != layer_count):
     print("length of size ordinals or keymaps doesn't match layer count")
