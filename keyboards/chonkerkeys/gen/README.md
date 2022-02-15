@@ -14,6 +14,8 @@ at `keyboards/chonkerkeys` to generate `config.c`.
 
 `gen-original` to generate the default firmware for original, `gen-max` for max, and `gen` for custom configuration. `gen` requires two more additional args: `FIRMWARE_VERSION` and `FIRMWARE_CONFIG`, specified via env var.
 
+To facilitate debugging, 2 more default variants for `gen-original` and `gen-max` are also available: `gen-original-all` and `gen-max-all`. These `-all` variants include all layers by default.
+
 ### Specifying output path
 
 ```
