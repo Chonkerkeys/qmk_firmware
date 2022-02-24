@@ -55,6 +55,7 @@ args = parser.parse_args()
 
 firmware_version = args.firmware_version
 config = json.loads(args.config)
+name = config["name"]
 layers = config["layers"]
 layer_count = len(layers)
 size_ordinals = config["sizeOrdinals"]
@@ -75,32 +76,41 @@ if (len(size_ordinals) != layer_count or len(keymaps) != layer_count):
 
 # TODO: Validate row/column count
 
-output_path = args.output
+c_output_path = args.output
 
-output = "#include \"../../../keyconfig.h\"\n"
-output += "#include \"../../../layer_type.h\"\n"
-output += "\n"
-output += "const uint32_t firmware_version = {};\n".format(firmware_version)
-output += "\n"
-output += "#define LAYER_COUNT {}\n".format(layer_count)
-output += "\n"
-output += "const uint8_t layers[LAYER_COUNT] = "
-output += print_array(layers, 0)
-output += ";\n"
-output += "\n"
-output += "const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
-output += print_array(size_ordinals, 0)
-output += ";\n"
-output += "\n"
-output += "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = "
-output += print_array(keymaps, 0)
-output += ";\n"
-output += "\n"
-output += "const rgb_strands_anim_t key_anim[][MATRIX_ROWS][MATRIX_COLS] = "
-output += print_array(animations, 0)
-output += ";\n"
-output += "\n"
+c_output = "#include \"../../../keyconfig.h\"\n"
+c_output += "#include \"../../../layer_type.h\"\n"
+c_output += "\n"
+c_output += "const uint32_t firmware_version = {};\n".format(firmware_version)
+c_output += "\n"
+c_output += "#define LAYER_COUNT {}\n".format(layer_count)
+c_output += "\n"
+c_output += "const uint8_t layers[LAYER_COUNT] = "
+c_output += print_array(layers, 0)
+c_output += ";\n"
+c_output += "\n"
+c_output += "const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += print_array(size_ordinals, 0)
+c_output += ";\n"
+c_output += "\n"
+c_output += "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += print_array(keymaps, 0)
+c_output += ";\n"
+c_output += "\n"
+c_output += "const rgb_strands_anim_t key_anim[][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += print_array(animations, 0)
+c_output += ";\n"
 
-file = open(output_path, "w")
-file.write(output)
+file = open(c_output_path, "w")
+file.write(c_output)
+file.close()
+
+
+h_output_path = "config.h"
+h_output = "#pragma once\n"
+h_output += "\n"
+h_output += "#define PRODUCT {}\n".format(name)
+
+file = open(h_output_path, "w")
+file.write(h_output)
 file.close()
