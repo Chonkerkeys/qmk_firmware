@@ -31,7 +31,8 @@ gen/gen-config.sh gen-original
 
 ```
 {
-    "layers":<array of layer_type (in layer_type.h)>,
+	"name": <name of keyboard, e.g. Chonkerkeys Original>,
+    "layers": <array of layer_type (in layer_type.h)>,
 	"sizeOrdinals": <nested array of the size + ordinal (specified below) of each key, in each row, in each layer>,
 	"keymaps": <nested array of the custom_keycodes (in keyconfig.h) of each key, in each row, in each layer>,
 	"customActions": <nested array of QMK's key code, e.g. KC_A for each action of each key, in each row, in each layer>,
@@ -46,6 +47,7 @@ gen/gen-config.sh gen-original
 ```
 // default config of original
 {
+		"name": "Chonkerkeys Original",
 		"layers":["CH_ZOOM_WINDOWS", "CH_ZOOM_MACOS"],
 		"sizeOrdinals": [
 			[
