@@ -16,11 +16,11 @@ fi
 if [[ "$TARGET" == "gen" ]]
 then
     echo "generating custom config..."
-	python gen/src/ch-qmk-gen.py --firmware-version=$FIRMWARE_VERSION --config=$FIRMWARE_CONFIG --output=$FIRMWARE_CONFIG_OUTPUT
+	python3 gen/src/ch-qmk-gen.py --firmware-version=$FIRMWARE_VERSION --config=$FIRMWARE_CONFIG --output=$FIRMWARE_CONFIG_OUTPUT
 elif [[ "$TARGET" == "gen-original" ]]
 then
     echo "generating original config..."
-    python gen/src/ch-qmk-gen.py --firmware-version=1 --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
+    python3 gen/src/ch-qmk-gen.py --firmware-version=1 --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
 		\"layers\":[\"CH_ZOOM_WINDOWS\", \"CH_ZOOM_MACOS\"], \
 		\"sizeOrdinals\": [ \
 			[ \
@@ -46,7 +46,7 @@ then
 elif [[ "$TARGET" == "gen-original-all" ]]
 then
     echo "generating original config with all layers..."
-    python gen/src/ch-qmk-gen.py --firmware-version=1 --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
+    python3 gen/src/ch-qmk-gen.py --firmware-version=1 --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
 		\"layers\":[\"CH_ZOOM_WINDOWS\", \"CH_ZOOM_MACOS\", \"CH_TEAMS_WINDOWS\", \"CH_TEAMS_MACOS\", \"CH_SKYPE_WINDOWS\", \"CH_SKYPE_MACOS\", \"CH_GOOGLE_MEET_WINDOWS\", \"CH_GOOGLE_MEET_MACOS\"], \
 		\"sizeOrdinals\": [ \
 			[ \
@@ -120,7 +120,7 @@ then
 elif [[ "$TARGET" == "gen-max" ]]
 then
     echo "generating max config..."
-    python gen/src/ch-qmk-gen.py --firmware-version=1 --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
+    python3 gen/src/ch-qmk-gen.py --firmware-version=1 --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
 		\"layers\":[\"CH_ZOOM_WINDOWS\", \"CH_ZOOM_MACOS\"], \
 		\"sizeOrdinals\": [ \
 			[ \
@@ -150,7 +150,7 @@ then
 elif [[ "$TARGET" == "gen-max-all" ]]
 then
     echo "generating max config with all layers..."
-    python gen/src/ch-qmk-gen.py --firmware-version=1 --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
+    python3 gen/src/ch-qmk-gen.py --firmware-version=1 --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
 		\"layers\":[\"CH_ZOOM_WINDOWS\", \"CH_ZOOM_MACOS\", \"CH_TEAMS_WINDOWS\", \"CH_TEAMS_MACOS\", \"CH_SKYPE_WINDOWS\", \"CH_SKYPE_MACOS\", \"CH_GOOGLE_MEET_WINDOWS\", \"CH_GOOGLE_MEET_MACOS\"], \
 		\"sizeOrdinals\": [ \
 			[ \
