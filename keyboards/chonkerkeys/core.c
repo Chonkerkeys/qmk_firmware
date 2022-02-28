@@ -24,9 +24,8 @@ uint8_t get_key_action_type(uint8_t layer, uint8_t x, uint8_t y) {
     return pgm_read_byte(&keymaps[layer][y][x]) - CH_CUSTOM;
 }
 
-uint32_t get_key_icon(uint8_t layer, uint8_t x, uint8_t y) {
-    // TODO: Confirm with client.
-    return 0;
+uint64_t get_key_icon(uint8_t layer, uint8_t x, uint8_t y) {
+    return icons[layer][y][x];
 }
 
 bool is_windows(uint8_t layer) {

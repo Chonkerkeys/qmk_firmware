@@ -10,6 +10,49 @@ const uint8_t layers[LAYER_COUNT] = {
     CH_ZOOM_MACOS
 };
 
+const uint64_t icons[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+    {
+        {
+            0,
+            0,
+            1280,
+            0
+        },
+        {
+            2048,
+            1536,
+            1024,
+            512
+        },
+        {
+            2304,
+            1792,
+            768,
+            256
+        }
+    },
+    {
+        {
+            0,
+            0,
+            1280,
+            0
+        },
+        {
+            2048,
+            1536,
+            1024,
+            512
+        },
+        {
+            2304,
+            1792,
+            768,
+            256
+        }
+    }
+};
+
 const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
     {
         {
@@ -42,7 +85,7 @@ const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
             1,
             1,
             1,
-            68
+            66
         },
         {
             1,
@@ -138,4 +181,3 @@ const rgb_strands_anim_t key_anim[][MATRIX_ROWS][MATRIX_COLS] = {
         }
     }
 };
-

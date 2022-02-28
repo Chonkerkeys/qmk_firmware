@@ -27,14 +27,15 @@ void _get_config_data_writer(void* user_data) {
             for (int8_t x = MATRIX_COLS - 1; x >= 0; --x) {
                 send_protocol(get_key_size_and_ordinal(layer, x, y));
                 send_protocol(get_key_action_type(layer, x, y));
-                _send_uint32(get_key_icon(layer, x, y));
+                _send_uint64(get_key_icon(layer, x, y));
             }
         }
     }
 }
 
 #define LAYER_TYPE_SIZE 1
-#define KEY_SIZE 6
+// size ordinal = 1, key action type = 1, icon = 8
+#define KEY_SIZE 10
 
 void on_get_config() {
     const uint8_t layer_count = get_layer_count();
@@ -179,6 +180,18 @@ void _send_uint32(uint32_t buffer) {
     send_protocol(buffer >> 8);
     send_protocol(buffer >> 16);
     send_protocol(buffer >> 24);
+}
+
+// Assume little endian.
+void _send_uint64(uint64_t buffer) {
+    send_protocol(buffer);
+    send_protocol(buffer >> 8);
+    send_protocol(buffer >> 16);
+    send_protocol(buffer >> 24);
+    send_protocol(buffer >> 32);
+    send_protocol(buffer >> 40);
+    send_protocol(buffer >> 48);
+    send_protocol(buffer >> 56);
 }
 
 void _dispatch_command(void) {
