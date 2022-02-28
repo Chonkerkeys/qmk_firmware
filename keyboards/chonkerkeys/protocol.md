@@ -76,8 +76,10 @@ No data.
 |key(x,y) size and ordinal|1|`enum class Ordinal : uint8_t { left = 0, top, right, bottom, empty }` & `enum class Size : uint8_t { Key1, Key1.5, Key3 }` << 6 |
 |key(x,y) action type|1|maps to `KeyActionType`, e.g. `ZoomMute`|
 |key(x,y) icon|8|Icon code of the icon in chonkerkeys icon encoding specified in [keycap_icon.md](keycap_icon.md)|
-|repeat *key* for all keys in a layer|80 or 120|4x2x10 = 80 for original, 4x3x10 = 120 for max|
-|repeat *layer* for all layers|(80 + 1) x n or (120 + 1) x n|where n is the number of layers|
+|key(x,y) inactive color|4|RGBA color|
+|key(x,y) active color|4|RGBA color|
+|repeat *key* for all keys in a layer|144 or 216|4x2x18 = 144 for original, 4x3x10 = 216 for max|
+|repeat *layer* for all layers|(144 + 1) x n or (216 + 1) x n|where n is the number of layers|
 
 TODO: Custom key macros
 
