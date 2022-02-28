@@ -36,11 +36,15 @@ gen/gen-config.sh gen-original
 	"sizeOrdinals": <nested array of the size + ordinal (specified below) of each key, in each row, in each layer>,
 	"keymaps": <nested array of the custom_keycodes (in keyconfig.h) of each key, in each row, in each layer>,
 	"customActions": <nested array of QMK's key code, e.g. KC_A for each action of each key, in each row, in each layer>,
-	"icons": <nested array of the icon of each key>,
+	"icons": <nested array of the icon of each key, with unsigned 64 bit number in string to avoid precision issues>,
 	"keyOffColors": <nested array of ARGB color (encode in 4 bytes, 1 byte for each channel) of each key, in each row, in each layer>,
 	"keyOnColors": <nested array of ARGB color (encode in 4 bytes, 1 byte for each channel) of each key, in each row, in each layer>
 }
 ```
+
+#### Why Icon Use String
+
+[RFC 7159](https://www.rfc-editor.org/rfc/rfc7159#section-6) effectively says json's number is implementation defined (although in practice most are just using IEEE754 double for numbers), but we need to use unsigned 64 bit number. To prevent precision issue caused by json libraries etc, the schema uses string and implementation (i.e. `gen`) is expected to parse the string into unsigned 64 bit number manually.
 
 #### Example
 
@@ -81,15 +85,16 @@ gen/gen-config.sh gen-original
 				[[],[],[],[KC_LSHIFT, KC_A, KC_NO]]
 			]
 		],
-		// Icon spec is TBC, currently use enum Icon { CH_EMPTY, CH_RAISE_HAND, CH_LEAVE_MEETING, CH_MUTE, CH_VIDEO, CH_SHARE_SCREEN }
+		// See icon spec for the meaning of these numbers
+		// Again: using string becoz json's specification on number is effectively implementation defined but we strictly need unsigned 64 bit number
 		"icons": [
 			[
-				[CH_RAISE_HAND, CH_LEAVE_MEETING, CH_EMPTY, CH_EMPTY],
-				[CH_MUTE, CH_VIDEO, CH_EMPTY, CH_SCREEN]
+				["1024", "1280", "0", "0"],
+				["256", "512", "0", "768"]
 			],
 			[
-				[CH_RAISE_HAND, CH_LEAVE_MEETING, CH_EMPTY, CH_EMPTY],
-				[CH_MUTE, CH_VIDEO, CH_EMPTY, CH_SCREEN]
+				["1024", "1280", "0", "0"],
+				["256", "512", "0", "768"]
 			]
 		],
 		// 16711680 = red, 65280 = green, 16777215 = white
@@ -144,3 +149,7 @@ uint8_t sizeOrdinal(Size size, Ordinal ordinal) {
 - 1.5U + left slot: (1 << 6) & 1 = 64 & 1 = 65
 - 1.5U + right slot: (1 << 6) & 3 = 64 & 3 = 67
 - 3U + left slot: (2 << 6) & 1 = 128 & 1 = 129
+
+### Icon
+
+See [keycap_icon.md](../keycap_icon.md).
