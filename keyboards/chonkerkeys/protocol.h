@@ -38,6 +38,10 @@ uint8_t get_key_action_type(uint8_t layer, uint8_t x, uint8_t y);
 
 uint64_t get_key_icon(uint8_t layer, uint8_t x, uint8_t y);
 
+uint64_t get_key_inactive_color(uint8_t layer, uint8_t x, uint8_t y);
+
+uint64_t get_key_active_color(uint8_t layer, uint8_t x, uint8_t y);
+
 void process_protocol(uint8_t c);
 
 void send_protocol(uint8_t c);

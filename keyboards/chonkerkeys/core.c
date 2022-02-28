@@ -28,6 +28,14 @@ uint64_t get_key_icon(uint8_t layer, uint8_t x, uint8_t y) {
     return icons[layer][y][x];
 }
 
+uint64_t get_key_inactive_color(uint8_t layer, uint8_t x, uint8_t y) {
+    return inactive_colors[layer][y][x];
+}
+
+uint64_t get_key_active_color(uint8_t layer, uint8_t x, uint8_t y) {
+    return active_colors[layer][y][x];
+}
+
 bool is_windows(uint8_t layer) {
     return layer % 2 == 0;
 }

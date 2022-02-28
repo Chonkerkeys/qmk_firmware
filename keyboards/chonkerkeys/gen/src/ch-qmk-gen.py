@@ -60,6 +60,8 @@ layers = config["layers"]
 layer_count = len(layers)
 size_ordinals = config["sizeOrdinals"]
 icons = config["icons"]
+offColors = config["keyOffColors"]
+onColors = config["keyOnColors"]
 keymaps = config["keymaps"]
 actionTypeToAnimationMaps = {
     "MUTE_TOGGLE": "RGB_STRAND_EFFECT_MOMENTARY",
@@ -92,6 +94,14 @@ c_output += ";\n"
 c_output += "\n"
 c_output += "const uint64_t icons[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
 c_output += print_array(icons, 0)
+c_output += ";\n"
+c_output += "\n"
+c_output += "const uint64_t inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += print_array(offColors, 0)
+c_output += ";\n"
+c_output += "\n"
+c_output += "const uint64_t active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += print_array(onColors, 0)
 c_output += ";\n"
 c_output += "\n"
 c_output += "const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "

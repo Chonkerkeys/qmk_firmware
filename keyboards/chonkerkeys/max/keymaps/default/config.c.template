@@ -53,6 +53,92 @@ const uint64_t icons[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
     }
 };
 
+const uint64_t inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+    {
+        {
+            0,
+            0,
+            0,
+            0
+        },
+        {
+            0,
+            0,
+            0,
+            4278190080
+        },
+        {
+            0,
+            0,
+            4294901760,
+            16711680
+        }
+    },
+    {
+        {
+            0,
+            0,
+            0,
+            0
+        },
+        {
+            0,
+            0,
+            0,
+            4278190080
+        },
+        {
+            0,
+            0,
+            4294901760,
+            16711680
+        }
+    }
+};
+
+const uint64_t active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+    {
+        {
+            0,
+            0,
+            0,
+            0
+        },
+        {
+            0,
+            0,
+            16711680,
+            16711680
+        },
+        {
+            0,
+            0,
+            16711680,
+            4278190080
+        }
+    },
+    {
+        {
+            0,
+            0,
+            0,
+            0
+        },
+        {
+            0,
+            0,
+            16711680,
+            16711680
+        },
+        {
+            0,
+            0,
+            16711680,
+            4278190080
+        }
+    }
+};
+
 const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
     {
         {

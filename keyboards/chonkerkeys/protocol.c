@@ -28,6 +28,8 @@ void _get_config_data_writer(void* user_data) {
                 send_protocol(get_key_size_and_ordinal(layer, x, y));
                 send_protocol(get_key_action_type(layer, x, y));
                 _send_uint64(get_key_icon(layer, x, y));
+                _send_uint32(get_key_inactive_color(layer, x, y));
+                _send_uint32(get_key_active_color(layer, x, y));
             }
         }
     }
