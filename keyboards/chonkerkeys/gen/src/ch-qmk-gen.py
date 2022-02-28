@@ -59,6 +59,7 @@ name = config["name"]
 layers = config["layers"]
 layer_count = len(layers)
 size_ordinals = config["sizeOrdinals"]
+icons = config["icons"]
 keymaps = config["keymaps"]
 actionTypeToAnimationMaps = {
     "MUTE_TOGGLE": "RGB_STRAND_EFFECT_MOMENTARY",
@@ -87,6 +88,10 @@ c_output += "#define LAYER_COUNT {}\n".format(layer_count)
 c_output += "\n"
 c_output += "const uint8_t layers[LAYER_COUNT] = "
 c_output += print_array(layers, 0)
+c_output += ";\n"
+c_output += "\n"
+c_output += "const uint64_t icons[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += print_array(icons, 0)
 c_output += ";\n"
 c_output += "\n"
 c_output += "const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
