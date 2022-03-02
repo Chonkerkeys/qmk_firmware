@@ -73,8 +73,8 @@ actionTypeToAnimationMaps = {
 noAnimation = "RGB_STRAND_EFFECT_NONE"
 animations = map_element_or_list(lambda k: actionTypeToAnimationMaps.get(simplify_key_action(k)) or noAnimation, keymaps)
 
-if (len(size_ordinals) != layer_count or len(keymaps) != layer_count):
-    print("length of size ordinals or keymaps doesn't match layer count")
+if (len(keymaps) != layer_count):
+    print("length of keymaps doesn't match layer count")
     exit(1)
 
 # TODO: Validate row/column count
@@ -92,27 +92,27 @@ c_output += "const uint8_t layers[LAYER_COUNT] = "
 c_output += print_array(layers, 0)
 c_output += ";\n"
 c_output += "\n"
-c_output += "const uint64_t icons[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += "const uint64_t icons[MATRIX_ROWS][MATRIX_COLS] = "
 c_output += print_array(icons, 0)
 c_output += ";\n"
 c_output += "\n"
-c_output += "const uint64_t inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += "const uint8_t PROGMEM key_size_and_ordinals[MATRIX_ROWS][MATRIX_COLS] = "
+c_output += print_array(size_ordinals, 0)
+c_output += ";\n"
+c_output += "\n"
+c_output += "const uint32_t PROGMEM inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
 c_output += print_array(offColors, 0)
 c_output += ";\n"
 c_output += "\n"
-c_output += "const uint64_t active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += "const uint32_t PROGMEM active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
 c_output += print_array(onColors, 0)
-c_output += ";\n"
-c_output += "\n"
-c_output += "const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
-c_output += print_array(size_ordinals, 0)
 c_output += ";\n"
 c_output += "\n"
 c_output += "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = "
 c_output += print_array(keymaps, 0)
 c_output += ";\n"
 c_output += "\n"
-c_output += "const rgb_strands_anim_t key_anim[][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += "const rgb_strands_anim_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = "
 c_output += print_array(animations, 0)
 c_output += ";\n"
 

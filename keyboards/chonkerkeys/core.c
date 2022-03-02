@@ -17,7 +17,7 @@ uint8_t get_layer_type(uint8_t index) {
 }
 
 uint8_t get_key_size_and_ordinal(uint8_t layer, uint8_t x, uint8_t y) {
-    return key_size_and_ordinals[layer][y][x];
+    return pgm_read_byte(&key_size_and_ordinals[y][x]);
 }
 
 uint8_t get_key_action_type(uint8_t layer, uint8_t x, uint8_t y) {
@@ -25,15 +25,19 @@ uint8_t get_key_action_type(uint8_t layer, uint8_t x, uint8_t y) {
 }
 
 uint64_t get_key_icon(uint8_t layer, uint8_t x, uint8_t y) {
-    return icons[layer][y][x];
+    return icons[y][x];
 }
 
-uint64_t get_key_inactive_color(uint8_t layer, uint8_t x, uint8_t y) {
-    return inactive_colors[layer][y][x];
+uint32_t get_key_color(uint32_t const* color) {
+    return pgm_read_dword(color);
 }
 
-uint64_t get_key_active_color(uint8_t layer, uint8_t x, uint8_t y) {
-    return active_colors[layer][y][x];
+uint32_t get_key_inactive_color(uint8_t layer, uint8_t x, uint8_t y) {
+    return get_key_color(&inactive_colors[layer][y][x]);
+}
+
+uint32_t get_key_active_color(uint8_t layer, uint8_t x, uint8_t y) {
+    return get_key_color(&active_colors[layer][y][x]);
 }
 
 bool is_windows(uint8_t layer) {
@@ -220,7 +224,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(keycode);
             }
             uint8_t current_layer = get_current_layer();
-            rgb_strands_anim_t anim = key_anim[current_layer][row][col];
+            rgb_strands_anim_t anim = pgm_read_byte(&key_anim[current_layer][row][col]);
             rgb_strand_animation_start(key_strand, anim,
                     get_default_rgb_strand_anim_config(anim),
                     RGB_STRAND_ANIM_STATE_STEADY);

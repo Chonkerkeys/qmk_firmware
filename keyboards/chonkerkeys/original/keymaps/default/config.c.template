@@ -10,38 +10,37 @@ const uint8_t layers[LAYER_COUNT] = {
     CH_ZOOM_MACOS
 };
 
-const uint64_t icons[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+const uint64_t icons[MATRIX_ROWS][MATRIX_COLS] = {
     {
-        {
-            0,
-            0,
-            1280,
-            1024
-        },
-        {
-            768,
-            0,
-            512,
-            256
-        }
+        0,
+        0,
+        1280,
+        1024
     },
     {
-        {
-            0,
-            0,
-            1280,
-            1024
-        },
-        {
-            768,
-            0,
-            512,
-            256
-        }
+        768,
+        0,
+        512,
+        256
     }
 };
 
-const uint64_t inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+const uint8_t PROGMEM key_size_and_ordinals[MATRIX_ROWS][MATRIX_COLS] = {
+    {
+        0,
+        0,
+        129,
+        1
+    },
+    {
+        1,
+        0,
+        67,
+        65
+    }
+};
+
+const uint32_t PROGMEM inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
     {
         {
             0,
@@ -72,7 +71,7 @@ const uint64_t inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
     }
 };
 
-const uint64_t active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+const uint32_t PROGMEM active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
     {
         {
             0,
@@ -99,37 +98,6 @@ const uint64_t active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
             0,
             16711680,
             4278190080
-        }
-    }
-};
-
-const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
-    {
-        {
-            0,
-            0,
-            129,
-            1
-        },
-        {
-            1,
-            0,
-            67,
-            65
-        }
-    },
-    {
-        {
-            0,
-            0,
-            129,
-            1
-        },
-        {
-            1,
-            0,
-            67,
-            65
         }
     }
 };
@@ -165,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     }
 };
 
-const rgb_strands_anim_t key_anim[][MATRIX_ROWS][MATRIX_COLS] = {
+const rgb_strands_anim_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = {
     {
         {
             RGB_STRAND_EFFECT_NONE,
