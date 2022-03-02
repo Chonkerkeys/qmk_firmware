@@ -21,7 +21,7 @@ uint8_t get_key_size_and_ordinal(uint8_t layer, uint8_t x, uint8_t y) {
 }
 
 uint8_t get_key_action_type(uint8_t layer, uint8_t x, uint8_t y) {
-    return pgm_read_byte(&keymaps[layer][y][x]) - CH_CUSTOM;
+    return pgm_read_word(&keymaps[layer][y][x]) - CH_CUSTOM;
 }
 
 uint64_t get_key_icon(uint8_t layer, uint8_t x, uint8_t y) {
