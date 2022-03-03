@@ -63,6 +63,7 @@ icons = config["icons"]
 offColors = config["keyOffColors"]
 onColors = config["keyOnColors"]
 keymaps = config["keymaps"]
+customActions = config["customActions"]
 actionTypeToAnimationMaps = {
     "MUTE_TOGGLE": "RGB_STRAND_EFFECT_MOMENTARY",
     "VIDEO_TOGGLE": "RGB_STRAND_EFFECT_MOMENTARY",
@@ -110,6 +111,10 @@ c_output += ";\n"
 c_output += "\n"
 c_output += "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = "
 c_output += print_array(keymaps, 0)
+c_output += ";\n"
+c_output += "\n"
+c_output += "const uint16_t PROGMEM custom_actions[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS][3] = "
+c_output += print_array(customActions, 0)
 c_output += ";\n"
 c_output += "\n"
 c_output += "const rgb_strands_anim_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = "

@@ -22,7 +22,7 @@ then
     echo "generating original config..."
 	if [[ "$FIRMWARE_VERSION" == "" ]]
 	then
-		FIRMWARE_VERSION = 1
+		FIRMWARE_VERSION=1
 	fi
     python3 gen/src/ch-qmk-gen.py --firmware-version=$FIRMWARE_VERSION --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
 		\"name\":\"Chonkerkeys Original\",
@@ -63,6 +63,16 @@ then
    			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"CH_ZOOM_RAISE_HAND_TOGGLE\"], \
         		[\"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
+    		] \
+		], \
+		\"customActions\": [ \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
     		] \
 		] \
 	}"
@@ -181,6 +191,40 @@ then
         		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_LEAVE_MEETING\", \"CH_GOOGLE_MEET_RAISE_HAND_TOGGLE\"], \
         		[\"CH_GOOGLE_MEET_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_GOOGLE_MEET_VIDEO_TOGGLE\", \"CH_GOOGLE_MEET_MUTE_TOGGLE\"] \
     		] \
+		], \
+		\"customActions\": [ \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		] \
 		] \
 	}"
 elif [[ "$TARGET" == "gen-max" ]]
@@ -233,6 +277,18 @@ then
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_RAISE_HAND_TOGGLE\", \"CH_ZOOM_VIDEO_TOGGLE\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
+    		] \
+		], \
+		\"customActions\": [ \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
     		] \
 		] \
 	}"
@@ -376,6 +432,48 @@ then
         		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_RAISE_HAND_TOGGLE\", \"CH_GOOGLE_MEET_VIDEO_TOGGLE\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_GOOGLE_MEET_MUTE_TOGGLE\"] \
+    		] \
+		], \
+		\"customActions\": [ \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+    		], \
+   			[ \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
+        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
     		] \
 		] \
 	}"
