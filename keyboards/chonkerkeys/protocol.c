@@ -30,6 +30,9 @@ void _get_config_data_writer(void* user_data) {
                 _send_uint64(get_key_icon(layer, x, y));
                 _send_uint32(get_key_inactive_color(layer, x, y));
                 _send_uint32(get_key_active_color(layer, x, y));
+                send_protocol(get_key_custom_action(layer, x, y, 0));
+                send_protocol(get_key_custom_action(layer, x, y, 1));
+                send_protocol(get_key_custom_action(layer, x, y, 2));
             }
         }
     }

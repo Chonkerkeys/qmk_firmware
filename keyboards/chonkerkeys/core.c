@@ -40,6 +40,13 @@ uint32_t get_key_active_color(uint8_t layer, uint8_t x, uint8_t y) {
     return get_key_color(&active_colors[layer][y][x]);
 }
 
+uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index) {
+    // To stick to QMK keycode type, custom_actions uses uint16_t.
+    // But we know the basic key code aren't using the higer byte, and custom actions
+    // shouldn't use non-basic key code anyways, so just convert to uint8_t.
+    return (uint8_t) pgm_read_word(&custom_actions[layer][y][x][index]);
+}
+
 bool is_windows(uint8_t layer) {
     return layer % 2 == 0;
 }
