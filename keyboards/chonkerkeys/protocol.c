@@ -39,8 +39,8 @@ void _get_config_data_writer(void* user_data) {
 }
 
 #define LAYER_TYPE_SIZE 1
-// size ordinal = 1, key action type = 1, icon = 8, color = 4 * 2
-#define KEY_SIZE 18
+// size ordinal = 1, key action type = 1, icon = 8, color = 4 * 2, custom macros = 3
+#define KEY_SIZE 21
 
 void on_get_config() {
     const uint8_t layer_count = get_layer_count();
