@@ -20,7 +20,11 @@ then
 elif [[ "$TARGET" == "gen-original" ]]
 then
     echo "generating original config..."
-    python3 gen/src/ch-qmk-gen.py --firmware-version=1 --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
+	if [[ "$FIRMWARE_VERSION" == "" ]]
+	then
+		FIRMWARE_VERSION = 1
+	fi
+    python3 gen/src/ch-qmk-gen.py --firmware-version=$FIRMWARE_VERSION --output=$FIRMWARE_CONFIG_OUTPUT --config="{ \
 		\"name\":\"Chonkerkeys Original\",
 		\"layers\":[\"CH_ZOOM_WINDOWS\", \"CH_ZOOM_MACOS\"], \
 		\"sizeOrdinals\": [ \
