@@ -78,8 +78,9 @@ No data.
 |key(x,y) icon|8|Icon code of the icon in chonkerkeys icon encoding specified in [keycap_icon.md](keycap_icon.md)|
 |key(x,y) inactive color|4|RGBA color|
 |key(x,y) active color|4|RGBA color|
-|repeat *key* for all keys in a layer|144 or 216|4x2x18 = 144 for original, 4x3x10 = 216 for max|
-|repeat *layer* for all layers|(144 + 1) x n or (216 + 1) x n|where n is the number of layers|
+|key(x,y) custom macro action|3|The macro of the key, consists of 3 8 bit HID key code|
+|repeat *key* for all keys in a layer|168 or 252|4x2x21 = 168 for original, 4x3x21 = 252 for max|
+|repeat *layer* for all layers|(168 + 1) x n or (252 + 1) x n|where n is the number of layers|
 
 TODO: Custom key macros
 
