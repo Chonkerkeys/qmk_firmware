@@ -74,28 +74,28 @@ const uint32_t PROGMEM inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = 
 const uint32_t PROGMEM active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
     {
         {
-            0,
-            0,
-            0,
+            4294967295,
+            4294967295,
+            4294967295,
             16711680
         },
         {
             16711680,
-            0,
+            4294967295,
             16711680,
             16711680
         }
     },
     {
         {
-            0,
-            0,
-            0,
+            4294967295,
+            4294967295,
+            4294967295,
             16711680
         },
         {
             16711680,
-            0,
+            4294967295,
             16711680,
             16711680
         }
