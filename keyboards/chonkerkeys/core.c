@@ -139,19 +139,23 @@ int rgb_to_hsv(float r, float g, float b, float *h, float *s, float *v) {
    return 0;
 }
 
+void set_rgb_strand_config_color(rgb_strand_anim_config_t* cfg, uint8_t r, uint8_t g, uint8_t b) {
+    float h;
+    float s;
+    float v;
+    rgb_to_hsv(r, g, b, &h, &s, &v);
+    cfg->color.h = (uint8_t) (h / 360.0f * 255.0f);
+    cfg->color.s = (uint8_t) (s / 100.0f * 255.0f);
+    cfg->color.v = (uint8_t) (v / 100.0f * 255.0f);
+}
+
 void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim, uint8_t r, uint8_t g, uint8_t b) {
     from_app_to_firmware_origin(&x, &y);
     uint8_t rgb_strand = from_x_y_to_index(x, y);
     const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
     rgb_strand_anim_config_t cfg;
-    memcpy(&cfg, &dcfg, sizeof(rgb_strand_anim_config_t));
-    float h;
-    float s;
-    float v;
-    rgb_to_hsv(r, g, b, &h, &s, &v);
-    cfg.color.h = (uint8_t) (h / 360.0f * 255.0f);
-    cfg.color.s = (uint8_t) (s / 100.0f * 255.0f);
-    cfg.color.v = (uint8_t) (v / 100.0f * 255.0f);
+    memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
+    set_rgb_strand_config_color(&cfg, r, g, b);
     rgb_strand_animation_start(rgb_strand, anim,
         &cfg,
         RGB_STRAND_ANIM_STATE_STEADY);
@@ -232,8 +236,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             uint8_t current_layer = get_current_layer();
             rgb_strands_anim_t anim = pgm_read_byte(&key_anim[current_layer][row][col]);
+            const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
+            rgb_strand_anim_config_t cfg;
+            memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
+            uint32_t color = get_key_active_color(current_layer, col, row);
+            uint8_t r = (uint8_t) (color >> 24) && 0xff;
+            uint8_t g = (uint8_t) (color >> 16) && 0xff;
+            uint8_t b = (uint8_t) (color >> 8) && 0xff;
+            set_rgb_strand_config_color(&cfg, r, g, b);
             rgb_strand_animation_start(key_strand, anim,
-                    get_default_rgb_strand_anim_config(anim),
+                    &cfg,
                     RGB_STRAND_ANIM_STATE_STEADY);
         }
     } else { // released
