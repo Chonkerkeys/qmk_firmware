@@ -5,6 +5,8 @@ const uint32_t firmware_version = 1;
 
 #define LAYER_COUNT 2
 
+const uint8_t layer_count = LAYER_COUNT;
+
 const uint8_t layers[LAYER_COUNT] = {
     CH_ZOOM_WINDOWS,
     CH_ZOOM_MACOS

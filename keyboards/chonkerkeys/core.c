@@ -3,19 +3,16 @@
 #include "rgb_strands/rgb_strands.h"
 #include <math.h>
 
-// This file is not meant to be compiled directly, but included in keymap.c
-// LAYER_COUNT, keymaps etc are defined in config.c
-
-#define LAYER_COUNT 2
+extern const uint8_t layer_count;
 extern const uint32_t firmware_version;
-extern const uint8_t layers[LAYER_COUNT];
+extern const uint8_t layers[];
 extern const uint64_t icons[MATRIX_ROWS][MATRIX_COLS];
-extern const uint8_t PROGMEM key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
-extern const uint32_t PROGMEM inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
-extern const uint32_t PROGMEM active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
-extern const uint16_t PROGMEM keymaps[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
-extern const uint16_t PROGMEM custom_actions[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS][3];
-extern const uint8_t PROGMEM key_anim[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
+extern const uint8_t PROGMEM key_size_and_ordinals[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint32_t PROGMEM inactive_colors[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint32_t PROGMEM active_colors[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][3];
+extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 
 bool is_connected = false;
 
@@ -80,7 +77,7 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
 };
 
 uint8_t get_layer_count() {
-    return LAYER_COUNT;
+    return layer_count;
 }
 
 uint8_t get_layer_type(uint8_t index) {
@@ -124,7 +121,7 @@ bool is_windows(uint8_t layer) {
 
 uint16_t get_current_layer(void) {
     uint16_t current_layer = 0;
-    for (uint16_t i = 0; i < LAYER_COUNT; ++i) {
+    for (uint16_t i = 0; i < layer_count; ++i) {
         if (IS_LAYER_ON(i)) {
             current_layer = i;
             break;
@@ -141,7 +138,7 @@ void switch_layer(uint16_t index) {
 void switch_to_next_layer(void) {
     uint16_t current_layer = get_current_layer();
     uint16_t next_layer = current_layer + 1;
-    if (next_layer >= LAYER_COUNT) {
+    if (next_layer >= layer_count) {
         next_layer = 0;
     }
     switch_layer(next_layer);
@@ -321,7 +318,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  for (uint32_t i = 0; i < LAYER_COUNT; ++i) {
+  for (uint32_t i = 0; i < layer_count; ++i) {
       if (IS_LAYER_ON_STATE(state, i)) {
           layer_switched(i);
           break;
