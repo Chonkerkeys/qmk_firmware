@@ -320,7 +320,7 @@ const uint16_t PROGMEM custom_actions[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS][3] 
     }
 };
 
-const rgb_strands_anim_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = {
     {
         {
             RGB_STRAND_EFFECT_NONE,

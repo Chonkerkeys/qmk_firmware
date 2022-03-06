@@ -117,7 +117,7 @@ c_output += "const uint16_t PROGMEM custom_actions[LAYER_COUNT][MATRIX_ROWS][MAT
 c_output += print_array(customActions, 0)
 c_output += ";\n"
 c_output += "\n"
-c_output += "const rgb_strands_anim_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += "const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = "
 c_output += print_array(animations, 0)
 c_output += ";\n"
 

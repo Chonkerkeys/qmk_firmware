@@ -71,7 +71,7 @@ typedef enum {
     RGB_STRAND_ANIM_STATE_BREATHING = 2,
  } rgb_strand_anim_state_t;
 
-const rgb_strand_anim_config_t * get_default_rgb_strand_anim_config(rgb_strands_anim_t anim);
+const rgb_strand_anim_config_t * get_default_rgb_strand_anim_config(uint8_t anim);
 
 bool is_valid_strand(uint8_t strand);
 
@@ -86,7 +86,7 @@ void rgb_strand_set_color(uint8_t strand, uint8_t r, uint8_t g, uint8_t b);
 /** Start animation on the strand. Config is optional */
 void rgb_strand_animation_start(
         uint8_t strand,
-        rgb_strands_anim_t effect,
+        uint8_t anim,
         const rgb_strand_anim_config_t *config,
         rgb_strand_anim_state_t initial_state);
 

@@ -10,12 +10,12 @@
 extern const uint32_t firmware_version;
 extern const uint8_t layers[LAYER_COUNT];
 extern const uint64_t icons[MATRIX_ROWS][MATRIX_COLS];
-extern const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
+extern const uint8_t PROGMEM key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
 extern const uint32_t PROGMEM inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
 extern const uint32_t PROGMEM active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM keymaps[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM custom_actions[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS][3];
-extern const rgb_strands_anim_t key_anim[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
+extern const uint8_t PROGMEM key_anim[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS];
 
 bool is_connected = false;
 
@@ -220,7 +220,7 @@ void set_rgb_strand_config_color(rgb_strand_anim_config_t* cfg, uint8_t r, uint8
     cfg->color.v = (uint8_t) (v / 100.0f * 255.0f);
 }
 
-void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim, uint8_t r, uint8_t g, uint8_t b) {
+void start_key_anim(uint8_t x, uint8_t y, uint8_t anim, uint8_t r, uint8_t g, uint8_t b) {
     from_app_to_firmware_origin(&x, &y);
     uint8_t rgb_strand = from_x_y_to_index(x, y);
     const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
@@ -306,7 +306,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(keycode);
             }
             uint8_t current_layer = get_current_layer();
-            rgb_strands_anim_t anim = pgm_read_byte(&key_anim[current_layer][row][col]);
+            uint8_t anim = pgm_read_byte(&key_anim[current_layer][row][col]);
             const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
             rgb_strand_anim_config_t cfg;
             memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
