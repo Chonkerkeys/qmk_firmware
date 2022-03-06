@@ -15,6 +15,4 @@
  */
 #include QMK_KEYBOARD_H
 #include "virtser.h"
-#include "../protocol.c"
 #include "config.c"
-#include "../core.c"
