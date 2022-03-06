@@ -310,11 +310,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
             rgb_strand_anim_config_t cfg;
             memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
-            uint32_t color = get_key_active_color(current_layer, col, row);
-            uint8_t r = (uint8_t) (color >> 24) && 0xff;
-            uint8_t g = (uint8_t) (color >> 16) && 0xff;
-            uint8_t b = (uint8_t) (color >> 8) && 0xff;
-            set_rgb_strand_config_color(&cfg, r, g, b);
             rgb_strand_animation_start(key_strand, anim,
                     &cfg,
                     RGB_STRAND_ANIM_STATE_STEADY);
