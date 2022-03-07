@@ -114,260 +114,34 @@ enum layer_type {
 
 const uint32_t firmware_version = 1;
 
-#define LAYER_COUNT 2
-
 const uint8_t layer_count = LAYER_COUNT;
 
 const uint8_t layers[LAYER_COUNT] = {
-    CH_ZOOM_WINDOWS,
-    CH_ZOOM_MACOS
+__REPLACE_layer_types__
 };
 
-const uint64_t icons[MATRIX_ROWS][MATRIX_COLS] = {
-    {
-        0,
-        0,
-        1280,
-        1024
-    },
-    {
-        768,
-        0,
-        512,
-        256
-    }
-};
+const uint64_t icons[MATRIX_ROWS][MATRIX_COLS] = __REPLACE_icons__;
 
-const uint8_t PROGMEM key_size_and_ordinals[MATRIX_ROWS][MATRIX_COLS] = {
-    {
-        0,
-        0,
-        129,
-        1
-    },
-    {
-        1,
-        0,
-        67,
-        65
-    }
+const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+__REPLACE_size_ordinals__
 };
 
 const uint32_t PROGMEM inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
-    {
-        {
-            0,
-            0,
-            0,
-            0
-        },
-        {
-            4294901760,
-            0,
-            4278190080,
-            4278190080
-        }
-    },
-    {
-        {
-            0,
-            0,
-            0,
-            0
-        },
-        {
-            4294901760,
-            0,
-            4278190080,
-            4278190080
-        }
-    }
+__REPLACE_key_off_colors__
 };
 
 const uint32_t PROGMEM active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
-    {
-        {
-            4294967295,
-            4294967295,
-            4294967295,
-            16711680
-        },
-        {
-            16711680,
-            4294967295,
-            16711680,
-            16711680
-        }
-    },
-    {
-        {
-            4294967295,
-            4294967295,
-            4294967295,
-            16711680
-        },
-        {
-            16711680,
-            4294967295,
-            16711680,
-            16711680
-        }
-    }
+__REPLACE_key_on_colors__
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    {
-        {
-            KC_NO,
-            KC_NO,
-            CH_ZOOM_LEAVE_MEETING,
-            CH_ZOOM_RAISE_HAND_TOGGLE
-        },
-        {
-            CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE,
-            KC_NO,
-            CH_ZOOM_VIDEO_TOGGLE,
-            CH_ZOOM_MUTE_TOGGLE
-        }
-    },
-    {
-        {
-            KC_NO,
-            KC_NO,
-            CH_ZOOM_LEAVE_MEETING,
-            CH_ZOOM_RAISE_HAND_TOGGLE
-        },
-        {
-            CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE,
-            KC_NO,
-            CH_ZOOM_VIDEO_TOGGLE,
-            CH_ZOOM_MUTE_TOGGLE
-        }
-    }
+__KEYMAP_GOES_HERE__
 };
 
 const uint16_t PROGMEM custom_actions[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS][3] = {
-    {
-        {
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            }
-        },
-        {
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            }
-        }
-    },
-    {
-        {
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            }
-        },
-        {
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            },
-            {
-                KC_NO,
-                KC_NO,
-                KC_NO
-            }
-        }
-    }
+__CUSTOM_KEYS_GO_HERE__
 };
 
 const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = {
-    {
-        {
-            RGB_STRAND_EFFECT_NONE,
-            RGB_STRAND_EFFECT_NONE,
-            RGB_STRAND_EFFECT_DRAINSWIRL,
-            RGB_STRAND_EFFECT_LIKE
-        },
-        {
-            RGB_STRAND_EFFECT_BLINKY,
-            RGB_STRAND_EFFECT_NONE,
-            RGB_STRAND_EFFECT_MOMENTARY,
-            RGB_STRAND_EFFECT_MOMENTARY
-        }
-    },
-    {
-        {
-            RGB_STRAND_EFFECT_NONE,
-            RGB_STRAND_EFFECT_NONE,
-            RGB_STRAND_EFFECT_DRAINSWIRL,
-            RGB_STRAND_EFFECT_LIKE
-        },
-        {
-            RGB_STRAND_EFFECT_BLINKY,
-            RGB_STRAND_EFFECT_NONE,
-            RGB_STRAND_EFFECT_MOMENTARY,
-            RGB_STRAND_EFFECT_MOMENTARY
-        }
-    }
+__REPLACE_key_animations__
 };

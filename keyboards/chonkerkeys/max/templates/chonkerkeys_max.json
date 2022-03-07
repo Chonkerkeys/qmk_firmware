@@ -1,9 +1,66 @@
 {
-    "___comment": "PLACEHOLDER FOR NOW",
     "keyboard": "chonkerkeys/max",
-    "keymap": "default",
-    "layout": "LAYOUT_all",
+    "keymap": "example",
+    "layout": "LAYOUT",
+    "layout_data": {
+        "icons": [
+            "0",   "1280", "0",    "0",
+            "512", "1024", "1536", "2048",
+            "256", "768",  "1792", "2304"
+        ]
+    },
     "layers": [
-        [], [], []
+        ["KC_NO", "CH_GOOGLE_MEET_LEAVE_MEETING", "KC_NO", "CH_CUSTOM",
+         "CH_GOOGLE_MEET_VIDEO_TOGGLE", "CH_GOOGLE_MEET_RAISE_HAND_TOGGLE", "KC_AUDIO_VOL_UP", "KC_MEDIA_NEXT_TRACK",
+         "CH_GOOGLE_MEET_MUTE_TOGGLE", "CH_GOOGLE_MEET_SHARE_SCREEN_START_STOP_TOGGLE", "KC_AUDIO_VOL_DOWN", "KC_MEDIA_PLAY_PAUSE"],
+        ["KC_NO", "CH_ZOOM_LEAVE_MEETING", "KC_NO", "CH_CUSTOM",
+         "CH_ZOOM_VIDEO_TOGGLE", "CH_ZOOM_RAISE_HAND_TOGGLE", "KC_AUDIO_VOL_UP", "KC_MEDIA_NEXT_TRACK",
+         "CH_ZOOM_MUTE_TOGGLE", "CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE", "KC_AUDIO_VOL_DOWN", "KC_MEDIA_PLAY_PAUSE"]
+    ],
+    "layer_data": {
+        "layer_types": [
+            "CH_ZOOM_WINDOWS",
+            "CH_ZOOM_MACOS"
+        ],
+        "size_ordinals": [
+            ["0",  "129", "0", "0",
+             "68", "1",   "1", "1",
+             "68", "1",   "1", "1"],
+            ["0",  "129", "0", "0",
+             "68", "1",   "1", "1",
+             "68", "1",   "1", "1"]
+        ],
+        "key_off_colors": [
+            ["0",          "0",          "0", "0",
+             "0xFF000000", "0",          "0", "0",
+             "0xFF000000", "0xFFFF0000", "0", "0"],
+            ["0",          "0",          "0", "0",
+             "0xFF000000", "0",          "0", "0",
+             "0xFF000000", "0xFFFF0000", "0", "0"]
+        ],
+        "key_on_colors": [
+            ["0xFFFFFFFF", "0xFFFFFFFF", "0xFFFFFFFF", "0xFFFFFFFF",
+             "0xFF0000",   "0xFF0000",   "0xFFFFFFFF", "0xFFFFFFFF",
+             "0xFF0000",   "0xFF0000",   "0xFFFFFFFF", "0xFFFFFFFF"],
+            ["0xFFFFFFFF", "0xFFFFFFFF", "0xFFFFFFFF", "0xFFFFFFFF",
+             "0xFF0000",   "0xFF0000",   "0xFFFFFFFF", "0xFFFFFFFF",
+             "0xFF0000",   "0xFF0000",   "0xFFFFFFFF", "0xFFFFFFFF"]
+        ],
+        "key_animations": [
+            ["RGB_STRAND_EFFECT_STATIC", "RGB_STRAND_EFFECT_DRAINSWIRL", "RGB_STRAND_EFFECT_STATIC", "RGB_STRAND_EFFECT_STATIC",
+             "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_LIKE", "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_MOMENTARY",
+             "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_BLINKY", "RGB_STRAND_EFFECT_RAINBOW", "RGB_STRAND_EFFECT_MOMENTARY"],
+            ["RGB_STRAND_EFFECT_STATIC", "RGB_STRAND_EFFECT_DRAINSWIRL", "RGB_STRAND_EFFECT_STATIC", "RGB_STRAND_EFFECT_STATIC",
+             "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_LIKE", "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_MOMENTARY",
+             "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_BLINKY", "RGB_STRAND_EFFECT_RAINBOW", "RGB_STRAND_EFFECT_MOMENTARY"]
+        ]
+    },
+    "layer_custom_keys": [
+        ["KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_LSHIFT","KC_A","KC_NO",
+         "KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO",
+         "KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO"],
+        ["KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_LSHIFT","KC_A","KC_NO",
+         "KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO",
+         "KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO"]
     ]
 }

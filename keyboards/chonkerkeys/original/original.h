@@ -18,18 +18,21 @@
 
 #include "quantum.h"
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
+/* ChonkerKeys top right is row 0 column 0. Key column and row number extends down and to the left
+ * from the USB-C connector.
  */
 #define LAYOUT( \
-    k00, k01, k02, k03, \
-    k04, k05, k06, k07  \
+    k03, k02, k01, k00, \
+    k13, k12, k11, k10, \
 ) { \
-    {k00, k01, k02, k03}, \
-    {k04, k05, k06, k07}, \
+    { k00, k01, k02, k03 }, \
+    { k10, k11, k12, k13 }, \
+}
+
+#define LAYOUT_CUSTOM_KEYS( \
+    k03_0, k03_1, k03_2,  k02_0, k02_1, k02_2,  k01_0, k01_1, k01_2,  k00_0, k00_1, k00_2, \
+    k13_0, k13_1, k13_2,  k12_0, k12_1, k12_2,  k11_0, k11_1, k11_2,  k10_0, k10_1, k10_2, \
+) { \
+    { {k00_0, k00_1, k00_2},  {k01_0, k01_1, k01_2},  {k02_0, k02_1, k02_2},  {k03_0, k03_1, k03_2} }, \
+    { {k10_0, k10_1, k10_2},  {k11_0, k11_1, k11_2},  {k12_0, k12_1, k12_2},  {k13_0, k13_1, k13_2} }, \
 }
