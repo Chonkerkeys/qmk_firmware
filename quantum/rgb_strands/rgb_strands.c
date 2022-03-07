@@ -28,7 +28,7 @@
 static bool is_rgb_strands_initialized = false;
 
 typedef struct _rgb_strand_anim_status_t {
-    rgb_strands_anim_t       effect;
+    uint8_t                  effect;
     rgb_strand_anim_config_t config;
     uint16_t                 nexttime;
     struct {
@@ -84,7 +84,7 @@ static rgb_strand_anim_config_t default_configs[] = {
     {} // RGB_STRAND_EFFECT_INVALID
 };
 
-const rgb_strand_anim_config_t * get_default_rgb_strand_anim_config(rgb_strands_anim_t anim) {
+const rgb_strand_anim_config_t * get_default_rgb_strand_anim_config(uint8_t anim) {
     if (anim <= RGB_STRAND_EFFECT_NONE || anim >= RGB_STRAND_EFFECT_INVALID) {
         return NULL;
     }
@@ -269,7 +269,7 @@ void rgb_strand_set_color(uint8_t strand, uint8_t h, uint8_t s, uint8_t v) {
 
 void rgb_strand_animation_start(
         uint8_t strand,
-        rgb_strands_anim_t effect,
+        uint8_t effect,
         const rgb_strand_anim_config_t *config,
         rgb_strand_anim_state_t initial_state) {
     if (!is_valid_strand(strand)) return;

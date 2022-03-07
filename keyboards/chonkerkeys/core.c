@@ -3,13 +3,21 @@
 #include "rgb_strands/rgb_strands.h"
 #include <math.h>
 
-// This file is not meant to be compiled directly, but included in keymap.c
-// LAYER_COUNT, keymaps etc are defined in config.c
+extern const uint8_t layer_count;
+extern const uint32_t firmware_version;
+extern const uint8_t layers[];
+extern const uint64_t icons[MATRIX_ROWS][MATRIX_COLS];
+extern const uint8_t PROGMEM key_size_and_ordinals[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint32_t PROGMEM inactive_colors[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint32_t PROGMEM active_colors[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][3];
+extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 
 bool is_connected = false;
 
 uint8_t get_layer_count() {
-    return LAYER_COUNT;
+    return layer_count;
 }
 
 uint8_t get_layer_type(uint8_t index) {
@@ -53,7 +61,7 @@ bool is_windows(uint8_t layer) {
 
 uint16_t get_current_layer(void) {
     uint16_t current_layer = 0;
-    for (uint16_t i = 0; i < LAYER_COUNT; ++i) {
+    for (uint16_t i = 0; i < layer_count; ++i) {
         if (IS_LAYER_ON(i)) {
             current_layer = i;
             break;
@@ -70,7 +78,7 @@ void switch_layer(uint16_t index) {
 void switch_to_next_layer(void) {
     uint16_t current_layer = get_current_layer();
     uint16_t next_layer = current_layer + 1;
-    if (next_layer >= LAYER_COUNT) {
+    if (next_layer >= layer_count) {
         next_layer = 0;
     }
     switch_layer(next_layer);
@@ -149,7 +157,7 @@ void set_rgb_strand_config_color(rgb_strand_anim_config_t* cfg, uint8_t r, uint8
     cfg->color.v = (uint8_t) (v / 100.0f * 255.0f);
 }
 
-void start_key_anim(uint8_t x, uint8_t y, rgb_strands_anim_t anim, uint8_t r, uint8_t g, uint8_t b) {
+void start_key_anim(uint8_t x, uint8_t y, uint8_t anim, uint8_t r, uint8_t g, uint8_t b) {
     from_app_to_firmware_origin(&x, &y);
     uint8_t rgb_strand = from_x_y_to_index(x, y);
     const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
@@ -235,15 +243,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(keycode);
             }
             uint8_t current_layer = get_current_layer();
-            rgb_strands_anim_t anim = pgm_read_byte(&key_anim[current_layer][row][col]);
+            uint8_t anim = pgm_read_byte(&key_anim[current_layer][row][col]);
             const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
             rgb_strand_anim_config_t cfg;
             memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
-            uint32_t color = get_key_active_color(current_layer, col, row);
-            uint8_t r = (uint8_t) (color >> 24) && 0xff;
-            uint8_t g = (uint8_t) (color >> 16) && 0xff;
-            uint8_t b = (uint8_t) (color >> 8) && 0xff;
-            set_rgb_strand_config_color(&cfg, r, g, b);
             rgb_strand_animation_start(key_strand, anim,
                     &cfg,
                     RGB_STRAND_ANIM_STATE_STEADY);
@@ -255,7 +258,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  for (uint32_t i = 0; i < LAYER_COUNT; ++i) {
+  for (uint32_t i = 0; i < layer_count; ++i) {
       if (IS_LAYER_ON_STATE(state, i)) {
           layer_switched(i);
           break;

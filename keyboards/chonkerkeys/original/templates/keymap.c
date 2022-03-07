@@ -1,16 +1,43 @@
-#include "../../../keyconfig.h"
-#include "../../../layer_type.h"
+/**
+ * TODO: MAKE THIS CONFIGURABLE NOT HARD-CODED
+ */
+#include QMK_KEYBOARD_H
+#include "rgb_strands.h"
 
-const uint32_t firmware_version = 1;
-
-#define LAYER_COUNT 2
-
-const uint8_t layer_count = LAYER_COUNT;
-
-const uint8_t layers[LAYER_COUNT] = {
-    CH_ZOOM_WINDOWS,
-    CH_ZOOM_MACOS
+// Defines the keycodes used by our macros in process_record_user
+enum custom_keycodes {
+    CH_CUSTOM = SAFE_RANGE,
+    // zoom
+    CH_ZOOM_MUTE_TOGGLE,
+    CH_ZOOM_VIDEO_TOGGLE,
+    CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE,
+    CH_ZOOM_RAISE_HAND_TOGGLE,
+    CH_ZOOM_LEAVE_MEETING,
+    // teams
+    CH_TEAMS_MUTE_TOGGLE,
+    CH_TEAMS_VIDEO_TOGGLE,
+    CH_TEAMS_SHARE_SCREEN_START_STOP_TOGGLE,
+    CH_TEAMS_RAISE_HAND_TOGGLE,
+    CH_TEAMS_LEAVE_MEETING,
+    // skype
+    CH_SKYPE_MUTE_TOGGLE,
+    CH_SKYPE_VIDEO_TOGGLE,
+    CH_SKYPE_SHARE_SCREEN_START_STOP_TOGGLE,
+    CH_SKYPE_RAISE_HAND_TOGGLE,
+    CH_SKYPE_LEAVE_MEETING,
+    // google meet
+    CH_GOOGLE_MEET_MUTE_TOGGLE,
+    CH_GOOGLE_MEET_VIDEO_TOGGLE,
+    CH_GOOGLE_MEET_SHARE_SCREEN_START_STOP_TOGGLE,
+    CH_GOOGLE_MEET_RAISE_HAND_TOGGLE,
+    CH_GOOGLE_MEET_LEAVE_MEETING,
+    // rest
+    CH_SWITCH_WINDOW,
+    CH_LAST_KEYCODE
 };
+
+#define KEY_MACROS_MAX_COUNT  3
+#define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
 const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_NO, KC_NO, KC_NO },
@@ -70,6 +97,30 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_NO, KC_NO, KC_NO },
     // rest
     { KC_LGUI, KC_TAB, KC_NO },
+};
+
+enum layer_type {
+    CH_CUSTOM_WINDOWS,
+    CH_CUSTOM_MACOS,
+    CH_ZOOM_WINDOWS,
+    CH_ZOOM_MACOS,
+    CH_TEAMS_WINDOWS,
+    CH_TEAMS_MACOS,
+    CH_SKYPE_WINDOWS,
+    CH_SKYPE_MACOS,
+    CH_GOOGLE_MEET_WINDOWS,
+    CH_GOOGLE_MEET_MACOS,
+};
+
+const uint32_t firmware_version = 1;
+
+#define LAYER_COUNT 2
+
+const uint8_t layer_count = LAYER_COUNT;
+
+const uint8_t layers[LAYER_COUNT] = {
+    CH_ZOOM_WINDOWS,
+    CH_ZOOM_MACOS
 };
 
 const uint64_t icons[MATRIX_ROWS][MATRIX_COLS] = {
