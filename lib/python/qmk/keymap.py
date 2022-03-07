@@ -76,6 +76,7 @@ def _strip_any(keycode):
 
     return keycode
 
+
 def _remove_unsafe_chars(identifier):
     """Remove any unsafe characters for an identifier to prevent injection attack.
     """
@@ -317,7 +318,6 @@ def generate_c(keymap_json):
             layer_keys_str = ', '.join(layer_keys)
             layer_keys_txt.append('\t[%s] = %s(%s)' % (layer_num, c_macro, layer_keys_str))
         new_keymap = new_keymap.replace('__CUSTOM_KEYS_GO_HERE__', '\n'.join(layer_keys_txt))
-
 
     return new_keymap
 
