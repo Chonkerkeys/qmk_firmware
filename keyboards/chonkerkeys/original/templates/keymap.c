@@ -1,8 +1,6 @@
-/**
- * TODO: MAKE THIS CONFIGURABLE NOT HARD-CODED
- */
 #include QMK_KEYBOARD_H
 #include "rgb_strands.h"
+__INCLUDES__
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -113,6 +111,8 @@ enum layer_type {
 };
 
 const uint32_t firmware_version = 1;
+
+#define LAYER_COUNT __LAYER_COUNT__
 
 const uint8_t layer_count = LAYER_COUNT;
 
