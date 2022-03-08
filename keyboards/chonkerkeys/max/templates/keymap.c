@@ -122,9 +122,7 @@ __REPLACE_layer_types__
 
 const uint64_t icons[MATRIX_ROWS][MATRIX_COLS] = __REPLACE_icons__;
 
-const uint8_t key_size_and_ordinals[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
-__REPLACE_size_ordinals__
-};
+const uint8_t PROGMEM key_size_and_ordinals[MATRIX_ROWS][MATRIX_COLS] = __REPLACE_size_ordinals__;
 
 const uint32_t PROGMEM inactive_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
 __REPLACE_key_off_colors__

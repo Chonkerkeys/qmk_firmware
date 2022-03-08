@@ -7,7 +7,7 @@ extern const uint8_t layer_count;
 extern const uint32_t firmware_version;
 extern const uint8_t layers[];
 extern const uint64_t icons[MATRIX_ROWS][MATRIX_COLS];
-extern const uint8_t PROGMEM key_size_and_ordinals[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint8_t PROGMEM key_size_and_ordinals[MATRIX_ROWS][MATRIX_COLS];
 extern const uint32_t PROGMEM inactive_colors[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint32_t PROGMEM active_colors[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
