@@ -30,6 +30,10 @@ enum custom_keycodes {
     CH_GOOGLE_MEET_RAISE_HAND_TOGGLE,
     CH_GOOGLE_MEET_LEAVE_MEETING,
     // rest
+    CH_VOLUME_UP,
+    CH_VOLUME_DOWN,
+    CH_MEDIA_NEXT,
+    CH_MEDIA_PLAY_PAUSE,
     CH_SWITCH_WINDOW,
     CH_LAST_KEYCODE
 };
@@ -64,6 +68,10 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_LALT, KC_H },
     { KC_LALT, KC_F4, KC_NO },
     // rest
+    { KC_AUDIO_VOL_UP, KC_NO, KC_NO }, 
+    { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
+    { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
+    { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
     { KC_LALT, KC_TAB, KC_NO },
 };
 
@@ -94,6 +102,10 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_LGUI, KC_H },
     { KC_NO, KC_NO, KC_NO },
     // rest
+    { KC_AUDIO_VOL_UP, KC_NO, KC_NO }, 
+    { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
+    { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
+    { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
     { KC_LGUI, KC_TAB, KC_NO },
 };
 
