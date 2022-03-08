@@ -2,6 +2,7 @@
 """
 import json
 import sys
+import re
 from pathlib import Path
 from subprocess import DEVNULL
 
@@ -74,6 +75,12 @@ def _strip_any(keycode):
         keycode = keycode[4:-1]
 
     return keycode
+
+
+def _remove_unsafe_chars(identifier):
+    """Remove any unsafe characters for an identifier to prevent injection attack.
+    """
+    return re.sub(r"[\s\(\)\[\]\{\}\"\'\,\\\*]", "", identifier)
 
 
 def find_keymap_from_dir():
@@ -182,6 +189,43 @@ def generate_json(keymap, keyboard, layout, layers):
     return new_keymap
 
 
+def add_layout_data(new_keymap, keymap_json):
+    layout_macro = keymap_json['layout']
+
+    if keymap_json.get('layout_data'):
+        for (data_name, data_val) in keymap_json.get('layout_data').items():
+            data_val = map(_remove_unsafe_chars, data_val)
+            data_name_txt = '__REPLACE_%s__' % _remove_unsafe_chars(data_name)
+            new_keymap = new_keymap.replace(data_name_txt, '%s(%s)' % (layout_macro, ', '.join(data_val)))
+
+    if keymap_json.get('layer_data'):
+        for (data_name, data_val) in keymap_json.get('layer_data').items():
+            layer_data_txt = []
+            for layer_num, layer_data in enumerate(data_val):
+                if len(layer_data_txt) > 0:
+                    layer_data_txt[-1] = layer_data_txt[-1] + ','
+                if type(layer_data) is list:
+                    layer_data = map(_remove_unsafe_chars, layer_data)
+                    layer_data_txt.append('\t[%s] = %s(%s)' % (layer_num, layout_macro, ', '.join(layer_data)))
+                else:
+                    layer_data_txt.append('\t' + _remove_unsafe_chars(layer_data))
+            data_name_txt = '__REPLACE_%s__' % _remove_unsafe_chars(data_name)
+            new_keymap = new_keymap.replace(data_name_txt, '\n'.join(layer_data_txt))
+
+    if keymap_json.get('layer_custom_keys'):
+        layer_keys_txt = []
+        c_macro = keymap_json['layout'] + '_CUSTOM_KEYS'
+        for layer_num, layer_keys in enumerate(keymap_json['layer_custom_keys']):
+            if len(layer_keys_txt) > 0:
+                layer_keys_txt[-1] = layer_keys_txt[-1] + ','
+            layer_keys = map(_remove_unsafe_chars, layer_keys)
+            layer_keys_str = ', '.join(layer_keys)
+            layer_keys_txt.append('\t[%s] = %s(%s)' % (layer_num, c_macro, layer_keys_str))
+        new_keymap = new_keymap.replace('__CUSTOM_KEYS_GO_HERE__', '\n'.join(layer_keys_txt))
+
+    return new_keymap
+
+
 def generate_c(keymap_json):
     """Returns a `keymap.c`.
 
@@ -205,12 +249,13 @@ def generate_c(keymap_json):
     for layer_num, layer in enumerate(keymap_json['layers']):
         if layer_num != 0:
             layer_txt[-1] = layer_txt[-1] + ','
-        layer = map(_strip_any, layer)
+        layer = map(_remove_unsafe_chars, map(_strip_any, layer))
         layer_keys = ', '.join(layer)
         layer_txt.append('\t[%s] = %s(%s)' % (layer_num, keymap_json['layout'], layer_keys))
 
     keymap = '\n'.join(layer_txt)
     new_keymap = new_keymap.replace('__KEYMAP_GOES_HERE__', keymap)
+    new_keymap = new_keymap.replace('__LAYER_COUNT__', "%d" % (len(keymap_json['layers'])))
 
     if keymap_json.get('macros'):
         macro_txt = [
@@ -277,6 +322,8 @@ def generate_c(keymap_json):
         new_keymap = new_keymap.replace('__INCLUDES__', f'#include "keymap_{keymap_json["host_language"]}.h"\n#include "sendstring_{keymap_json["host_language"]}.h"\n')
     else:
         new_keymap = new_keymap.replace('__INCLUDES__', '')
+
+    new_keymap = add_layout_data(new_keymap, keymap_json)
 
     return new_keymap
 
