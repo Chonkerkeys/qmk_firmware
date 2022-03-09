@@ -127,6 +127,7 @@ gen/gen-config.sh gen-original
 enum Size {
     Key1U = 0,
     Key1_5U,    // 1.5U
+	Key1_5UV,	// 1.5U Vertical
     Key3U
 }
 
@@ -139,16 +140,17 @@ enum Ordinal {
 }
 
 uint8_t sizeOrdinal(Size size, Ordinal ordinal) {
-    return (size << 6) & ordinal;
+    return (size << 6) | ordinal;
 }
 ```
 
 #### Example
 
-- 1U + left slot: 0 & 1 = 1
-- 1.5U + left slot: (1 << 6) & 1 = 64 & 1 = 65
-- 1.5U + right slot: (1 << 6) & 3 = 64 & 3 = 67
-- 3U + left slot: (2 << 6) & 1 = 128 & 1 = 129
+- 1U + left slot: 0 | 1 = 1
+- 1.5U + left slot: (1 << 6) | 1 = 64 | 1 = 65
+- 1.5U + right slot: (1 << 6) | 3 = 64 | 3 = 67
+- 1.5UV + left slot: (2 << 6) | 1 = 128 | 1 = 129
+- 3U + left slot: (3 << 6) | 1 = 192 | 1 = 193
 
 ### Icon
 
