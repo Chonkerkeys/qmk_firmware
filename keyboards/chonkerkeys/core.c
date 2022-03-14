@@ -202,6 +202,10 @@ void on_switch_layer(uint8_t index) {
     switch_layer(index);
 }
 
+bool is_common_action(uint16_t keycode) {
+    return keycode >= CH_VOLUME_UP;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool is_either_pressed = false;
     uint8_t app_x = record->event.key.col;
@@ -223,7 +227,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t col = record->event.key.col;
     uint8_t key_strand = from_x_y_to_index(col, row);
     if (record->event.pressed) {
-        if (is_connected) {
+        // It's not trivial to handle media keys and volume up/down in macOS as the virtual key codes
+        // for these actions are non-existent. They updated the virtual key code of the os in recent releases
+        // to stick to the usb spec but we might want to work down level. So, the simplest solution is to let
+        // QMK send these "common actions" directly.
+        const bool should_qmk_handle = is_common_action(keycode);
+        if (is_connected && !should_qmk_handle) {
             key_down(get_current_layer(), app_x, app_y);
         } else {
             if (keycode > CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
