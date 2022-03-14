@@ -59,9 +59,9 @@ bool is_windows(uint8_t layer) {
     return layer % 2 == 0;
 }
 
-uint16_t get_current_layer(void) {
-    uint16_t current_layer = 0;
-    for (uint16_t i = 0; i < layer_count; ++i) {
+uint8_t get_current_layer(void) {
+    uint8_t current_layer = 0;
+    for (uint8_t i = 0; i < layer_count; ++i) {
         if (IS_LAYER_ON(i)) {
             current_layer = i;
             break;
@@ -76,11 +76,11 @@ void switch_layer(uint16_t index) {
 }
 
 void switch_to_next_layer(void) {
-    uint16_t current_layer = get_current_layer();
-    uint16_t next_layer = current_layer + 1;
-    if (next_layer >= layer_count) {
-        next_layer = 0;
-    }
+    uint8_t current_layer = get_current_layer();
+    // Assume layer_count is > 0
+    // Checking before addition to avoid overflow (although it's not likely...we only support
+    // max 8 layers anyways)
+    uint8_t next_layer = current_layer == layer_count - 1 ? 0 : current_layer + 1;
     switch_layer(next_layer);
 }
 
@@ -237,7 +237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             if (keycode > CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
                 uint16_t key_config_index = keycode - CH_CUSTOM;
-                uint16_t current_layer = get_current_layer();
+                uint8_t current_layer = get_current_layer();
                 uint16_t const* keyMacros = is_windows(current_layer) ? windows_configs[key_config_index] : macos_configs[key_config_index];
                 for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                     uint16_t code = keyMacros[i];

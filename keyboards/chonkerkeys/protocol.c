@@ -20,6 +20,8 @@ void on_get_version() {
 void _get_config_data_writer(void* user_data) {
     const uint8_t layer_count = get_layer_count();
     send_protocol(layer_count);
+    const uint8_t current_layer = get_current_layer();
+    send_protocol(current_layer);
     for (uint8_t layer = 0; layer < layer_count; ++layer) {
         send_protocol(get_layer_type(layer));
         // chonkerkeys firmware origin is top-right, chonkerkeys app is bottom-left, invert both X and Y.
@@ -38,13 +40,15 @@ void _get_config_data_writer(void* user_data) {
     }
 }
 
+#define LAYER_COUNT_SIZE 1
+#define CURRENT_LAYER_SIZE 1
 #define LAYER_TYPE_SIZE 1
 // size ordinal = 1, key action type = 1, icon = 8, color = 4 * 2, custom macros = 3
 #define KEY_SIZE 21
 
 void on_get_config() {
     const uint8_t layer_count = get_layer_count();
-    const uint16_t data_length = 1 + ((LAYER_TYPE_SIZE + (MATRIX_ROWS * MATRIX_COLS * KEY_SIZE)) * layer_count);
+    const uint16_t data_length = LAYER_COUNT_SIZE + CURRENT_LAYER_SIZE + ((LAYER_TYPE_SIZE + (MATRIX_ROWS * MATRIX_COLS * KEY_SIZE)) * layer_count);
     _send_event_raw(event_type_get_config_response, data_length, &_get_config_data_writer, 0);
 }
 
