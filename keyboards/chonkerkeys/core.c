@@ -59,9 +59,9 @@ bool is_windows(uint8_t layer) {
     return layer % 2 == 0;
 }
 
-uint16_t get_current_layer(void) {
-    uint16_t current_layer = 0;
-    for (uint16_t i = 0; i < layer_count; ++i) {
+uint8_t get_current_layer(void) {
+    uint8_t current_layer = 0;
+    for (uint8_t i = 0; i < layer_count; ++i) {
         if (IS_LAYER_ON(i)) {
             current_layer = i;
             break;
@@ -76,11 +76,11 @@ void switch_layer(uint16_t index) {
 }
 
 void switch_to_next_layer(void) {
-    uint16_t current_layer = get_current_layer();
-    uint16_t next_layer = current_layer + 1;
-    if (next_layer >= layer_count) {
-        next_layer = 0;
-    }
+    uint8_t current_layer = get_current_layer();
+    // Assume layer_count is > 0
+    // Checking before addition to avoid overflow (although it's not likely...we only support
+    // max 8 layers anyways)
+    uint8_t next_layer = current_layer == layer_count - 1 ? 0 : current_layer + 1;
     switch_layer(next_layer);
 }
 
@@ -202,6 +202,10 @@ void on_switch_layer(uint8_t index) {
     switch_layer(index);
 }
 
+bool is_common_action(uint16_t keycode) {
+    return keycode >= CH_VOLUME_UP;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool is_either_pressed = false;
     uint8_t app_x = record->event.key.col;
@@ -223,12 +227,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t col = record->event.key.col;
     uint8_t key_strand = from_x_y_to_index(col, row);
     if (record->event.pressed) {
-        if (is_connected) {
+        // It's not trivial to handle media keys and volume up/down in macOS as the virtual key codes
+        // for these actions are non-existent. They updated the virtual key code of the os in recent releases
+        // to stick to the usb spec but we might want to work down level. So, the simplest solution is to let
+        // QMK send these "common actions" directly.
+        const bool should_qmk_handle = is_common_action(keycode);
+        if (is_connected && !should_qmk_handle) {
             key_down(get_current_layer(), app_x, app_y);
         } else {
             if (keycode > CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
                 uint16_t key_config_index = keycode - CH_CUSTOM;
-                uint16_t current_layer = get_current_layer();
+                uint8_t current_layer = get_current_layer();
                 uint16_t const* keyMacros = is_windows(current_layer) ? windows_configs[key_config_index] : macos_configs[key_config_index];
                 for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                     uint16_t code = keyMacros[i];
