@@ -312,6 +312,11 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/info.json)","")
     INFO_JSON_FILES += $(KEYBOARD_PATH_5)/info.json
 endif
 
+# Include config generated from online configurator
+ifneq ("$(wildcard $(KEYMAP_OUTPUT)/src/config.h)","")
+    CONFIG_H += $(KEYMAP_OUTPUT)/src/config.h
+endif
+
 CONFIG_H += $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/layouts.h
 
 $(KEYBOARD_OUTPUT)/src/info_config.h: $(INFO_JSON_FILES)

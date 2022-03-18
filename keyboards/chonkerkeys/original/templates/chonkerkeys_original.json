@@ -1,6 +1,7 @@
 {
     "keyboard": "chonkerkeys/original",
     "keymap": "example",
+    "keyboard_name": "Chonkerkeys Original",
     "layout": "LAYOUT",
     "layout_data": {
         "icons": [

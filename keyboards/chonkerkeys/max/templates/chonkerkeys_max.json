@@ -1,6 +1,7 @@
 {
     "keyboard": "chonkerkeys/max",
     "keymap": "example",
+    "keyboard_name": "Chonkerkeys Max",
     "layout": "LAYOUT",
     "layout_data": {
         "icons": [

@@ -11,6 +11,7 @@ from time import strftime
 from milc import cli
 
 import qmk.keymap
+import qmk.cli.generate.config_h
 from qmk.constants import QMK_FIRMWARE, KEYBOARD_OUTPUT_PREFIX
 from qmk.json_schema import json_load
 
@@ -191,10 +192,13 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, **env_va
     keyboard_output = Path(f'{KEYBOARD_OUTPUT_PREFIX}{keyboard_filesafe}')
     keymap_output = Path(f'{keyboard_output}_{user_keymap["keymap"]}')
     c_text = qmk.keymap.generate_c(user_keymap)
+    h_text = qmk.cli.generate.config_h.generate_config_h_from_json(user_keymap)
     keymap_dir = keymap_output / 'src'
+    config_h = keymap_dir / 'config.h'
     keymap_c = keymap_dir / 'keymap.c'
 
     keymap_dir.mkdir(exist_ok=True, parents=True)
+    config_h.write_text(h_text)
     keymap_c.write_text(c_text)
 
     version_h = Path('quantum/version.h')
