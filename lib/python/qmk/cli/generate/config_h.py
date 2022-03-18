@@ -186,7 +186,7 @@ def generate_config_h(cli):
     else:
         kb_info_json = dotty(info_json(cli.args.keyboard))
 
-    config_h = generate_config_h(kb_info_json)
+    config_h = generate_config_h_from_json(kb_info_json)
 
     if cli.args.output:
         cli.args.output.parent.mkdir(parents=True, exist_ok=True)
