@@ -31,9 +31,9 @@
              "0xFF000000", "0xFF000000", "0", "0xFFFF0000"]
         ],
         "key_on_colors": [
-            ["0xFF0000",  "0xFFFFFFFF", "0xFFFFFFFF", "0xFFFFFFFF",
+            ["0xFF0000",  "0xFF000000", "0xFFFFFFFF", "0xFFFFFFFF",
              "0xFF0000",  "0xFF0000",   "0xFFFFFFFF", "0xFF0000"],
-             ["0xFF0000", "0xFFFFFFFF", "0xFFFFFFFF", "0xFFFFFFFF",
+             ["0xFF0000", "0xFF000000", "0xFFFFFFFF", "0xFFFFFFFF",
               "0xFF0000", "0xFF0000",   "0xFFFFFFFF", "0xFF0000"]
         ],
         "key_animations": [

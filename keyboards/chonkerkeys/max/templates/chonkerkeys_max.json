@@ -37,10 +37,10 @@
              "0xFF000000", "0xFFFF0000", "0", "0"]
         ],
         "key_on_colors": [
-            ["0xFFFFFFFF", "0xFFFFFFFF", "0xFFFFFFFF", "0xFFFFFFFF",
+            ["0xFFFFFFFF", "0xFF000000", "0xFFFFFFFF", "0xFFFFFFFF",
              "0xFF0000",   "0xFF0000",   "0xFFFFFFFF", "0xFFFFFFFF",
              "0xFF0000",   "0xFF0000",   "0xFFFFFFFF", "0xFFFFFFFF"],
-            ["0xFFFFFFFF", "0xFFFFFFFF", "0xFFFFFFFF", "0xFFFFFFFF",
+            ["0xFFFFFFFF", "0xFF000000", "0xFFFFFFFF", "0xFFFFFFFF",
              "0xFF0000",   "0xFF0000",   "0xFFFFFFFF", "0xFFFFFFFF",
              "0xFF0000",   "0xFF0000",   "0xFFFFFFFF", "0xFFFFFFFF"]
         ],
