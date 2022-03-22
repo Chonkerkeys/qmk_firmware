@@ -37,9 +37,3 @@ enum custom_keycodes {
     CH_SWITCH_WINDOW,
     CH_LAST_KEYCODE
 };
-
-#define KEY_MACROS_MAX_COUNT  3
-#define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
-
-extern const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT];
-extern const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT];
