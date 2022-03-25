@@ -151,6 +151,10 @@ No data.
 |key x|1||
 |key y|1||
 
+#### SwitchLayerComboDownEvent
+
+N/A
+
 #### SwitchLayerCommand
 
 |data|size in byte|Note|

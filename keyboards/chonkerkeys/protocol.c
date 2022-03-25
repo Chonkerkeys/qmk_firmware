@@ -134,6 +134,10 @@ void key_down(uint8_t layer, uint8_t x, uint8_t y) {
     _send_event_raw(event_type_key_down, 3, &_key_down_data_writer, &key_down);
 }
 
+void switch_layer_combo_down(void) {
+    _send_event_raw(event_type_switch_layer_combo_down, 0, NULL, NULL);
+}
+
 void _layer_switched_data_writer(void* user_data) {
     uint8_t *index = (uint8_t*) user_data;
     send_protocol(*index);
@@ -174,7 +178,9 @@ void _send_event(uint8_t event_type, uint8_t* event) {
 void _send_event_raw(uint8_t event_type, uint16_t data_length, void(*data_writer)(void*), void* user_data) {
     send_protocol(event_type);
     _send_uint16(data_length);
-    data_writer(user_data);
+    if (data_writer != NULL) {
+        data_writer(user_data);
+    }
 }
 
 // Assume little endian.

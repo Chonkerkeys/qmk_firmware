@@ -216,7 +216,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (app_y == 0 && app_x <= 1) {
         if (record->event.pressed) {   
             if (is_either_pressed) {
-                switch_to_next_layer();
+                if (is_connected) {
+                    switch_layer_combo_down();
+                } else {
+                    switch_to_next_layer();
+                }
                 return false;
             }
         }

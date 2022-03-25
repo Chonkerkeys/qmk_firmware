@@ -52,6 +52,8 @@ void send_protocol(uint8_t c);
 
 void key_down(uint8_t layer, uint8_t x, uint8_t y);
 
+void switch_layer_combo_down(void);
+
 void layer_switched(uint8_t index);
 
 // @param index The 0-based index within the data section.
