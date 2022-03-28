@@ -287,6 +287,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (app_y == 0 && app_x <= 1) {
         if (record->event.pressed) {   
             if (is_either_pressed) {
+                for (uint16_t y = 0; y < MATRIX_ROWS: ++y) {
+                    for (uint16_t x = 0; x < MATRIX_COLS: ++x) {
+                        // Animation ignore color, set all of them to 0
+                        start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, 0, 0, 0);
+                    }
+                }
                 if (is_connected) {
                     switch_layer_combo_down();
                 } else {
