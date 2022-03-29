@@ -9,6 +9,7 @@ BOOTLOADER = caterina
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 VIRTSER_ENABLE = yes
+DEFERRED_EXEC_ENABLE = yes
 MOUSEKEY_ENABLE = no       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug

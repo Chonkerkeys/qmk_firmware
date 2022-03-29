@@ -86,6 +86,8 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
 };
 
 bool is_connected = false;
+bool is_heart_beat_received = false;
+deferred_token heart_beat_checker_token;
 
 uint8_t get_layer_count() {
     return layer_count;
@@ -157,6 +159,7 @@ void switch_to_next_layer(void) {
 
 void virtser_recv(uint8_t c) {
     process_protocol(c);
+    is_heart_beat_received = true;
 }
 
 void send_protocol(uint8_t c) {
@@ -277,6 +280,33 @@ bool is_common_action(uint16_t keycode) {
     return keycode >= CH_VOLUME_UP;
 }
 
+void flash_all_light(void) {
+    for (uint16_t y = 0; y < MATRIX_ROWS; ++y) {
+        for (uint16_t x = 0; x < MATRIX_COLS; ++x) {
+            // Animation ignore color, set all of them to 0
+            start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, 0, 0, 0);
+        }
+    }
+}
+
+const uint32_t connectionReadTimeoutMs = 5000;
+const uint32_t repeatDurationMs = 10000;  // connectionReadTimeoutMs * 2, Nyquist theorem
+uint32_t check_heart_beat(uint32_t trigger_time, void *cb_arg) {
+    if (is_connected) {
+        if (!is_heart_beat_received) {
+            flash_all_light();
+            is_connected = false;
+        } else {
+            is_heart_beat_received = false;
+        }
+    }
+    return repeatDurationMs;
+}
+
+void keyboard_post_init_user(void) {
+    heart_beat_checker_token = defer_exec(repeatDurationMs, check_heart_beat, NULL);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool is_either_pressed = false;
     uint8_t app_x = record->event.key.col;
@@ -287,12 +317,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (app_y == 0 && app_x <= 1) {
         if (record->event.pressed) {   
             if (is_either_pressed) {
-                for (uint16_t y = 0; y < MATRIX_ROWS; ++y) {
-                    for (uint16_t x = 0; x < MATRIX_COLS; ++x) {
-                        // Animation ignore color, set all of them to 0
-                        start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, 0, 0, 0);
-                    }
-                }
+                flash_all_light();
                 if (is_connected) {
                     switch_layer_combo_down();
                 } else {
