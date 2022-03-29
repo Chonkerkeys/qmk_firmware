@@ -223,5 +223,7 @@ void _dispatch_command(void) {
         on_set_led(&command.set_led);
     } else if (command_type == command_type_switch_layer) {
         on_switch_layer(command.switch_layer.layer_index);
+    } else if (command_type == command_heart_beat) {
+        // no-op, process_protocol caller would handle heart beat already
     }
 }

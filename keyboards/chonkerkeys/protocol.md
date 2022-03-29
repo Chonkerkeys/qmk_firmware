@@ -166,3 +166,7 @@ N/A
 |data|size in byte|Note|
 |--|--|--|
 |layer index|1|type is uint8_t. Note that this is the index of the layer array. To get the layer type just use the index in the layer array|
+
+#### HeartBeatCommand
+
+N/A
