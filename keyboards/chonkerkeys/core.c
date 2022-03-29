@@ -3,6 +3,8 @@
 #include "rgb_strands/rgb_strands.h"
 #include <math.h>
 
+#define KEY_MACROS_MAX_COUNT  3
+
 extern const uint8_t layer_count;
 extern const uint32_t firmware_version;
 extern const uint8_t layers[];
@@ -11,10 +13,9 @@ extern const uint8_t PROGMEM key_size_and_ordinals[MATRIX_ROWS][MATRIX_COLS];
 extern const uint32_t PROGMEM inactive_colors[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint32_t PROGMEM active_colors[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
-extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][3];
+extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MACROS_MAX_COUNT];
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 
-#define KEY_MACROS_MAX_COUNT  3
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
 const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
@@ -341,19 +342,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (is_connected && !should_qmk_handle) {
             key_down(get_current_layer(), app_x, app_y);
         } else {
-            if (keycode > CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
-                uint16_t key_config_index = keycode - CH_CUSTOM;
+            if (keycode >= CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
                 uint8_t current_layer = get_current_layer();
-                uint16_t const* keyMacros = is_windows(current_layer) ? windows_configs[key_config_index] : macos_configs[key_config_index];
-                for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
-                    uint16_t code = keyMacros[i];
-                    if (code == KC_NO) continue;
-                    register_code(code);
-                }
-                for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
-                    uint16_t code = keyMacros[i];
-                    if (code == KC_NO) continue;
-                    unregister_code(code);
+                if (keycode == CH_CUSTOM) {
+                    for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
+                        uint16_t code = get_key_custom_action(current_layer, col, row, i);
+                        if (code == KC_NO) continue;
+                        register_code(code);
+                    }
+                    for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
+                        uint16_t code = get_key_custom_action(current_layer, col, row, i);
+                        if (code == KC_NO) continue;
+                        unregister_code(code);
+                    }
+                } else {
+                    uint16_t key_config_index = keycode - CH_CUSTOM;
+                    uint16_t const* key_macros = is_windows(current_layer) ? windows_configs[key_config_index] : macos_configs[key_config_index];
+                    for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
+                        uint16_t code = key_macros[i];
+                        if (code == KC_NO) continue;
+                        register_code(code);
+                    }
+                    for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
+                        uint16_t code = key_macros[i];
+                        if (code == KC_NO) continue;
+                        unregister_code(code);
+                    }
                 }
             } else {
                 register_code(keycode);
