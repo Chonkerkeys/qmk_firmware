@@ -143,34 +143,6 @@ uint8_t get_current_layer(void) {
     return current_layer;
 }
 
-void switch_layer(uint16_t index) {
-    layer_clear();
-    layer_on(index);
-    flash_all_light();
-}
-
-void switch_to_next_layer(void) {
-    uint8_t current_layer = get_current_layer();
-    // Assume layer_count is > 0
-    // Checking before addition to avoid overflow (although it's not likely...we only support
-    // max 8 layers anyways)
-    uint8_t next_layer = current_layer == layer_count - 1 ? 0 : current_layer + 1;
-    switch_layer(next_layer);
-}
-
-void virtser_recv(uint8_t c) {
-    process_protocol(c);
-    is_heart_beat_received = true;
-}
-
-void send_protocol(uint8_t c) {
-    virtser_send(c);
-}
-
-void on_connected() {
-    is_connected = true;
-}
-
 uint8_t from_x_y_to_index(uint8_t x, uint8_t y) {
     return (y * MATRIX_COLS) + x;
 }
@@ -249,6 +221,43 @@ void start_key_anim(uint8_t x, uint8_t y, uint8_t anim, uint8_t r, uint8_t g, ui
     }
 }
 
+void flash_all_light(void) {
+    for (uint16_t y = 0; y < MATRIX_ROWS; ++y) {
+        for (uint16_t x = 0; x < MATRIX_COLS; ++x) {
+            // Animation ignore color, set all of them to 0
+            start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, 0, 0, 0);
+        }
+    }
+}
+
+void switch_layer(uint16_t index) {
+    layer_clear();
+    layer_on(index);
+    flash_all_light();
+}
+
+void switch_to_next_layer(void) {
+    uint8_t current_layer = get_current_layer();
+    // Assume layer_count is > 0
+    // Checking before addition to avoid overflow (although it's not likely...we only support
+    // max 8 layers anyways)
+    uint8_t next_layer = current_layer == layer_count - 1 ? 0 : current_layer + 1;
+    switch_layer(next_layer);
+}
+
+void virtser_recv(uint8_t c) {
+    process_protocol(c);
+    is_heart_beat_received = true;
+}
+
+void send_protocol(uint8_t c) {
+    virtser_send(c);
+}
+
+void on_connected() {
+    is_connected = true;
+}
+
 void set_led_off(uint8_t key_x, uint8_t key_y) {
     start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_STATIC, 0, 0, 0);
 }
@@ -279,15 +288,6 @@ void on_switch_layer(uint8_t index) {
 
 bool is_common_action(uint16_t keycode) {
     return keycode >= CH_VOLUME_UP;
-}
-
-void flash_all_light(void) {
-    for (uint16_t y = 0; y < MATRIX_ROWS; ++y) {
-        for (uint16_t x = 0; x < MATRIX_COLS; ++x) {
-            // Animation ignore color, set all of them to 0
-            start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, 0, 0, 0);
-        }
-    }
 }
 
 const uint32_t connectionReadTimeoutMs = 5000;
