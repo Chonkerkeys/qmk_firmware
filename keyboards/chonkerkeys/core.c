@@ -146,6 +146,7 @@ uint8_t get_current_layer(void) {
 void switch_layer(uint16_t index) {
     layer_clear();
     layer_on(index);
+    flash_all_light();
 }
 
 void switch_to_next_layer(void) {
@@ -317,7 +318,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (app_y == 0 && app_x <= 1) {
         if (record->event.pressed) {   
             if (is_either_pressed) {
-                flash_all_light();
                 if (is_connected) {
                     switch_layer_combo_down();
                 } else {
