@@ -20,7 +20,7 @@ void on_get_version() {
 void _get_config_data_writer(void* user_data) {
     const uint8_t layer_count = get_layer_count();
     send_protocol(layer_count);
-    const uint8_t current_layer = get_current_layer();
+    const uint8_t current_layer = get_current_layer_index();
     send_protocol(current_layer);
     for (uint8_t layer = 0; layer < layer_count; ++layer) {
         send_protocol(get_layer_type(layer));

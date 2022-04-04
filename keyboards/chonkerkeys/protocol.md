@@ -70,7 +70,7 @@ No data.
 |data|size in byte|Note|
 |----|------------|----|
 |layer count|1|max 256 layer|
-|current layer|1||
+|current layer index|1||
 |*layer*|
 |layer type|1|maps to `LayerType`, e.g. `ZoomWindows`|
 |*key*|
@@ -147,7 +147,7 @@ No data.
 
 |data|size in byte|Note|
 |--|--|--|
-|layer |1||
+|layer index|1||
 |key x|1||
 |key y|1||
 

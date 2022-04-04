@@ -28,7 +28,7 @@ void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8
 
 void on_switch_layer(uint8_t index);
 
-uint8_t get_current_layer(void);
+uint8_t get_current_layer_index(void);
 
 uint8_t get_layer_count(void);
 

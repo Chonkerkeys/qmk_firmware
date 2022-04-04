@@ -129,11 +129,11 @@ uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index
     return (uint8_t) pgm_read_word(&custom_actions[layer][y][x][index]);
 }
 
-bool is_windows(uint8_t layer) {
+bool is_windows(uint8_t layer_type) {
     return layer % 2 == 0;
 }
 
-uint8_t get_current_layer(void) {
+uint8_t get_current_layer_index(void) {
     uint8_t current_layer = 0;
     for (uint8_t i = 0; i < layer_count; ++i) {
         if (IS_LAYER_ON(i)) {
@@ -238,7 +238,7 @@ void switch_layer(uint16_t index) {
 }
 
 void switch_to_next_layer(void) {
-    uint8_t current_layer = get_current_layer();
+    uint8_t current_layer = get_current_layer_index();
     // Assume layer_count is > 0
     // Checking before addition to avoid overflow (although it's not likely...we only support
     // max 8 layers anyways)
@@ -340,24 +340,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // QMK send these "common actions" directly.
         const bool should_qmk_handle = is_common_action(keycode);
         if (is_connected && !should_qmk_handle) {
-            key_down(get_current_layer(), app_x, app_y);
+            key_down(get_current_layer_index(), app_x, app_y);
         } else {
             if (keycode >= CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
-                uint8_t current_layer = get_current_layer();
+                uint8_t current_layer_index = get_current_layer_index();
                 if (keycode == CH_CUSTOM) {
                     for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
-                        uint16_t code = get_key_custom_action(current_layer, col, row, i);
+                        uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
                         if (code == KC_NO) continue;
                         register_code(code);
                     }
                     for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
-                        uint16_t code = get_key_custom_action(current_layer, col, row, i);
+                        uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
                         if (code == KC_NO) continue;
                         unregister_code(code);
                     }
                 } else {
                     uint16_t key_config_index = keycode - CH_CUSTOM;
-                    uint16_t const* key_macros = is_windows(current_layer) ? windows_configs[key_config_index] : macos_configs[key_config_index];
+                    uint8_t current_layer_type = layers[current_layer_index];
+                    uint16_t const* key_macros = is_windows(current_layer_type) ? windows_configs[key_config_index] : macos_configs[key_config_index];
                     for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
@@ -373,7 +374,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code(keycode);
                 unregister_code(keycode);
             }
-            uint8_t current_layer = get_current_layer();
+            uint8_t current_layer = get_current_layer_index();
             uint8_t anim = pgm_read_byte(&key_anim[current_layer][row][col]);
             const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
             rgb_strand_anim_config_t cfg;
