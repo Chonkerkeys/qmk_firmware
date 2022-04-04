@@ -130,7 +130,7 @@ uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index
 }
 
 bool is_windows(uint8_t layer_type) {
-    return layer % 2 == 0;
+    return layer_type % 2 == 0;
 }
 
 uint8_t get_current_layer_index(void) {
