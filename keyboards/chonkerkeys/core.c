@@ -62,10 +62,10 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LGUI, KC_W, KC_NO },
     // teams
     { KC_LSHIFT, KC_LGUI, KC_M },
-    { KC_LCTRL, KC_LGUI, KC_O },
-    { KC_LCTRL, KC_LGUI, KC_E },
-    { KC_LCTRL, KC_LGUI, KC_K },
-    { KC_LCTRL, KC_LGUI, KC_H },
+    { KC_LSHIFT, KC_LGUI, KC_O },
+    { KC_LSHIFT, KC_LGUI, KC_E },
+    { KC_LSHIFT, KC_LGUI, KC_K },
+    { KC_LSHIFT, KC_LGUI, KC_H },
     // skype
     { KC_LSHIFT, KC_LGUI, KC_M },
     { KC_LSHIFT, KC_LGUI, KC_K },
