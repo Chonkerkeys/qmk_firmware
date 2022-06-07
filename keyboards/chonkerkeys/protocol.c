@@ -134,6 +134,21 @@ void key_down(uint8_t layer, uint8_t x, uint8_t y) {
     _send_event_raw(event_type_key_down, 3, &_key_down_data_writer, &key_down);
 }
 
+void _key_up_data_writer(void* user_data) {
+    struct event_key_up* key_up = (struct event_key_up*) user_data;
+    send_protocol(key_up->layer);
+    send_protocol(key_up->x);
+    send_protocol(key_up->y);
+}
+
+void key_up(uint8_t layer, uint8_t x, uint8_t y) {
+    struct event_key_up key_up;
+    key_up.layer = layer;
+    key_up.x = x;
+    key_up.y = y;
+    _send_event_raw(event_type_key_up, 3, &_key_up_data_writer, &key_up);
+}
+
 void switch_layer_combo_down(void) {
     _send_event_raw(event_type_switch_layer_combo_down, 0, NULL, NULL);
 }

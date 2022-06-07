@@ -9,3 +9,9 @@ struct event_key_down {
     uint8_t x;
     uint8_t y;
 };
+
+struct event_key_up {
+    uint8_t layer;
+    uint8_t x;
+    uint8_t y;
+};

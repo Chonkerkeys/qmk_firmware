@@ -333,49 +333,72 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t row = record->event.key.row;
     uint8_t col = record->event.key.col;
     uint8_t key_strand = from_x_y_to_index(col, row);
-    if (record->event.pressed) {
-        // It's not trivial to handle media keys and volume up/down in macOS as the virtual key codes
-        // for these actions are non-existent. They updated the virtual key code of the os in recent releases
-        // to stick to the usb spec but we might want to work down level. So, the simplest solution is to let
-        // QMK send these "common actions" directly.
-        const bool should_qmk_handle = is_common_action(keycode);
-        if (is_connected && !should_qmk_handle) {
+    // It's not trivial to handle media keys and volume up/down in macOS as the virtual key codes
+    // for these actions are non-existent. They updated the virtual key code of the os in recent releases
+    // to stick to the usb spec but we might want to work down level. So, the simplest solution is to let
+    // QMK send these "common actions" directly.
+    const bool should_qmk_handle = is_common_action(keycode);
+    if (is_connected && !should_qmk_handle) {
+        if (record->event.pressed) {
             key_down(get_current_layer_index(), app_x, app_y);
-        } else {
-            if (keycode >= CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
-                uint8_t current_layer_index = get_current_layer_index();
-                if (keycode == CH_CUSTOM) {
+        }
+        else { // release
+            // Enable when agent is ready
+            //key_up(get_current_layer_index(), app_x, app_y);
+        }
+    }
+    else { // handle in hardware like normal keyboards
+        uint8_t current_layer_index = get_current_layer_index();
+        if (keycode >= CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
+            if (keycode == CH_CUSTOM) {
+                if (record->event.pressed) {
                     for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                         uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
                         if (code == KC_NO) continue;
                         register_code(code);
                     }
+                }
+                else {
                     for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
                         uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
                         if (code == KC_NO) continue;
                         unregister_code(code);
                     }
-                } else {
-                    uint16_t key_config_index = keycode - CH_CUSTOM;
-                    uint8_t current_layer_type = layers[current_layer_index];
-                    uint16_t const* key_macros = is_windows(current_layer_type) ? windows_configs[key_config_index] : macos_configs[key_config_index];
+                }
+            }
+            else {  // CH_ defined key codes
+                uint16_t key_config_index = keycode - CH_CUSTOM;
+                uint8_t current_layer_type = layers[current_layer_index];
+                uint16_t const* key_macros = is_windows(current_layer_type) ? windows_configs[key_config_index] : macos_configs[key_config_index];
+                if (record->event.pressed) {
                     for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
                         register_code(code);
                     }
+                }
+                else {
                     for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
                         unregister_code(code);
                     }
                 }
-            } else {
+            }
+        }
+        else {  // regular QMK keycodes
+            if (record->event.pressed) {
                 register_code(keycode);
+            }
+            else {
                 unregister_code(keycode);
             }
-            uint8_t current_layer = get_current_layer_index();
-            uint8_t anim = pgm_read_byte(&key_anim[current_layer][row][col]);
+        }
+
+        // Process animation
+        if (record->event.pressed) {
+            // start animation
+            uint8_t anim = pgm_read_byte(&key_anim[current_layer_index][row][col]);
             const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
             rgb_strand_anim_config_t cfg;
             memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
@@ -383,9 +406,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     &cfg,
                     RGB_STRAND_ANIM_STATE_STEADY);
         }
-    } else { // released
-        rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
-    }
+        else {  // released
+            // end animation
+            rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
+        }
+    } 
     return false;
 }
 
