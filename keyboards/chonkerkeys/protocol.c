@@ -35,6 +35,7 @@ void _get_config_data_writer(void* user_data) {
                 send_protocol(get_key_custom_action(layer, x, y, 0));
                 send_protocol(get_key_custom_action(layer, x, y, 1));
                 send_protocol(get_key_custom_action(layer, x, y, 2));
+                send_protocol(get_holdable(layer, x, y));
             }
         }
     }

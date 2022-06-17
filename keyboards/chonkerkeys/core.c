@@ -16,6 +16,12 @@ extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MACROS_MAX_COUNT];
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 
+// hold
+bool repeat_bool = false;
+static uint16_t timer;
+extern const uint8_t holdable[MATRIX_ROWS][MATRIX_COLS];
+bool holdable_activate = false;
+
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
 const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
@@ -45,7 +51,7 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_LALT, KC_H },
     { KC_LALT, KC_F4, KC_NO },
     // rest
-    { KC_AUDIO_VOL_UP, KC_NO, KC_NO }, 
+    { KC_AUDIO_VOL_UP, KC_NO, KC_NO },
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
@@ -79,7 +85,7 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_LGUI, KC_H },
     { KC_NO, KC_NO, KC_NO },
     // rest
-    { KC_AUDIO_VOL_UP, KC_NO, KC_NO }, 
+    { KC_AUDIO_VOL_UP, KC_NO, KC_NO },
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
@@ -120,6 +126,10 @@ uint32_t get_key_inactive_color(uint8_t layer, uint8_t x, uint8_t y) {
 
 uint32_t get_key_active_color(uint8_t layer, uint8_t x, uint8_t y) {
     return get_key_color(&active_colors[layer][y][x]);
+}
+
+uint8_t get_holdable(uint8_t layer, uint8_t x, uint8_t y) {
+    return holdable[y][x];
 }
 
 uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index) {
@@ -371,14 +381,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 uint8_t current_layer_type = layers[current_layer_index];
                 uint16_t const* key_macros = is_windows(current_layer_type) ? windows_configs[key_config_index] : macos_configs[key_config_index];
                 if (record->event.pressed) {
-                    for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
+                    if (holdable[x][y]) {
+                        return;
+                    }
+                    for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) { // register each code from config in sequence
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
                         register_code(code);
                     }
                 }
                 else {
-                    for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
+                    for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) { // deregister each code from config in sequence
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
                         unregister_code(code);
@@ -412,6 +425,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     } 
     return false;
+}
+
+void matrix_scan_kb(void) {
+    if ((repeat) && (timer_elapsed(timer) > 1000)) {
+        holdable_activate = true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
