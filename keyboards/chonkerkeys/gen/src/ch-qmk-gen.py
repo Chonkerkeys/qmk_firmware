@@ -62,6 +62,7 @@ size_ordinals = config["sizeOrdinals"]
 icons = config["icons"]
 offColors = config["keyOffColors"]
 onColors = config["keyOnColors"]
+holdable = config["holdable"]
 keymaps = config["keymaps"]
 customActions = config["customActions"]
 actionTypeToAnimationMaps = {
@@ -107,6 +108,10 @@ c_output += ";\n"
 c_output += "\n"
 c_output += "const uint32_t PROGMEM active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
 c_output += print_array(onColors, 0)
+c_output += ";\n"
+c_output += "\n"
+c_output += "const uint8_t PROGMEM holdable[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = "
+c_output += print_array(holdable, 0)
 c_output += ";\n"
 c_output += "\n"
 c_output += "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = "

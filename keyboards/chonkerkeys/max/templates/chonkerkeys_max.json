@@ -13,11 +13,6 @@
             "0",  "193", "0", "0",
             "130", "1",   "1", "1",
             "132", "1",   "1", "1"
-        ],
-        "holdable": [
-            "0", "1", "0", "0",
-            "0", "0", "0", "0",
-            "0", "0", "0", "0"
         ]
     },
     "layers": [
@@ -56,6 +51,14 @@
             ["RGB_STRAND_EFFECT_STATIC", "RGB_STRAND_EFFECT_DRAINSWIRL", "RGB_STRAND_EFFECT_STATIC", "RGB_STRAND_EFFECT_STATIC",
              "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_MOMENTARY",
              "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_BLINKY", "RGB_STRAND_EFFECT_MOMENTARY", "RGB_STRAND_EFFECT_MOMENTARY"]
+        ],
+        "holdable": [
+            ["0", "1", "0", "0",
+             "0", "0", "0", "0",
+             "0", "0", "0", "0"],
+            ["0", "1", "0", "0",
+             "0", "0", "0", "0",
+             "0", "0", "0", "0"]
         ]
     },
     "layer_custom_keys": [

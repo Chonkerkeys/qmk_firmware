@@ -200,6 +200,49 @@ const uint32_t PROGMEM active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
     }
 };
 
+const uint8_t PROGMEM holdable[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+    {
+        {
+            0,
+            0,
+            1,
+            0
+        },
+        {
+            0,
+            0,
+            0,
+            0
+        },
+        {
+            0,
+            0,
+            0,
+            0
+        }
+    },
+    {
+        {
+            0,
+            0,
+            1,
+            0
+        },
+        {
+            0,
+            0,
+            0,
+            0
+        },
+        {
+            0,
+            0,
+            0,
+            0
+        }
+    }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {
         {

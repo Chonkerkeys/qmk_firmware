@@ -17,10 +17,13 @@ extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MAC
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 
 // hold
-bool repeat_bool = false;
+bool hold = false;
 static uint16_t timer;
-extern const uint8_t holdable[MATRIX_ROWS][MATRIX_COLS];
-bool holdable_activate = false;
+extern const uint8_t PROGMEM holdable[][MATRIX_ROWS][MATRIX_COLS];
+bool hold_activated = false;
+uint16_t const* hold_temp;
+uint8_t hold_vars[3];
+uint8_t hold_original_anim;
 
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
@@ -128,15 +131,15 @@ uint32_t get_key_active_color(uint8_t layer, uint8_t x, uint8_t y) {
     return get_key_color(&active_colors[layer][y][x]);
 }
 
-uint8_t get_holdable(uint8_t layer, uint8_t x, uint8_t y) {
-    return holdable[y][x];
-}
-
 uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index) {
     // To stick to QMK keycode type, custom_actions uses uint16_t.
     // But we know the basic key code aren't using the higer byte, and custom actions
     // shouldn't use non-basic key code anyways, so just convert to uint8_t.
     return (uint8_t) pgm_read_word(&custom_actions[layer][y][x][index]);
+}
+
+uint8_t get_holdable(uint8_t layer, uint8_t x, uint8_t y) {
+    return pgm_read_byte(&holdable[layer][y][x]);
 }
 
 bool is_windows(uint8_t layer_type) {
@@ -327,7 +330,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     from_firmware_to_app_origin(&app_x, &app_y);
     // Requirement is, use the bottom row and left-most keys as key-switching hotkey
     if (app_y == 0 && app_x <= 1) {
-        if (record->event.pressed) {   
+        if (record->event.pressed) {
             if (is_either_pressed) {
                 if (is_connected) {
                     switch_layer_combo_down();
@@ -381,16 +384,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 uint8_t current_layer_type = layers[current_layer_index];
                 uint16_t const* key_macros = is_windows(current_layer_type) ? windows_configs[key_config_index] : macos_configs[key_config_index];
                 if (record->event.pressed) {
-                    if (holdable[x][y]) {
-                        return;
+                    if (get_holdable(get_current_layer_index(), col, row) == 0) {
+                        for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) { // register each code from config in sequence
+                            uint16_t code = key_macros[i];
+                            if (code == KC_NO) continue;
+                            register_code(code);
+                        }
+                    } else {
+                        hold = true; hold_activated = false;
+                        timer = timer_read();
+                        hold_temp = key_macros;
+                        hold_vars[0] = current_layer_index; hold_vars[1] = col; hold_vars[2] = row;
+                        hold_original_anim = pgm_read_byte(&key_anim[current_layer_index][row][col]);
                     }
-                    for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) { // register each code from config in sequence
-                        uint16_t code = key_macros[i];
-                        if (code == KC_NO) continue;
-                        register_code(code);
-                    }
-                }
-                else {
+                } else {
+                    hold = false;
                     for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) { // deregister each code from config in sequence
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
@@ -411,25 +419,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Process animation
         if (record->event.pressed) {
             // start animation
-            uint8_t anim = pgm_read_byte(&key_anim[current_layer_index][row][col]);
-            const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
-            rgb_strand_anim_config_t cfg;
-            memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
-            rgb_strand_animation_start(key_strand, anim,
-                    &cfg,
-                    RGB_STRAND_ANIM_STATE_STEADY);
+            if (get_holdable(get_current_layer_index(), col, row) == 0) {
+                uint8_t anim = pgm_read_byte(&key_anim[current_layer_index][row][col]);
+                const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
+                rgb_strand_anim_config_t cfg;
+                memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
+                rgb_strand_animation_start(key_strand, anim, &cfg, RGB_STRAND_ANIM_STATE_STEADY);
+            } else {
+                uint8_t anim = RGB_STRAND_EFFECT_BLINKY;
+                const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
+                rgb_strand_anim_config_t cfg;
+                memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
+                cfg.period = 500;
+                cfg.color.h = 0; cfg.color.s = 0; cfg.color.v = 100;
+                rgb_strand_animation_start(key_strand, anim, &cfg, RGB_STRAND_ANIM_STATE_START);
+            }
         }
         else {  // released
             // end animation
-            rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
+            if (get_holdable(get_current_layer_index(), col, row) == 0) {
+                rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
+            } else if (hold_activated == false) {
+                uint8_t anim = RGB_STRAND_EFFECT_STATIC;
+                const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
+                rgb_strand_anim_config_t cfg;
+                memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
+                rgb_strand_animation_start(key_strand, anim, &cfg, RGB_STRAND_ANIM_STATE_START);
+            }
         }
-    } 
+    }
     return false;
 }
 
 void matrix_scan_kb(void) {
-    if ((repeat) && (timer_elapsed(timer) > 1000)) {
-        holdable_activate = true;
+    if ((hold == true) && (timer_elapsed(timer) > 1500) && (hold_activated == false)) {
+        // register each code from config in sequence1
+        for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
+            uint16_t code = hold_temp[i];
+            if (code == KC_NO) continue;
+            register_code(code);
+        }
+        // start default key animation
+        uint8_t key_strand = from_x_y_to_index(hold_vars[1], hold_vars[2]);
+        const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(hold_original_anim);
+        rgb_strand_anim_config_t cfg;
+        memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
+        rgb_strand_animation_start(key_strand, hold_original_anim, &cfg, RGB_STRAND_ANIM_STATE_STEADY);
+        rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
+        // deregister each code from config in sequence
+        for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
+            uint16_t code = hold_temp[i];
+            if (code == KC_NO) continue;
+            unregister_code(code);
+        }
+        hold_activated = true;
+    }
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {

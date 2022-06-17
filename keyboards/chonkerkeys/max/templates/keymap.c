@@ -26,6 +26,10 @@ const uint32_t PROGMEM active_colors[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
 __REPLACE_key_on_colors__
 };
 
+const uint8_t PROGMEM holdable[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
+__REPLACE_holdable__
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 __KEYMAP_GOES_HERE__
 };

@@ -66,8 +66,8 @@ static rgb_strand_anim_config_t default_configs[] = {
     // RGB_STRAND_EFFECT_BLINKY,
     {
         .color = {HSV_YELLOW},
-        .period = 800,
-        .num_times = 10
+        .period = 500,
+        .num_times = 6
     },
     // RGB_STRAND_EFFECT_RAINBOW,
     {
