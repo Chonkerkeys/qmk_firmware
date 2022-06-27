@@ -30,10 +30,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 __KEYMAP_GOES_HERE__
 };
 
-const uint16_t PROGMEM custom_actions[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS][3] = {
-__CUSTOM_KEYS_GO_HERE__
-};
-
 const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = {
 __REPLACE_key_animations__
 };

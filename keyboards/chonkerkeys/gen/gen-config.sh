@@ -58,21 +58,11 @@ then
 		\"keymaps\": [ \
    			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"CH_ZOOM_RAISE_HAND_TOGGLE\"], \
-        		[\"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
+        		[\"CH_ZOOM_SHARE_SCREEN_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
     		], \
    			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"CH_ZOOM_RAISE_HAND_TOGGLE\"], \
-        		[\"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
-    		] \
-		], \
-		\"customActions\": [ \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+        		[\"CH_ZOOM_SHARE_SCREEN_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
     		] \
 		] \
 	}"
@@ -161,69 +151,35 @@ then
 		\"keymaps\": [ \
    			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"CH_ZOOM_RAISE_HAND_TOGGLE\"], \
-        		[\"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
+        		[\"CH_ZOOM_SHARE_SCREEN_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"CH_ZOOM_RAISE_HAND_TOGGLE\"], \
-        		[\"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
+        		[\"CH_ZOOM_SHARE_SCREEN_TOGGLE\", \"KC_NO\", \"CH_ZOOM_VIDEO_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_TEAMS_LEAVE_MEETING\", \"CH_TEAMS_RAISE_HAND_TOGGLE\"], \
-        		[\"CH_TEAMS_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_TEAMS_VIDEO_TOGGLE\", \"CH_TEAMS_MUTE_TOGGLE\"] \
+        		[\"CH_TEAMS_SHARE_SCREEN_TOGGLE\", \"KC_NO\", \"CH_TEAMS_VIDEO_TOGGLE\", \"CH_TEAMS_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_TEAMS_LEAVE_MEETING\", \"CH_TEAMS_RAISE_HAND_TOGGLE\"], \
-        		[\"CH_TEAMS_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_TEAMS_VIDEO_TOGGLE\", \"CH_TEAMS_MUTE_TOGGLE\"] \
+        		[\"CH_TEAMS_SHARE_SCREEN_TOGGLE\", \"KC_NO\", \"CH_TEAMS_VIDEO_TOGGLE\", \"CH_TEAMS_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_SKYPE_LEAVE_MEETING\", \"CH_SKYPE_RAISE_HAND_TOGGLE\"], \
-        		[\"CH_SKYPE_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_SKYPE_VIDEO_TOGGLE\", \"CH_SKYPE_MUTE_TOGGLE\"] \
+        		[\"CH_SKYPE_SHARE_SCREEN_TOGGLE\", \"KC_NO\", \"CH_SKYPE_VIDEO_TOGGLE\", \"CH_SKYPE_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_SKYPE_LEAVE_MEETING\", \"CH_SKYPE_RAISE_HAND_TOGGLE\"], \
-        		[\"CH_SKYPE_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_SKYPE_VIDEO_TOGGLE\", \"CH_SKYPE_MUTE_TOGGLE\"] \
+        		[\"CH_SKYPE_SHARE_SCREEN_TOGGLE\", \"KC_NO\", \"CH_SKYPE_VIDEO_TOGGLE\", \"CH_SKYPE_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_LEAVE_MEETING\", \"CH_GOOGLE_MEET_RAISE_HAND_TOGGLE\"], \
-        		[\"CH_GOOGLE_MEET_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_GOOGLE_MEET_VIDEO_TOGGLE\", \"CH_GOOGLE_MEET_MUTE_TOGGLE\"] \
+        		[\"CH_GOOGLE_MEET_SHARE_SCREEN_TOGGLE\", \"KC_NO\", \"CH_GOOGLE_MEET_VIDEO_TOGGLE\", \"CH_GOOGLE_MEET_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_LEAVE_MEETING\", \"CH_GOOGLE_MEET_RAISE_HAND_TOGGLE\"], \
-        		[\"CH_GOOGLE_MEET_SHARE_SCREEN_START_STOP_TOGGLE\", \"KC_NO\", \"CH_GOOGLE_MEET_VIDEO_TOGGLE\", \"CH_GOOGLE_MEET_MUTE_TOGGLE\"] \
-    		] \
-		], \
-		\"customActions\": [ \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+        		[\"CH_GOOGLE_MEET_SHARE_SCREEN_TOGGLE\", \"KC_NO\", \"CH_GOOGLE_MEET_VIDEO_TOGGLE\", \"CH_GOOGLE_MEET_MUTE_TOGGLE\"] \
     		] \
 		] \
 	}"
@@ -271,24 +227,12 @@ then
    			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_RAISE_HAND_TOGGLE\", \"CH_ZOOM_VIDEO_TOGGLE\"], \
-        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
+        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
     		], \
    			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_RAISE_HAND_TOGGLE\", \"CH_ZOOM_VIDEO_TOGGLE\"], \
-        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
-    		] \
-		], \
-		\"customActions\": [ \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
     		] \
 		] \
 	}"
@@ -396,84 +340,42 @@ then
    			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_RAISE_HAND_TOGGLE\", \"CH_ZOOM_VIDEO_TOGGLE\"], \
-        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
+        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_RAISE_HAND_TOGGLE\", \"CH_ZOOM_VIDEO_TOGGLE\"], \
-        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
+        		[\"KC_NO\", \"KC_NO\", \"CH_ZOOM_SHARE_SCREEN_TOGGLE\", \"CH_ZOOM_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_TEAMS_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_TEAMS_RAISE_HAND_TOGGLE\", \"CH_TEAMS_VIDEO_TOGGLE\"], \
-        		[\"KC_NO\", \"KC_NO\", \"CH_TEAMS_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_TEAMS_MUTE_TOGGLE\"] \
+        		[\"KC_NO\", \"KC_NO\", \"CH_TEAMS_SHARE_SCREEN_TOGGLE\", \"CH_TEAMS_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_TEAMS_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_TEAMS_RAISE_HAND_TOGGLE\", \"CH_TEAMS_VIDEO_TOGGLE\"], \
-        		[\"KC_NO\", \"KC_NO\", \"CH_TEAMS_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_TEAMS_MUTE_TOGGLE\"] \
+        		[\"KC_NO\", \"KC_NO\", \"CH_TEAMS_SHARE_SCREEN_TOGGLE\", \"CH_TEAMS_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_SKYPE_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_SKYPE_RAISE_HAND_TOGGLE\", \"CH_SKYPE_VIDEO_TOGGLE\"], \
-        		[\"KC_NO\", \"KC_NO\", \"CH_SKYPE_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_SKYPE_MUTE_TOGGLE\"] \
+        		[\"KC_NO\", \"KC_NO\", \"CH_SKYPE_SHARE_SCREEN_TOGGLE\", \"CH_SKYPE_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_SKYPE_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_SKYPE_RAISE_HAND_TOGGLE\", \"CH_SKYPE_VIDEO_TOGGLE\"], \
-        		[\"KC_NO\", \"KC_NO\", \"CH_SKYPE_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_SKYPE_MUTE_TOGGLE\"] \
+        		[\"KC_NO\", \"KC_NO\", \"CH_SKYPE_SHARE_SCREEN_TOGGLE\", \"CH_SKYPE_MUTE_TOGGLE\"] \
     		], \
 			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_RAISE_HAND_TOGGLE\", \"CH_GOOGLE_MEET_VIDEO_TOGGLE\"], \
-        		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_GOOGLE_MEET_MUTE_TOGGLE\"] \
+        		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_SHARE_SCREEN_TOGGLE\", \"CH_GOOGLE_MEET_MUTE_TOGGLE\"] \
     		], \
    			[ \
         		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_LEAVE_MEETING\", \"KC_NO\"], \
         		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_RAISE_HAND_TOGGLE\", \"CH_GOOGLE_MEET_VIDEO_TOGGLE\"], \
-        		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_SHARE_SCREEN_START_STOP_TOGGLE\", \"CH_GOOGLE_MEET_MUTE_TOGGLE\"] \
-    		] \
-		], \
-		\"customActions\": [ \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
-    		], \
-   			[ \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]], \
-        		[[\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"], [\"KC_NO\", \"KC_NO\", \"KC_NO\"]] \
+        		[\"KC_NO\", \"KC_NO\", \"CH_GOOGLE_MEET_SHARE_SCREEN_TOGGLE\", \"CH_GOOGLE_MEET_MUTE_TOGGLE\"] \
     		] \
 		] \
 	}"

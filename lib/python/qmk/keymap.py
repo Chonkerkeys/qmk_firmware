@@ -212,17 +212,6 @@ def add_layout_data(new_keymap, keymap_json):
             data_name_txt = '__REPLACE_%s__' % _remove_unsafe_chars(data_name)
             new_keymap = new_keymap.replace(data_name_txt, '\n'.join(layer_data_txt))
 
-    if keymap_json.get('layer_custom_keys'):
-        layer_keys_txt = []
-        c_macro = keymap_json['layout'] + '_CUSTOM_KEYS'
-        for layer_num, layer_keys in enumerate(keymap_json['layer_custom_keys']):
-            if len(layer_keys_txt) > 0:
-                layer_keys_txt[-1] = layer_keys_txt[-1] + ','
-            layer_keys = map(_remove_unsafe_chars, layer_keys)
-            layer_keys_str = ', '.join(layer_keys)
-            layer_keys_txt.append('\t[%s] = %s(%s)' % (layer_num, c_macro, layer_keys_str))
-        new_keymap = new_keymap.replace('__CUSTOM_KEYS_GO_HERE__', '\n'.join(layer_keys_txt))
-
     return new_keymap
 
 

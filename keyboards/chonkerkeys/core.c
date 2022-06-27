@@ -13,7 +13,6 @@ extern const uint8_t PROGMEM key_size_and_ordinals[MATRIX_ROWS][MATRIX_COLS];
 extern const uint32_t PROGMEM inactive_colors[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint32_t PROGMEM active_colors[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
-extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MACROS_MAX_COUNT];
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
@@ -45,7 +44,7 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_LALT, KC_H },
     { KC_LALT, KC_F4, KC_NO },
     // rest
-    { KC_AUDIO_VOL_UP, KC_NO, KC_NO }, 
+    { KC_AUDIO_VOL_UP, KC_NO, KC_NO },
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
@@ -79,7 +78,7 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_LGUI, KC_H },
     { KC_NO, KC_NO, KC_NO },
     // rest
-    { KC_AUDIO_VOL_UP, KC_NO, KC_NO }, 
+    { KC_AUDIO_VOL_UP, KC_NO, KC_NO },
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
@@ -120,13 +119,6 @@ uint32_t get_key_inactive_color(uint8_t layer, uint8_t x, uint8_t y) {
 
 uint32_t get_key_active_color(uint8_t layer, uint8_t x, uint8_t y) {
     return get_key_color(&active_colors[layer][y][x]);
-}
-
-uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index) {
-    // To stick to QMK keycode type, custom_actions uses uint16_t.
-    // But we know the basic key code aren't using the higer byte, and custom actions
-    // shouldn't use non-basic key code anyways, so just convert to uint8_t.
-    return (uint8_t) pgm_read_word(&custom_actions[layer][y][x][index]);
 }
 
 bool is_windows(uint8_t layer_type) {
@@ -317,7 +309,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     from_firmware_to_app_origin(&app_x, &app_y);
     // Requirement is, use the bottom row and left-most keys as key-switching hotkey
     if (app_y == 0 && app_x <= 1) {
-        if (record->event.pressed) {   
+        if (record->event.pressed) {
             if (is_either_pressed) {
                 if (is_connected) {
                     switch_layer_combo_down();
@@ -350,23 +342,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     else { // handle in hardware like normal keyboards
         uint8_t current_layer_index = get_current_layer_index();
         if (keycode >= CH_CUSTOM && keycode < CH_LAST_KEYCODE) {
-            if (keycode == CH_CUSTOM) {
-                if (record->event.pressed) {
-                    for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
-                        uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
-                        if (code == KC_NO) continue;
-                        register_code(code);
-                    }
-                }
-                else {
-                    for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
-                        uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
-                        if (code == KC_NO) continue;
-                        unregister_code(code);
-                    }
-                }
-            }
-            else {  // CH_ defined key codes
+            if (keycode != CH_CUSTOM) {  // CH_ defined key codes
                 uint16_t key_config_index = keycode - CH_CUSTOM;
                 uint8_t current_layer_type = layers[current_layer_index];
                 uint16_t const* key_macros = is_windows(current_layer_type) ? windows_configs[key_config_index] : macos_configs[key_config_index];
@@ -410,7 +386,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // end animation
             rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
         }
-    } 
+    }
     return false;
 }
 

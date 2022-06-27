@@ -37,8 +37,8 @@ def simplify_key_action(action):
         return "MUTE_TOGGLE"
     elif ('VIDEO_TOGGLE' in action):
         return "VIDEO_TOGGLE"
-    elif ("SHARE_SCREEN_START_STOP_TOGGLE" in action):
-        return "SHARE_SCREEN_START_STOP_TOGGLE"
+    elif ("SHARE_SCREEN_TOGGLE" in action):
+        return "SHARE_SCREEN_TOGGLE"
     elif ("RAISE_HAND_TOGGLE" in action):
         return "RAISE_HAND_TOGGLE"
     elif ("LEAVE_MEETING" in action):
@@ -55,6 +55,7 @@ args = parser.parse_args()
 
 firmware_version = args.firmware_version
 config = json.loads(args.config)
+
 name = config["name"]
 layers = config["layers"]
 layer_count = len(layers)
@@ -63,11 +64,10 @@ icons = config["icons"]
 offColors = config["keyOffColors"]
 onColors = config["keyOnColors"]
 keymaps = config["keymaps"]
-customActions = config["customActions"]
 actionTypeToAnimationMaps = {
     "MUTE_TOGGLE": "RGB_STRAND_EFFECT_MOMENTARY",
     "VIDEO_TOGGLE": "RGB_STRAND_EFFECT_MOMENTARY",
-    "SHARE_SCREEN_START_STOP_TOGGLE": "RGB_STRAND_EFFECT_BLINKY",
+    "SHARE_SCREEN_TOGGLE": "RGB_STRAND_EFFECT_BLINKY",
     "RAISE_HAND_TOGGLE": "RGB_STRAND_EFFECT_LIKE",
     "LEAVE_MEETING": "RGB_STRAND_EFFECT_DRAINSWIRL"
 }
@@ -111,10 +111,6 @@ c_output += ";\n"
 c_output += "\n"
 c_output += "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = "
 c_output += print_array(keymaps, 0)
-c_output += ";\n"
-c_output += "\n"
-c_output += "const uint16_t PROGMEM custom_actions[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS][3] = "
-c_output += print_array(customActions, 0)
 c_output += ";\n"
 c_output += "\n"
 c_output += "const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = "
