@@ -404,11 +404,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
             rgb_strand_animation_start(key_strand, anim,
                     &cfg,
-                    RGB_STRAND_ANIM_STATE_STEADY);
+                    rgb_strand_animation_get_pressed_state(key_strand, anim));
         }
         else {  // released
             // end animation
-            rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
+            uint8_t anim = pgm_read_byte(&key_anim[current_layer_index][row][col]);
+            rgb_strand_animation_set_state(key_strand,
+                    rgb_strand_animation_get_released_state(key_strand, anim));
         }
     } 
     return false;

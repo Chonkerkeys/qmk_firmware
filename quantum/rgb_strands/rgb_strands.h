@@ -34,6 +34,8 @@ typedef enum {
     RGB_STRAND_EFFECT_BLINKY,
     RGB_STRAND_EFFECT_RAINBOW,
     RGB_STRAND_EFFECT_BREATHING,
+    RGB_STRAND_EFFECT_CYCLE_COLOR,
+    RGB_STRAND_EFFECT_CYCLE_2COLORS,
     RGB_STRAND_EFFECT_INVALID,
 } rgb_strands_anim_t;
 
@@ -69,6 +71,16 @@ typedef enum {
     RGB_STRAND_ANIM_STATE_RAINBOW = 2,
 
     RGB_STRAND_ANIM_STATE_BREATHING = 2,
+
+    RGB_STRAND_ANIM_STATE_CYCLE_COLOR_ON = 2,
+    RGB_STRAND_ANIM_STATE_CYCLE_COLOR_OFF = 3,
+
+    RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_C1 = 2,
+    RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_C2 = 3,
+    RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_OFF = 4,
+    RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_C2 = 5,
+    RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_C1 = 6,
+    RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_OFF = 7,
  } rgb_strand_anim_state_t;
 
 const rgb_strand_anim_config_t * get_default_rgb_strand_anim_config(uint8_t anim);
@@ -82,6 +94,12 @@ void rgb_strands_wakeup(void);
 
 /** Set all LEDs in the specified strand to the same color, no animation. */
 void rgb_strand_set_color(uint8_t strand, uint8_t r, uint8_t g, uint8_t b);
+
+/** Gets the initial state on click for the specified strand. */
+rgb_strand_anim_state_t rgb_strand_animation_get_pressed_state(uint8_t strand, uint8_t anim);
+
+/** Gets the end state on release for the specified strand. */
+rgb_strand_anim_state_t rgb_strand_animation_get_released_state(uint8_t strand, uint8_t effect);
 
 /** Start animation on the strand. Config is optional */
 void rgb_strand_animation_start(

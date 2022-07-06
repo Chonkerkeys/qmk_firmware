@@ -34,7 +34,10 @@ typedef struct _rgb_strand_anim_status_t {
     struct {
         uint8_t state; // current state as defined by animation
         HSV color;
-        uint8_t led_i;
+        union {
+            uint8_t led_i;
+            uint8_t last_state;
+        };
         uint8_t count;
     } current;
 } rgb_strand_anim_status_t;
@@ -81,6 +84,14 @@ static rgb_strand_anim_config_t default_configs[] = {
         .period = 5000,
         .num_times = 10
     },
+    // RGB_STRAND_EFFECT_CYCLE_COLOR,
+    {
+        .color = {HSV_RED}
+    },
+    // RGB_STRAND_EFFECT_CYCLE_2COLORS,
+    {
+        .color = {HSV_GREEN} // first color is defined above in EFFECT_CYCLE_COLOR. This is the second color
+    },
     {} // RGB_STRAND_EFFECT_INVALID
 };
 
@@ -118,6 +129,10 @@ void rgb_strand_effect_rainbow(uint8_t strand, rgb_strand_anim_status_t *status,
 void rgb_strand_set_state_rainbow(uint8_t strand,rgb_strand_anim_state_t state, rgb_strand_anim_status_t *status, uint16_t now);
 void rgb_strand_effect_breathing(uint8_t strand, rgb_strand_anim_status_t *status, uint16_t now);
 void rgb_strand_set_state_breathing(uint8_t strand,rgb_strand_anim_state_t state, rgb_strand_anim_status_t *status, uint16_t now);
+void rgb_strand_effect_cycle_color(uint8_t strand, rgb_strand_anim_status_t *status, uint16_t now);
+void rgb_strand_set_state_cycle_color(uint8_t strand,rgb_strand_anim_state_t state, rgb_strand_anim_status_t *status, uint16_t now);
+void rgb_strand_effect_cycle_2colors(uint8_t strand, rgb_strand_anim_status_t *status, uint16_t now);
+void rgb_strand_set_state_cycle_2colors(uint8_t strand,rgb_strand_anim_state_t state, rgb_strand_anim_status_t *status, uint16_t now);
 
 void sethsv_rs(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led) {
     val = val > RGB_STRAND_LIMIT_VAL ? RGB_STRAND_LIMIT_VAL : val;
@@ -195,10 +210,7 @@ void rgb_strands_init(void) {
 
     for (uint8_t i = 0; i < RGB_STRANDS_NUM; i++) {
         rgb_strand_anim_status_t * status = &rgb_strand_anim_status[i];
-        status->effect = RGB_STRAND_EFFECT_STATIC;
-        status->config.color.h = 0;
-        status->config.color.s = 0;
-        status->config.color.v = 0;
+        memset(status, 0, sizeof(rgb_strand_anim_status_t));
     }
 
     timer_init();
@@ -241,6 +253,12 @@ void rgb_strands_task(void) {
                     case RGB_STRAND_EFFECT_BREATHING:
                         effect_func = rgb_strand_effect_breathing;
                         break;
+                    case RGB_STRAND_EFFECT_CYCLE_COLOR:
+                        effect_func = rgb_strand_effect_cycle_color;
+                        break;
+                    case RGB_STRAND_EFFECT_CYCLE_2COLORS:
+                        effect_func = rgb_strand_effect_cycle_2colors;
+                        break;
                     default:
                         break;
                 }
@@ -265,6 +283,71 @@ void rgb_strand_set_color(uint8_t strand, uint8_t h, uint8_t s, uint8_t v) {
     status->config.color.h = h;
     status->config.color.s = s;
     status->config.color.v = v;
+}
+
+rgb_strand_anim_state_t rgb_strand_animation_get_pressed_state(uint8_t strand, uint8_t anim) {
+    rgb_strand_anim_status_t * status;
+    uint8_t state;
+    switch (anim) {
+        case RGB_STRAND_EFFECT_CYCLE_COLOR:
+            status = &rgb_strand_anim_status[strand];
+            state = RGB_STRAND_ANIM_STATE_CYCLE_COLOR_ON; // default and first time pressing
+            if (status->current.last_state) {
+                // last state is not default, so subsequent cycle of all states
+                switch(status->current.last_state) {
+                    case RGB_STRAND_ANIM_STATE_CYCLE_COLOR_ON:
+                        state = RGB_STRAND_ANIM_STATE_CYCLE_COLOR_OFF;
+                        break;
+                    case RGB_STRAND_ANIM_STATE_CYCLE_COLOR_OFF:
+                        state = RGB_STRAND_ANIM_STATE_CYCLE_COLOR_ON;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return state;
+            break;
+        case RGB_STRAND_EFFECT_CYCLE_2COLORS:
+            status = &rgb_strand_anim_status[strand];
+            state = RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_C1; // default and first time pressing
+            if (status->current.last_state) {
+                // last state is not default, so subsequent cycle of all states
+                switch(status->current.last_state) {
+                    case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_C1:
+                        state = RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_C2;
+                        break;
+                    case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_C2:
+                        state = RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_OFF;
+                        break;
+                    case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_OFF:
+                        state = RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_C2;
+                        break;
+                    case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_C2:
+                        state = RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_C1;
+                        break;
+                    case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_C1:
+                        state = RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_OFF;
+                        break;
+                    case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_OFF:
+                        state = RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_C1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return state;
+            break;
+        default:
+            return RGB_STRAND_ANIM_STATE_STEADY;
+    }
+}
+
+rgb_strand_anim_state_t rgb_strand_animation_get_released_state(uint8_t strand, uint8_t effect) {
+    if (effect == RGB_STRAND_EFFECT_CYCLE_COLOR || effect == RGB_STRAND_EFFECT_CYCLE_2COLORS) {
+        rgb_strand_anim_status_t * status = &rgb_strand_anim_status[strand];
+        return status->current.state;
+    }
+    return RGB_STRAND_ANIM_STATE_START;
 }
 
 void rgb_strand_animation_start(
@@ -316,6 +399,11 @@ void rgb_strand_animation_set_state(uint8_t strand, rgb_strand_anim_state_t stat
         case RGB_STRAND_EFFECT_BREATHING:
             set_state_func = rgb_strand_set_state_breathing;
             break;
+        case RGB_STRAND_EFFECT_CYCLE_COLOR:
+            set_state_func = rgb_strand_set_state_cycle_color;
+            break;
+        case RGB_STRAND_EFFECT_CYCLE_2COLORS:
+            set_state_func = rgb_strand_set_state_cycle_2colors;
         default:
             break;
     }
@@ -588,6 +676,49 @@ void rgb_strand_set_state_breathing(uint8_t strand, rgb_strand_anim_state_t stat
         default:
             break;
     }
+}
+
+void rgb_strand_effect_cycle_color(uint8_t strand, rgb_strand_anim_status_t *status, uint16_t now) {
+    switch (status->current.state) {
+        case RGB_STRAND_ANIM_STATE_CYCLE_COLOR_ON:
+            rgb_strand_set_same_color(strand, status->config.color.h, status->config.color.s, status->config.color.v);
+            break;
+        case RGB_STRAND_ANIM_STATE_CYCLE_COLOR_OFF:
+            rgb_strand_set_same_color(strand, 0, 0, 0);
+            break;
+        default:
+            return;
+    }
+}
+
+void rgb_strand_set_state_cycle_color(uint8_t strand, rgb_strand_anim_state_t state, rgb_strand_anim_status_t *status, uint16_t now) {
+    status->current.last_state = status->current.state;
+    status->current.state = state;
+}
+
+void rgb_strand_effect_cycle_2colors(uint8_t strand, rgb_strand_anim_status_t *status, uint16_t now) {
+    const rgb_strand_anim_config_t *ocfg = get_default_rgb_strand_anim_config(RGB_STRAND_EFFECT_CYCLE_COLOR);
+    switch (status->current.state) {
+        case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_C1:
+        case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_C1:
+            rgb_strand_set_same_color(strand, status->config.color.h, status->config.color.s, status->config.color.v);
+            break;
+        case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_C2:
+        case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_C2:
+            rgb_strand_set_same_color(strand, ocfg->color.h, ocfg->color.s, ocfg->color.v);
+            break;
+        case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_1_OFF:
+        case RGB_STRAND_ANIM_STATE_CYCLE_2COLORS_2_OFF:
+            rgb_strand_set_same_color(strand, 0, 0, 0);
+            break;
+        default:
+            return;
+    }
+}
+
+void rgb_strand_set_state_cycle_2colors(uint8_t strand, rgb_strand_anim_state_t state, rgb_strand_anim_status_t *status, uint16_t now) {
+    status->current.last_state = status->current.state;
+    status->current.state = state;
 }
 
 uint8_t rgb_strand_get_num_leds(uint8_t strand) {
