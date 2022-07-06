@@ -18,72 +18,64 @@ extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
-const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
+const uint16_t key_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_NO, KC_NO, KC_NO },
-    // zoom
+    // zoom win
     { KC_LALT, KC_A, KC_NO },
     { KC_LALT, KC_V, KC_NO },
     { KC_LALT, KC_S, KC_NO },
     { KC_LALT, KC_Y, KC_NO },
     { KC_LALT, KC_Q, KC_NO },
-    // teams
-    { KC_LCTRL, KC_LSHIFT, KC_M },
-    { KC_LCTRL, KC_LSHIFT, KC_O },
-    { KC_LCTRL, KC_LSHIFT, KC_E },
-    { KC_LCTRL, KC_LSHIFT, KC_K },
-    { KC_LCTRL, KC_LSHIFT, KC_H },
-    // skype
-    { KC_LCTRL, KC_M, KC_NO },
-    { KC_LCTRL, KC_LSHIFT, KC_K },
-    { KC_NO, KC_NO, KC_NO },
-    { KC_NO, KC_NO, KC_NO },
-    { KC_LCTRL, KC_LSHIFT, KC_H },
-    // google meet
-    { KC_LCTRL, KC_D, KC_NO },
-    { KC_LCTRL, KC_E, KC_NO },
-    { KC_NO, KC_NO, KC_NO },
-    { KC_LCTRL, KC_LALT, KC_H },
-    { KC_LALT, KC_F4, KC_NO },
-    // rest
-    { KC_AUDIO_VOL_UP, KC_NO, KC_NO }, 
-    { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
-    { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
-    { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
-    { KC_LALT, KC_TAB, KC_NO },
-};
-
-const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
-        { KC_NO, KC_NO, KC_NO },
-    // zoom
+    // zoom mac
     { KC_LGUI, KC_LSHIFT, KC_A },
     { KC_LGUI, KC_LSHIFT, KC_V },
     { KC_LGUI, KC_LSHIFT, KC_S },
     { KC_LALT, KC_Y, KC_NO },
     { KC_LGUI, KC_W, KC_NO },
-    // teams
+    // teams win
+    { KC_LCTRL, KC_LSHIFT, KC_M },
+    { KC_LCTRL, KC_LSHIFT, KC_O },
+    { KC_LCTRL, KC_LSHIFT, KC_E },
+    { KC_LCTRL, KC_LSHIFT, KC_K },
+    { KC_LCTRL, KC_LSHIFT, KC_H },
+    // teams mac
     { KC_LSHIFT, KC_LGUI, KC_M },
     { KC_LSHIFT, KC_LGUI, KC_O },
     { KC_LSHIFT, KC_LGUI, KC_E },
     { KC_LSHIFT, KC_LGUI, KC_K },
     { KC_LSHIFT, KC_LGUI, KC_H },
-    // skype
+    // skype win
+    { KC_LCTRL, KC_M, KC_NO },
+    { KC_LCTRL, KC_LSHIFT, KC_K },
+    { KC_NO, KC_NO, KC_NO },
+    { KC_NO, KC_NO, KC_NO },
+    { KC_LCTRL, KC_LSHIFT, KC_H },
+    // skype mac
     { KC_LSHIFT, KC_LGUI, KC_M },
     { KC_LSHIFT, KC_LGUI, KC_K },
     { KC_NO, KC_NO, KC_NO },
     { KC_NO, KC_NO, KC_NO },
     { KC_LSHIFT, KC_LGUI, KC_H },
-    // google meet
+    // google meet win
+    { KC_LCTRL, KC_D, KC_NO },
+    { KC_LCTRL, KC_E, KC_NO },
+    { KC_NO, KC_NO, KC_NO },
+    { KC_LCTRL, KC_LALT, KC_H },
+    { KC_LALT, KC_F4, KC_NO },
+    // google meet mac
     { KC_LGUI, KC_D, KC_NO },
     { KC_LGUI, KC_E, KC_NO },
     { KC_NO, KC_NO, KC_NO },
     { KC_LCTRL, KC_LGUI, KC_H },
     { KC_NO, KC_NO, KC_NO },
+    // switch window
+    { KC_LALT, KC_TAB, KC_NO },
+    { KC_LGUI, KC_TAB, KC_NO },
     // rest
-    { KC_AUDIO_VOL_UP, KC_NO, KC_NO }, 
+    { KC_AUDIO_VOL_UP, KC_NO, KC_NO },
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
-    { KC_LGUI, KC_TAB, KC_NO },
 };
 
 bool is_connected = false;
@@ -127,10 +119,6 @@ uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index
     // But we know the basic key code aren't using the higer byte, and custom actions
     // shouldn't use non-basic key code anyways, so just convert to uint8_t.
     return (uint8_t) pgm_read_word(&custom_actions[layer][y][x][index]);
-}
-
-bool is_windows(uint8_t layer_type) {
-    return layer_type % 2 == 0;
 }
 
 uint8_t get_current_layer_index(void) {
@@ -317,7 +305,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     from_firmware_to_app_origin(&app_x, &app_y);
     // Requirement is, use the bottom row and left-most keys as key-switching hotkey
     if (app_y == 0 && app_x <= 1) {
-        if (record->event.pressed) {   
+        if (record->event.pressed) {
             if (is_either_pressed) {
                 if (is_connected) {
                     switch_layer_combo_down();
@@ -368,8 +356,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             else {  // CH_ defined key codes
                 uint16_t key_config_index = keycode - CH_CUSTOM;
-                uint8_t current_layer_type = layers[current_layer_index];
-                uint16_t const* key_macros = is_windows(current_layer_type) ? windows_configs[key_config_index] : macos_configs[key_config_index];
+                uint16_t const* key_macros = key_configs[key_config_index];
                 if (record->event.pressed) {
                     for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                         uint16_t code = key_macros[i];
@@ -410,7 +397,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // end animation
             rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
         }
-    } 
+    }
     return false;
 }
 
