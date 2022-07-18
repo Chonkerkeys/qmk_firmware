@@ -16,7 +16,31 @@ extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MACROS_MAX_COUNT];
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 
+// hold vars, could use some refinement
+bool hold_key_held = false;
+bool hold_key_activated = false;
+static uint16_t hold_timer;
+uint8_t hold_vars[3];
+uint16_t const* hold_macros;
+uint8_t hold_original_animation;
+uint8_t hold_key_index;
+
+
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
+
+const bool to_hold[KEYCODE_COUNT] = { // align indices with key_configs so only each leave meeting is hold-able
+    0,
+    0,0,0,0,1,
+    0,0,0,0,1,
+    0,0,0,0,1,
+    0,0,0,0,1,
+    0,0,0,0,1,
+    0,0,0,0,1,
+    0,0,0,0,1,
+    0,0,0,0,1,
+    0,0,
+    0,0,0,0,
+};
 
 const uint16_t key_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_NO, KC_NO, KC_NO },
@@ -358,13 +382,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 uint16_t key_config_index = keycode - CH_CUSTOM;
                 uint16_t const* key_macros = key_configs[key_config_index];
                 if (record->event.pressed) {
-                    for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
-                        uint16_t code = key_macros[i];
-                        if (code == KC_NO) continue;
-                        register_code(code);
+                    if (!to_hold[key_config_index]) { //just register as normal keypress
+                        for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
+                            uint16_t code = key_macros[i];
+                            if (code == KC_NO) continue;
+                            register_code(code);
+                        }
+                    } else { // start hold timer and save variables
+                        hold_key_held = true; hold_key_activated = false;
+                        hold_timer = timer_read();
+                        hold_key_index = key_config_index;
+                        hold_macros = key_macros;
+                        hold_vars[0] = current_layer_index; hold_vars[1] = col; hold_vars[2] = row;
+                        hold_original_animation = pgm_read_byte(&key_anim[current_layer_index][row][col]);
                     }
                 }
-                else {
+                else { // release
+                    hold_key_held = false;
                     for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
@@ -385,20 +419,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Process animation
         if (record->event.pressed) {
             // start animation
-            uint8_t anim = pgm_read_byte(&key_anim[current_layer_index][row][col]);
-            const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
-            rgb_strand_anim_config_t cfg;
-            memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
-            rgb_strand_animation_start(key_strand, anim,
-                    &cfg,
-                    RGB_STRAND_ANIM_STATE_STEADY);
+            if (!to_hold[hold_key_index]) {
+                uint8_t anim = pgm_read_byte(&key_anim[current_layer_index][row][col]);
+                const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
+                rgb_strand_anim_config_t cfg;
+                memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
+                rgb_strand_animation_start(key_strand, anim, &cfg, RGB_STRAND_ANIM_STATE_STEADY);
+            } else {
+                uint8_t hold_anim = RGB_STRAND_EFFECT_BLINKY;
+                const rgb_strand_anim_config_t *hold_dcfg = get_default_rgb_strand_anim_config(hold_anim);
+                rgb_strand_anim_config_t hold_cfg;
+                memcpy(&hold_cfg, hold_dcfg, sizeof(rgb_strand_anim_config_t));
+                hold_cfg.period = 500;
+                hold_cfg.color.h = 0; hold_cfg.color.s = 0; hold_cfg.color.v = 100;
+                rgb_strand_animation_start(key_strand, hold_anim, &hold_cfg, RGB_STRAND_ANIM_STATE_START);
+            }
+
         }
         else {  // released
             // end animation
-            rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
+            if (!to_hold[hold_key_index]) {
+                rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
+            } else if (!hold_key_activated) {
+                rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_OFF);
+            }
+            hold_key_index = 0;
         }
     }
     return false;
+}
+
+void matrix_scan_kb(void) {
+        if (hold_key_held && (timer_elapsed(hold_timer) > 1500) && !hold_key_activated) { // if still held after time, activate key
+        // register each code from config in sequence
+        for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
+            uint16_t code = hold_macros[i];
+            if (code == KC_NO) continue;
+            register_code(code);
+        }
+
+        // start default key animation
+        uint8_t key_strand = from_x_y_to_index(hold_vars[1], hold_vars[2]);
+        const rgb_strand_anim_config_t *hold_dcfg = get_default_rgb_strand_anim_config(hold_original_animation);
+        rgb_strand_anim_config_t hold_cfg;
+        memcpy(&hold_cfg, hold_dcfg, sizeof(rgb_strand_anim_config_t));
+        rgb_strand_animation_start(key_strand, hold_original_animation, &hold_cfg, RGB_STRAND_ANIM_STATE_START);
+
+        // deregister each code from config in sequence
+        for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
+            uint16_t code = hold_macros[i];
+            if (code == KC_NO) continue;
+            unregister_code(code);
+        }
+        hold_key_activated = true;
+    }
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
