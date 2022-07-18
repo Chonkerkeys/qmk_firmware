@@ -38,6 +38,8 @@ const bool to_hold[KEYCODE_COUNT] = { // align indices with key_configs so only 
     0,0,0,0,1,
     0,0,0,0,1,
     0,0,0,0,1,
+    0,0,0,0,1,
+    0,0,0,0,1,
     0,0,
     0,0,0,0,
 };
@@ -92,6 +94,18 @@ const uint16_t key_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_NO, KC_NO, KC_NO },
     { KC_LCTRL, KC_LGUI, KC_H },
     { KC_NO, KC_NO, KC_NO },
+    // facetime win
+    { KC_M, KC_NO, KC_NO },
+    { KC_C, KC_NO, KC_NO },
+    { KC_NO, KC_NO, KC_NO },
+    { KC_NO, KC_NO, KC_NO },
+    { KC_L, KC_NO, KC_NO },
+    // facetime mac
+    { KC_LGUI, KC_LSHIFT, KC_M },
+    { KC_NO, KC_NO, KC_NO },
+    { KC_NO, KC_NO, KC_NO },
+    { KC_NO, KC_NO, KC_NO },
+    { KC_LGUI, KC_W, KC_NO },
     // switch window
     { KC_LALT, KC_TAB, KC_NO },
     { KC_LGUI, KC_TAB, KC_NO },
@@ -300,7 +314,7 @@ void on_switch_layer(uint8_t index) {
 }
 
 bool is_common_action(uint16_t keycode) {
-    return keycode >= CH_VOLUME_UP;
+    return (keycode >= CH_VOLUME_UP) || (keycode < SAFE_RANGE);
 }
 
 const uint32_t connectionReadTimeoutMs = 5000;
@@ -430,6 +444,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 const rgb_strand_anim_config_t *hold_dcfg = get_default_rgb_strand_anim_config(hold_anim);
                 rgb_strand_anim_config_t hold_cfg;
                 memcpy(&hold_cfg, hold_dcfg, sizeof(rgb_strand_anim_config_t));
+                // set custom blink parameters
                 hold_cfg.period = 500;
                 hold_cfg.color.h = 0; hold_cfg.color.s = 0; hold_cfg.color.v = 100;
                 rgb_strand_animation_start(key_strand, hold_anim, &hold_cfg, RGB_STRAND_ANIM_STATE_START);
