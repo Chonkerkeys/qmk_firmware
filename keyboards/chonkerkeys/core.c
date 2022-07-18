@@ -30,16 +30,16 @@ uint8_t hold_key_index;
 
 const bool to_hold[KEYCODE_COUNT] = { // align indices with key_configs so only each leave meeting is hold-able
     0,
-    0,0,0,0,1,
-    0,0,0,0,1,
-    0,0,0,0,1,
-    0,0,0,0,1,
-    0,0,0,0,1,
-    0,0,0,0,1,
-    0,0,0,0,1,
-    0,0,0,0,1,
-    0,0,0,0,1,
-    0,0,0,0,1,
+    0,0,0,0,1, //z w
+    0,0,0,0,1, //z m
+    0,0,0,0,1, //t w
+    0,0,0,0,1, //t m
+    0,0,0,0,1, //s w
+    0,0,0,0,1, //s m
+    0,0,0,0,1, //m w
+    0,0,0,0,1, //m m
+    0,0,0,0,1, //f w
+    0,0,0,0,1, //f m
     0,0,
     0,0,0,0,
 };
@@ -314,7 +314,7 @@ void on_switch_layer(uint8_t index) {
 }
 
 bool is_common_action(uint16_t keycode) {
-    return (keycode >= CH_VOLUME_UP) || (keycode < SAFE_RANGE);
+    return (keycode >= CH_VOLUME_UP) || (keycode < SAFE_RANGE) || (keycode == CH_CUSTOM);
 }
 
 const uint32_t connectionReadTimeoutMs = 5000;
