@@ -45,7 +45,7 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_LALT, KC_H },
     { KC_LALT, KC_F4, KC_NO },
     // rest
-    { KC_AUDIO_VOL_UP, KC_NO, KC_NO }, 
+    { KC_AUDIO_VOL_UP, KC_NO, KC_NO },
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
@@ -79,7 +79,7 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_LGUI, KC_H },
     { KC_NO, KC_NO, KC_NO },
     // rest
-    { KC_AUDIO_VOL_UP, KC_NO, KC_NO }, 
+    { KC_AUDIO_VOL_UP, KC_NO, KC_NO },
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
@@ -317,11 +317,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     from_firmware_to_app_origin(&app_x, &app_y);
     // Requirement is, use the bottom row and left-most keys as key-switching hotkey
     if (app_y == 0 && app_x <= 1) {
-        if (record->event.pressed) {   
+        if (record->event.pressed) {
             if (is_either_pressed) {
                 if (is_connected) {
                     switch_layer_combo_down();
                 } else {
+                    clear_keyboard();
                     switch_to_next_layer();
                 }
                 return false;
@@ -410,7 +411,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // end animation
             rgb_strand_animation_set_state(key_strand, RGB_STRAND_ANIM_STATE_START);
         }
-    } 
+    }
     return false;
 }
 
