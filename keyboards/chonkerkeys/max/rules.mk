@@ -24,4 +24,6 @@ RGB_STRANDS_ENABLE = yes    # Enable keyboard multiple RGB strands
 AUDIO_ENABLE = no           # Audio output
 CIE1931_CURVE = no          # Don't load the curve table to save space
 
-EXTRAFLAGS += -flto
+UNICODE_ENABLE = yes		# Enable sending Unicode
+
+EXTRAFLAGS += -flto			# Enable Link Time Optimization
