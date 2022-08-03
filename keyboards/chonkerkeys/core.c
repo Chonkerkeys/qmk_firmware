@@ -49,13 +49,12 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
-    { KC_LALT, KC_TAB, KC_NO },
     // productivity
     { KC_LCTRL, KC_C, KC_NO },
     { KC_LCTRL, KC_V, KC_NO },
     { KC_LCTRL, KC_S, KC_NO },
     { KC_LCTRL, KC_Z, KC_NO },
-    { KC_BTN1, KC_NO, KC_NO},
+    { KC_BTN1, KC_NO, KC_NO },
 };
 
 const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
@@ -89,7 +88,6 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
-    { KC_LGUI, KC_TAB, KC_NO },
     // productivity
     { KC_LGUI, KC_C, KC_NO },
     { KC_LGUI, KC_V, KC_NO },
