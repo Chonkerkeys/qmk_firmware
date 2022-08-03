@@ -38,6 +38,6 @@ enum custom_keycodes {
     CH_PASTE,
     CH_SAVE_FILE,
     CH_UNDO,
-    CH_M1,
+    CH_MC1,
     CH_LAST_KEYCODE
 };
