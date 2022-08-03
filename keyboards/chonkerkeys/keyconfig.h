@@ -34,6 +34,10 @@ enum custom_keycodes {
     CH_VOLUME_DOWN,
     CH_MEDIA_NEXT,
     CH_MEDIA_PLAY_PAUSE,
-    CH_SWITCH_WINDOW,
+    CH_COPY,
+    CH_PASTE,
+    CH_SAVE_FILE,
+    CH_UNDO,
+    CH_M1,
     CH_LAST_KEYCODE
 };
