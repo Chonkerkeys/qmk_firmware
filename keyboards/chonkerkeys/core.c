@@ -50,10 +50,16 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
     { KC_LALT, KC_TAB, KC_NO },
+    // productivity
+    { KC_LCTRL, KC_C, KC_NO },
+    { KC_LCTRL, KC_V, KC_NO },
+    { KC_LCTRL, KC_S, KC_NO },
+    { KC_LCTRL, KC_Z, KC_NO },
+    { KC_BTN1, KC_NO, KC_NO},
 };
 
 const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
-        { KC_NO, KC_NO, KC_NO },
+    { KC_NO, KC_NO, KC_NO },
     // zoom
     { KC_LGUI, KC_LSHIFT, KC_A },
     { KC_LGUI, KC_LSHIFT, KC_V },
@@ -84,6 +90,12 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_MEDIA_NEXT_TRACK, KC_NO, KC_NO },
     { KC_MEDIA_PLAY_PAUSE, KC_NO, KC_NO },
     { KC_LGUI, KC_TAB, KC_NO },
+    // productivity
+    { KC_LGUI, KC_C, KC_NO },
+    { KC_LGUI, KC_V, KC_NO },
+    { KC_LGUI, KC_S, KC_NO },
+    { KC_LGUI, KC_Z, KC_NO },
+    { KC_BTN1, KC_NO, KC_NO},
 };
 
 bool is_connected = false;
@@ -379,7 +391,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     }
                 }
                 else {
-                    for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
+                    for (int32_t i = KEY_MACROS_MAX_COUNT; i >= 0; --i) {
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
                         unregister_code(code);
