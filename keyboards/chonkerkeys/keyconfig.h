@@ -39,5 +39,7 @@ enum custom_keycodes {
     CH_SAVE_FILE,
     CH_UNDO,
     CH_MC1,
+    CH_ZOOM_CHAT_TOGGLE,
+    CH_ZOOM_RECORD_TOGGLE,
     CH_LAST_KEYCODE
 };
