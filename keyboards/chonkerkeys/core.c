@@ -55,8 +55,10 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_S, KC_NO },
     { KC_LCTRL, KC_Z, KC_NO },
     { KC_BTN1, KC_NO, KC_NO },
+    // meeting utility
     { KC_LCTRL, KC_H, KC_NO },
     { KC_LCTRL, KC_R, KC_NO },
+    { KC_LCTRL, KC_LALT, KC_C },
 };
 
 const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
@@ -96,8 +98,10 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LGUI, KC_S, KC_NO },
     { KC_LGUI, KC_Z, KC_NO },
     { KC_BTN1, KC_NO, KC_NO},
+    // meeting utility
     { KC_LGUI, KC_LSHIFT, KC_H },
     { KC_LGUI, KC_LSHIFT, KC_R },
+    { KC_LGUI, KC_LCTRL, KC_C },
 };
 
 bool is_connected = false;
@@ -302,7 +306,7 @@ void on_switch_layer(uint8_t index) {
 }
 
 bool is_common_action(uint16_t keycode) {
-    return (keycode >= CH_VOLUME_UP && keycode != CH_ZOOM_CHAT_TOGGLE && keycode != CH_ZOOM_RECORD_TOGGLE);
+    return (keycode >= CH_VOLUME_UP && (keycode < CH_ZOOM_CHAT_TOGGLE && keycode > CH_GOOGLE_MEET_CHAT_TOGGLE));
 }
 
 const uint32_t connectionReadTimeoutMs = 5000;
