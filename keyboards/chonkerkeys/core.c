@@ -306,7 +306,7 @@ void on_switch_layer(uint8_t index) {
 }
 
 bool is_common_action(uint16_t keycode) {
-    return (keycode >= CH_VOLUME_UP && (keycode < CH_ZOOM_CHAT_TOGGLE && keycode > CH_GOOGLE_MEET_CHAT_TOGGLE));
+    return (keycode >= CH_VOLUME_UP && (keycode < CH_ZOOM_CHAT_TOGGLE || keycode > CH_GOOGLE_MEET_CHAT_TOGGLE));
 }
 
 const uint32_t connectionReadTimeoutMs = 5000;
