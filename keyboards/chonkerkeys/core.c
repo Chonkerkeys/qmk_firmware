@@ -309,6 +309,10 @@ bool is_common_action(uint16_t keycode) {
     return (keycode >= CH_VOLUME_UP && (keycode < CH_ZOOM_CHAT_TOGGLE || keycode > CH_GOOGLE_MEET_CHAT_TOGGLE));
 }
 
+bool is_custom_layer(uint8_t index) {
+    return (index == 0 || index == 1);
+}
+
 const uint32_t connectionReadTimeoutMs = 5000;
 const uint32_t repeatDurationMs = 10000;  // connectionReadTimeoutMs * 2, Nyquist theorem
 uint32_t check_heart_beat(uint32_t trigger_time, void *cb_arg) {
@@ -357,7 +361,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // to stick to the usb spec but we might want to work down level. So, the simplest solution is to let
     // QMK send these "common actions" directly.
     const bool should_qmk_handle = is_common_action(keycode);
-    if (is_connected && !should_qmk_handle) {
+    const bool should_bypass = is_custom_layer(get_current_layer_index());
+    if (is_connected && !should_qmk_handle && !should_bypass) {
         if (record->event.pressed) {
             key_down(get_current_layer_index(), app_x, app_y);
         }
