@@ -335,14 +335,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool is_either_pressed = false;
     uint8_t app_x = record->event.key.col;
     uint8_t app_y = record->event.key.row;
-    const bool should_bypass = is_custom_layer(get_current_layer_index());
     // QMK uses top left as origin, but the app uses KU origin (i.e. bottom left) for switching layer
     from_firmware_to_app_origin(&app_x, &app_y);
     // Requirement is, use the bottom row and left-most keys as key-switching hotkey
     if (app_y == 0 && app_x <= 1) {
         if (record->event.pressed) {
             if (is_either_pressed) {
-                if (is_connected && !should_bypass) {
+                if (is_connected) {
                     switch_layer_combo_down();
                 } else {
                     clear_keyboard();
@@ -362,6 +361,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // to stick to the usb spec but we might want to work down level. So, the simplest solution is to let
     // QMK send these "common actions" directly.
     const bool should_qmk_handle = is_common_action(keycode);
+    const bool should_bypass = is_custom_layer(get_current_layer_index());
     if (is_connected && !should_qmk_handle && !should_bypass) {
         if (record->event.pressed) {
             key_down(get_current_layer_index(), app_x, app_y);
