@@ -343,7 +343,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             if (is_either_pressed) {
                 if (is_connected) {
-                    clear_keyboard();
+                    // clear_keyboard();
                     switch_layer_combo_down();
                 } else {
                     clear_keyboard();
