@@ -1,6 +1,7 @@
 #include "quantum.h"
 #include "keyconfig.h"
 #include "rgb_strands/rgb_strands.h"
+#include "keymap_french.h"
 #include <math.h>
 
 #define KEY_MACROS_MAX_COUNT  3
@@ -15,6 +16,7 @@ extern const uint32_t PROGMEM active_colors[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MACROS_MAX_COUNT];
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint8_t PROGMEM default_layout;
 
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
@@ -145,6 +147,10 @@ uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index
     // But we know the basic key code aren't using the higer byte, and custom actions
     // shouldn't use non-basic key code anyways, so just convert to uint8_t.
     return (uint8_t) pgm_read_word(&custom_actions[layer][y][x][index]);
+}
+
+uint8_t get_default_layout() {
+    return (uint8_t) pgm_read_byte(&default_layout);
 }
 
 bool is_windows(uint8_t layer_type) {

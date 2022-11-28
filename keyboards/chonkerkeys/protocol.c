@@ -22,6 +22,7 @@ void _get_config_data_writer(void* user_data) {
     send_protocol(layer_count);
     const uint8_t current_layer = get_current_layer_index();
     send_protocol(current_layer);
+    const uint8_t default_layout = get_default_layout();
     for (uint8_t layer = 0; layer < layer_count; ++layer) {
         send_protocol(get_layer_type(layer));
         // chonkerkeys firmware origin is top-right, chonkerkeys app is bottom-left, invert both X and Y.
