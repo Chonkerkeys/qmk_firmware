@@ -35,7 +35,7 @@ __CUSTOM_KEYS_GO_HERE__
 };
 
 const uint8_t PROGMEM default_layout = {
-__DEFAULT_LAYOUT_GOES_HERE
+__DEFAULT_LAYOUT_GOES_HERE__
 };
 
 const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = {

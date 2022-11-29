@@ -46,7 +46,7 @@ uint32_t get_key_active_color(uint8_t layer, uint8_t x, uint8_t y);
 
 uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index);
 
-uint8_t get_default_layout();
+uint8_t get_default_layout(void);
 
 void process_protocol(uint8_t c);
 

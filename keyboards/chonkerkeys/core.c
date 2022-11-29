@@ -1,7 +1,11 @@
 #include "quantum.h"
 #include "keyconfig.h"
 #include "rgb_strands/rgb_strands.h"
-#include "keymap_french.h"
+#include "extra_keymaps/keymap_french.h"
+#include "extra_keymaps/keymap_dvorak.h"
+#include "extra_keymaps/keymap_us_international.h"
+#include "extra_keymaps/keymap_german.h"
+#include "extra_keymaps/keymap_spanish.h"
 #include <math.h>
 
 #define KEY_MACROS_MAX_COUNT  3
@@ -393,6 +397,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
                         uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
                         if (code == KC_NO) continue;
+                        get_default_layout();
                         unregister_code(code);
                     }
                 }
