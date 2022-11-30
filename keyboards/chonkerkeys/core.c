@@ -43,7 +43,7 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_E, KC_NO },
     { KC_NO, KC_NO, KC_NO },
     { KC_LCTRL, KC_LALT, KC_H },
-    { KC_LALT, KC_F4, KC_NO },
+    { KC_LCTRL, KC_W, KC_NO },
     // rest
     { KC_AUDIO_VOL_UP, KC_NO, KC_NO },
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
@@ -86,7 +86,7 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LGUI, KC_E, KC_NO },
     { KC_NO, KC_NO, KC_NO },
     { KC_LCTRL, KC_LGUI, KC_H },
-    { KC_NO, KC_NO, KC_NO },
+    { KC_LGUI, KC_W, KC_NO },
     // rest
     { KC_AUDIO_VOL_UP, KC_NO, KC_NO },
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
