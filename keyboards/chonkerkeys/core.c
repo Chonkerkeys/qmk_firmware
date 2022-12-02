@@ -336,9 +336,9 @@ bool is_custom_layer(uint8_t index) {
 
 uint16_t translateCode(uint16_t code) {
     switch(layout) {
-        case 0: // QWERTY
+        case CK_LOCALE_US: // QWERTY
             break;
-        case 1: // AZERTY
+        case CK_LOCALE_FR: // AZERTY
             switch (code) {
                 case KC_GRV: return A(KC_2); break;
                 // case KC_1: return KC_AMPR; break;
@@ -364,7 +364,7 @@ uint16_t translateCode(uint16_t code) {
                 case KC_SLSH: return KC_EXLM; break;
             }
             break;
-        case 2: // QWERTZ
+        case CK_LOCALE_DE: // QWERTZ
             switch (code) {
                 case KC_Y: return KC_Z; break;
                 case KC_Z: return KC_Y; break;
@@ -372,7 +372,7 @@ uint16_t translateCode(uint16_t code) {
 
             }
             break;
-        case 3: // DVORAK
+        case CK_LOCALE_DV: // DVORAK
             switch (code) {
                 case KC_Q: return KC_A; break;
                 case KC_A: return KC_Q; break;
@@ -385,7 +385,7 @@ uint16_t translateCode(uint16_t code) {
                 case KC_SLSH: return KC_EXLM; break;
             }
             break;
-        case 4: // COLEMAK
+        case CK_LOCALE_CM: // COLEMAK
             switch (code) {
                 case KC_E: return KC_F; break;
                 case KC_R: return KC_P; break;
