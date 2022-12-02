@@ -252,7 +252,7 @@ void flash_all_light(void) {
     for (uint16_t y = 0; y < MATRIX_ROWS; ++y) {
         for (uint16_t x = 0; x < MATRIX_COLS; ++x) {
             // Animation ignore color, set all of them to 0
-            start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, 0,0,0);
+            start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, 0, 0, 0);
         }
     }
 }
@@ -406,6 +406,7 @@ const uint32_t repeatDurationMs = 10000;  // connectionReadTimeoutMs * 2, Nyquis
 uint32_t check_heart_beat(uint32_t trigger_time, void *cb_arg) {
     if (is_connected) {
         if (!is_heart_beat_received) {
+            // flash on app disconnect
             flash_all_light();
             is_connected = false;
         } else {
@@ -418,6 +419,7 @@ uint32_t check_heart_beat(uint32_t trigger_time, void *cb_arg) {
 void keyboard_post_init_user(void) {
     layout = get_default_locale();
     heart_beat_checker_token = defer_exec(repeatDurationMs, check_heart_beat, NULL);
+    // flash on successful connection
     flash_all_light();
 }
 
