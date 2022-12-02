@@ -334,7 +334,7 @@ bool is_custom_layer(uint8_t index) {
     return (index == 0 || index == 1);
 }
 
-uint16_t translateCode(uint16_t code) {
+uint16_t translate_code_for_locale(uint16_t code) {
     switch(layout) {
         case CK_LOCALE_US: // QWERTY
             break;
@@ -483,7 +483,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                         uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
                         if (code == KC_NO) continue;
-                        code = translateCode(code);
+                        code = translate_code_for_locale(code);
                         register_code(code);
                     }
                 }
@@ -491,7 +491,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
                         uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
                         if (code == KC_NO) continue;
-                        code = translateCode(code);
+                        code = translate_code_for_locale(code);
                         unregister_code(code);
                     }
                 }
@@ -504,7 +504,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
-                        code = translateCode(code);
+                        code = translate_code_for_locale(code);
                         register_code(code);
                     }
                 }
@@ -512,7 +512,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     for (int32_t i = KEY_MACROS_MAX_COUNT; i >= 0; --i) {
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
-                        code = translateCode(code);
+                        code = translate_code_for_locale(code);
                         unregister_code(code);
                     }
                 }
@@ -520,11 +520,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         else {  // regular QMK keycodes
             if (record->event.pressed) {
-                keycode = translateCode(keycode);
+                keycode = translate_code_for_locale(keycode);
                 register_code(keycode);
             }
             else {
-                keycode = translateCode(keycode);
+                keycode = translate_code_for_locale(keycode);
                 unregister_code(keycode);
             }
         }
