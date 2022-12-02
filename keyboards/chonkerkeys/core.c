@@ -1,7 +1,7 @@
 #include "quantum.h"
 #include "keyconfig.h"
 #include "rgb_strands/rgb_strands.h"
-#include "default_layouts.h"
+#include "default_locales.h"
 #include <math.h>
 
 #define KEY_MACROS_MAX_COUNT  3
