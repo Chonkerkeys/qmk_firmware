@@ -1,5 +1,6 @@
 #include "quantum.h"
 #include "keyconfig.h"
+#include "layer_type.h"
 #include "rgb_strands/rgb_strands.h"
 #include "default_locales.h"
 #include <math.h>
@@ -252,15 +253,15 @@ void flash_all_light(void) {
         for (uint16_t x = 0; x < MATRIX_COLS; ++x) {
             // Animation ignore color, set all of them to 0
             int r, g, b;
-            if (get_layer_type(get_current_layer_index()) < 2)
+            if (get_layer_type(get_current_layer_index()) < CH_CUSTOM_WINDOWS)
             { r = 255; g = 255; b = 255; }
-            else if (get_layer_type(get_current_layer_index()) < 4)
+            else if (get_layer_type(get_current_layer_index()) < CH_ZOOM_WINDOWS)
             { r = 0; g = 0; b = 255; }
-            else if (get_layer_type(get_current_layer_index()) < 6)
+            else if (get_layer_type(get_current_layer_index()) < CH_TEAMS_WINDOWS)
             { r = 99; g = 112; b = 255; }
-            else if (get_layer_type(get_current_layer_index()) < 8)
+            else if (get_layer_type(get_current_layer_index()) < CH_SKYPE_WINDOWS)
             { r = 0; g = 255; b = 255; }
-            else if (get_layer_type(get_current_layer_index()) < 10)
+            else if (get_layer_type(get_current_layer_index()) < CH_GOOGLE_MEET_WINDOWS)
             { r = 0; g = 255; b = 0; }
             else
             { r = 255; g = 255; b = 255; }
