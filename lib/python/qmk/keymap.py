@@ -225,6 +225,8 @@ def add_layout_data(new_keymap, keymap_json):
 
     if keymap_json.get('default_layout'):
         new_keymap = new_keymap.replace('__DEFAULT_LAYOUT_GOES_HERE__', '%s' % (keymap_json['default_layout']))
+    else:
+        new_keymap = new_keymap.replace('__DEFAULT_LAYOUT_GOES_HERE__', '%s' % ('0'))
 
     return new_keymap
 
