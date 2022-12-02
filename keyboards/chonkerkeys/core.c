@@ -45,7 +45,7 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_E, KC_NO },
     { KC_NO, KC_NO, KC_NO },
     { KC_LCTRL, KC_LALT, KC_H },
-    { KC_LALT, KC_F4, KC_NO },
+    { KC_LCTRL, KC_W, KC_NO },
     // rest
     { KC_AUDIO_VOL_UP, KC_NO, KC_NO },
     { KC_AUDIO_VOL_DOWN, KC_NO, KC_NO },
@@ -430,6 +430,7 @@ uint32_t check_heart_beat(uint32_t trigger_time, void *cb_arg) {
 void keyboard_post_init_user(void) {
     layout = get_default_layout();
     heart_beat_checker_token = defer_exec(repeatDurationMs, check_heart_beat, NULL);
+    flash_all_light();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -530,6 +531,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Process animation
         if (record->event.pressed) {
             // start animation
+            if (keycode-CH_CUSTOM == 13 || keycode-CH_CUSTOM == 14 || keycode-CH_CUSTOM == 18) break;
             uint8_t anim = pgm_read_byte(&key_anim[current_layer_index][row][col]);
             const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
             rgb_strand_anim_config_t cfg;
