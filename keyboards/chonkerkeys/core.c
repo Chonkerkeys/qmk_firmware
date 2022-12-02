@@ -532,7 +532,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // Process animation
         if (record->event.pressed) {
             // start animation
-            if (keycode-CH_CUSTOM == 13 || keycode-CH_CUSTOM == 14 || keycode-CH_CUSTOM == 18) return false;
             uint8_t anim = pgm_read_byte(&key_anim[current_layer_index][row][col]);
             const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
             rgb_strand_anim_config_t cfg;
