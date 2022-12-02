@@ -237,9 +237,9 @@ void start_key_anim(uint8_t x, uint8_t y, uint8_t anim, uint8_t r, uint8_t g, ui
     const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
     rgb_strand_anim_config_t cfg;
     memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
-    // if (anim == RGB_STRAND_EFFECT_STATIC) {
-    set_rgb_strand_config_color(&cfg, r, g, b);
-    // }
+    if (anim == RGB_STRAND_EFFECT_STATIC) {
+        set_rgb_strand_config_color(&cfg, r, g, b);
+    }
     rgb_strand_animation_start(rgb_strand, anim,
         &cfg,
         RGB_STRAND_ANIM_STATE_STEADY);
@@ -252,20 +252,7 @@ void flash_all_light(void) {
     for (uint16_t y = 0; y < MATRIX_ROWS; ++y) {
         for (uint16_t x = 0; x < MATRIX_COLS; ++x) {
             // Animation ignore color, set all of them to 0
-            int r, g, b;
-            if (get_layer_type(get_current_layer_index()) < CH_CUSTOM_WINDOWS)
-            { r = 255; g = 255; b = 255; }
-            else if (get_layer_type(get_current_layer_index()) < CH_ZOOM_WINDOWS)
-            { r = 0; g = 0; b = 255; }
-            else if (get_layer_type(get_current_layer_index()) < CH_TEAMS_WINDOWS)
-            { r = 99; g = 112; b = 255; }
-            else if (get_layer_type(get_current_layer_index()) < CH_SKYPE_WINDOWS)
-            { r = 0; g = 255; b = 255; }
-            else if (get_layer_type(get_current_layer_index()) < CH_GOOGLE_MEET_WINDOWS)
-            { r = 0; g = 255; b = 0; }
-            else
-            { r = 255; g = 255; b = 255; }
-            start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, r, g, b);
+            start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, 0,0,0);
         }
     }
 }
