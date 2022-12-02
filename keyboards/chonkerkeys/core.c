@@ -253,17 +253,17 @@ void flash_all_light(void) {
             // Animation ignore color, set all of them to 0
             int r, g, b;
             if (get_layer_type(get_current_layer_index()) < 2)
-            { r = 23; g = 23; b = 23; }
+            { r = 255; g = 255; b = 255; }
             else if (get_layer_type(get_current_layer_index()) < 4)
-            { r = 0; g = 0; b = 23; }
+            { r = 0; g = 0; b = 255; }
             else if (get_layer_type(get_current_layer_index()) < 6)
-            { r = 15; g = 0; b = 23; }
+            { r = 99; g = 112; b = 255; }
             else if (get_layer_type(get_current_layer_index()) < 8)
-            { r = 0; g = 23; b = 23; }
+            { r = 0; g = 255; b = 255; }
             else if (get_layer_type(get_current_layer_index()) < 10)
-            { r = 0; g = 23; b = 0; }
+            { r = 0; g = 255; b = 0; }
             else
-            { r = 23; g = 23; b = 23; }
+            { r = 255; g = 255; b = 255; }
             start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, r, g, b);
         }
     }
