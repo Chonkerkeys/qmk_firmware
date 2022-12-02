@@ -49,5 +49,5 @@
         ["KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_LSHIFT","KC_A","KC_NO",
          "KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO]", "[KC_NO","KC_NO","KC_NO"]
     ],
-    "default_layout": "0"
+    "default_locale": "0"
 }

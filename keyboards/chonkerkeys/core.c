@@ -16,7 +16,7 @@ extern const uint32_t PROGMEM active_colors[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MACROS_MAX_COUNT];
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
-extern const uint8_t PROGMEM default_layout;
+extern const uint8_t PROGMEM default_locale;
 
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
@@ -150,8 +150,8 @@ uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index
     return (uint8_t) pgm_read_word(&custom_actions[layer][y][x][index]);
 }
 
-uint8_t get_default_layout() {
-    return (uint8_t) pgm_read_byte(&default_layout);
+uint8_t get_default_locale() {
+    return (uint8_t) pgm_read_byte(&default_locale);
 }
 
 bool is_windows(uint8_t layer_type) {
@@ -428,7 +428,7 @@ uint32_t check_heart_beat(uint32_t trigger_time, void *cb_arg) {
 }
 
 void keyboard_post_init_user(void) {
-    layout = get_default_layout();
+    layout = get_default_locale();
     heart_beat_checker_token = defer_exec(repeatDurationMs, check_heart_beat, NULL);
     flash_all_light();
 }

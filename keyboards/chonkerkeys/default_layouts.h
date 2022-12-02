@@ -3,7 +3,7 @@
 #include "quantum.h"
 
 // Defines the keycodes used by our macros in process_record_user
-enum default_layouts {
+enum default_locales {
     US = 0,
     FR = 1,
     DE = 2,
