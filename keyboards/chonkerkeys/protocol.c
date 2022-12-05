@@ -38,6 +38,8 @@ void _get_config_data_writer(void* user_data) {
             }
         }
     }
+    const uint8_t default_locale = get_default_locale();
+    send_protocol(default_locale);
 }
 
 #define LAYER_COUNT_SIZE 1

@@ -223,6 +223,11 @@ def add_layout_data(new_keymap, keymap_json):
             layer_keys_txt.append('\t[%s] = %s(%s)' % (layer_num, c_macro, layer_keys_str))
         new_keymap = new_keymap.replace('__CUSTOM_KEYS_GO_HERE__', '\n'.join(layer_keys_txt))
 
+    if keymap_json.get('default_locale'):
+        new_keymap = new_keymap.replace('__DEFAULT_LOCALE_GOES_HERE__', '%s' % (keymap_json['default_locale']))
+    else:
+        new_keymap = new_keymap.replace('__DEFAULT_LOCALE_GOES_HERE__', '%s' % ('0'))
+
     return new_keymap
 
 

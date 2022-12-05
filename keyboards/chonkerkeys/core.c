@@ -1,6 +1,8 @@
 #include "quantum.h"
 #include "keyconfig.h"
+#include "layer_type.h"
 #include "rgb_strands/rgb_strands.h"
+#include "chonkerkeys_locales.h"
 #include <math.h>
 
 #define KEY_MACROS_MAX_COUNT  3
@@ -15,6 +17,7 @@ extern const uint32_t PROGMEM active_colors[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MACROS_MAX_COUNT];
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
+extern const uint8_t PROGMEM default_locale;
 
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
@@ -106,6 +109,7 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
 
 bool is_connected = false;
 bool is_heart_beat_received = false;
+uint8_t layout = 0;
 deferred_token heart_beat_checker_token;
 
 uint8_t get_layer_count() {
@@ -145,6 +149,10 @@ uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index
     // But we know the basic key code aren't using the higer byte, and custom actions
     // shouldn't use non-basic key code anyways, so just convert to uint8_t.
     return (uint8_t) pgm_read_word(&custom_actions[layer][y][x][index]);
+}
+
+uint8_t get_default_locale() {
+    return (uint8_t) pgm_read_byte(&default_locale);
 }
 
 bool is_windows(uint8_t layer_type) {
@@ -313,11 +321,92 @@ bool is_custom_layer(uint8_t index) {
     return (index == 0 || index == 1);
 }
 
+uint16_t translate_code_for_locale(uint16_t code) {
+    switch(layout) {
+        case CK_LOCALE_US: // QWERTY
+            break;
+        case CK_LOCALE_FR: // AZERTY
+            switch (code) {
+                case KC_GRV: return A(KC_2); break;
+                // case KC_1: return KC_AMPR; break;
+                // case KC_2: return KC_EACU; break;
+                // case KC_3: return KC_DQUO; break;
+                // case KC_4: return KC_QUOT; break;
+                // case KC_5: return KC_LPRN; break;
+                // case KC_6: return KC_MINS; break;
+                // case KC_7: return KC_EGRV; break;
+                // case KC_8: return KC_UNDS; break;
+                // case KC_9: return KC_CCED; break;
+                // case KC_0: return KC_AGRV; break;
+                // case KC_MINS: return KC_PRPN; break;
+                case KC_Q: return KC_A; break;
+                case KC_A: return KC_Q; break;
+                case KC_Z: return KC_W; break;
+                case KC_W: return KC_Z; break;
+                case KC_SCLN: return KC_M; break;
+                case KC_M: return KC_COMM; break;
+                case KC_QUOT: return KC_GRV; break;
+                case KC_COMM: return KC_SCLN; break;
+                case KC_DOT: return KC_COLN; break;
+                case KC_SLSH: return KC_EXLM; break;
+            }
+            break;
+        case CK_LOCALE_DE: // QWERTZ
+            switch (code) {
+                case KC_Y: return KC_Z; break;
+                case KC_Z: return KC_Y; break;
+                case KC_MINS: return A(KC_S); break;
+
+            }
+            break;
+        case CK_LOCALE_DV: // DVORAK
+            switch (code) {
+                case KC_Q: return KC_A; break;
+                case KC_A: return KC_Q; break;
+                case KC_Z: return KC_W; break;
+                case KC_W: return KC_Z; break;
+                case KC_SCLN: return KC_M; break;
+                case KC_M: return KC_COMM; break;
+                case KC_COMM: return KC_SCLN; break;
+                case KC_DOT: return KC_COLN; break;
+                case KC_SLSH: return KC_EXLM; break;
+            }
+            break;
+        case CK_LOCALE_CM: // COLEMAK
+            switch (code) {
+                case KC_E: return KC_F; break;
+                case KC_R: return KC_P; break;
+                case KC_T: return KC_G; break;
+                case KC_Y: return KC_J; break;
+                case KC_U: return KC_L; break;
+                case KC_I: return KC_U; break;
+                case KC_O: return KC_Y; break;
+                case KC_P: return KC_SCLN; break;
+                case KC_S: return KC_R; break;
+                case KC_D: return KC_S; break;
+                case KC_F: return KC_T; break;
+                case KC_G: return KC_D; break;
+                case KC_J: return KC_E; break;
+                case KC_K: return KC_E; break;
+                case KC_L: return KC_I; break;
+                case KC_SCLN: return KC_O; break;
+                case KC_N: return KC_K; break;
+            }
+            break;
+        default:
+            return code;
+            break;
+    }
+    return code;
+}
+
+
 const uint32_t connectionReadTimeoutMs = 5000;
 const uint32_t repeatDurationMs = 10000;  // connectionReadTimeoutMs * 2, Nyquist theorem
 uint32_t check_heart_beat(uint32_t trigger_time, void *cb_arg) {
     if (is_connected) {
         if (!is_heart_beat_received) {
+            // flash on app disconnect
             flash_all_light();
             is_connected = false;
         } else {
@@ -328,7 +417,10 @@ uint32_t check_heart_beat(uint32_t trigger_time, void *cb_arg) {
 }
 
 void keyboard_post_init_user(void) {
+    layout = get_default_locale();
     heart_beat_checker_token = defer_exec(repeatDurationMs, check_heart_beat, NULL);
+    // flash on successful connection
+    flash_all_light();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -380,6 +472,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                         uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
                         if (code == KC_NO) continue;
+                        code = translate_code_for_locale(code);
                         register_code(code);
                     }
                 }
@@ -387,6 +480,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     for (int32_t i = KEY_MACROS_MAX_COUNT - 1; i >= 0; --i) {
                         uint16_t code = get_key_custom_action(current_layer_index, col, row, i);
                         if (code == KC_NO) continue;
+                        code = translate_code_for_locale(code);
                         unregister_code(code);
                     }
                 }
@@ -399,6 +493,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     for (uint32_t i = 0; i < KEY_MACROS_MAX_COUNT; ++i) {
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
+                        code = translate_code_for_locale(code);
                         register_code(code);
                     }
                 }
@@ -406,6 +501,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     for (int32_t i = KEY_MACROS_MAX_COUNT; i >= 0; --i) {
                         uint16_t code = key_macros[i];
                         if (code == KC_NO) continue;
+                        code = translate_code_for_locale(code);
                         unregister_code(code);
                     }
                 }
@@ -413,9 +509,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         else {  // regular QMK keycodes
             if (record->event.pressed) {
+                keycode = translate_code_for_locale(keycode);
                 register_code(keycode);
             }
             else {
+                keycode = translate_code_for_locale(keycode);
                 unregister_code(keycode);
             }
         }
