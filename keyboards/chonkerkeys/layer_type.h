@@ -1,3 +1,5 @@
+#pragma once
+
 enum layer_type {
     CH_CUSTOM_WINDOWS,
     CH_CUSTOM_MACOS,

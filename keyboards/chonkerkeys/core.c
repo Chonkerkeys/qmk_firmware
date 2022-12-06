@@ -1,6 +1,7 @@
 #include "quantum.h"
 #include "keyconfig.h"
 #include "layer_type.h"
+#include "layer_type_color.h"
 #include "rgb_strands/rgb_strands.h"
 #include "chonkerkeys_locales.h"
 #include <math.h>
@@ -252,7 +253,9 @@ void flash_all_light(void) {
     for (uint16_t y = 0; y < MATRIX_ROWS; ++y) {
         for (uint16_t x = 0; x < MATRIX_COLS; ++x) {
             // Animation ignore color, set all of them to 0
-            start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, 0, 0, 0);
+            int l_type = get_layer_type(get_current_layer_index());
+            struct flash_color c = get_layer_type_color(l_type);
+            start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, c.r, c.g, c.b);
         }
     }
 }
