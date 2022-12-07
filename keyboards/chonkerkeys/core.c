@@ -251,8 +251,7 @@ void flash_all_light(void) {
     for (uint16_t y = 0; y < MATRIX_ROWS; ++y) {
         for (uint16_t x = 0; x < MATRIX_COLS; ++x) {
             // Animation ignore color, set all of them to 0
-            int l_type = get_layer_type(get_current_layer_index());
-            struct flash_color c = get_layer_type_color(l_type);
+            struct flash_color c = get_layer_type_color(get_layer_type(get_current_layer_index()));
             start_key_anim(x, y, RGB_STRAND_EFFECT_MOMENTARY, c.r, c.g, c.b);
         }
     }
