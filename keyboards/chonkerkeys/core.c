@@ -238,9 +238,7 @@ void start_key_anim(uint8_t x, uint8_t y, uint8_t anim, uint8_t r, uint8_t g, ui
     const rgb_strand_anim_config_t *dcfg = get_default_rgb_strand_anim_config(anim);
     rgb_strand_anim_config_t cfg;
     memcpy(&cfg, dcfg, sizeof(rgb_strand_anim_config_t));
-    if (anim == RGB_STRAND_EFFECT_STATIC) {
-        set_rgb_strand_config_color(&cfg, r, g, b);
-    }
+    set_rgb_strand_config_color(&cfg, r, g, b);
     rgb_strand_animation_start(rgb_strand, anim,
         &cfg,
         RGB_STRAND_ANIM_STATE_STEADY);
