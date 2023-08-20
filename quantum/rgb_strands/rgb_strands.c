@@ -81,6 +81,11 @@ static rgb_strand_anim_config_t default_configs[] = {
         .period = 5000,
         .num_times = 10
     },
+    {
+        .color = {HSV_RED},
+        .period = 200,
+        .num_times = 2
+    },
     {} // RGB_STRAND_EFFECT_INVALID
 };
 
@@ -118,6 +123,8 @@ void rgb_strand_effect_rainbow(uint8_t strand, rgb_strand_anim_status_t *status,
 void rgb_strand_set_state_rainbow(uint8_t strand,rgb_strand_anim_state_t state, rgb_strand_anim_status_t *status, uint16_t now);
 void rgb_strand_effect_breathing(uint8_t strand, rgb_strand_anim_status_t *status, uint16_t now);
 void rgb_strand_set_state_breathing(uint8_t strand,rgb_strand_anim_state_t state, rgb_strand_anim_status_t *status, uint16_t now);
+void rgb_strand_effect_error(uint8_t strand, rgb_strand_anim_status_t *status, uint16_t now);
+void rgb_strand_set_state_error(uint8_t strand,rgb_strand_anim_state_t state, rgb_strand_anim_status_t *status, uint16_t now);
 
 void sethsv_rs(uint8_t hue, uint8_t sat, uint8_t val, LED_TYPE *led) {
     val = val > RGB_STRAND_LIMIT_VAL ? RGB_STRAND_LIMIT_VAL : val;
@@ -241,6 +248,9 @@ void rgb_strands_task(void) {
                     case RGB_STRAND_EFFECT_BREATHING:
                         effect_func = rgb_strand_effect_breathing;
                         break;
+                    case RGB_STRAND_EFFECT_ERROR:
+                        effect_func = rgb_strand_effect_error;
+                        break;
                     default:
                         break;
                 }
@@ -316,6 +326,8 @@ void rgb_strand_animation_set_state(uint8_t strand, rgb_strand_anim_state_t stat
         case RGB_STRAND_EFFECT_BREATHING:
             set_state_func = rgb_strand_set_state_breathing;
             break;
+        case RGB_STRAND_EFFECT_ERROR:
+            set_state_func = rgb_strand_set_state_error;
         default:
             break;
     }
@@ -589,6 +601,41 @@ void rgb_strand_set_state_breathing(uint8_t strand, rgb_strand_anim_state_t stat
             break;
     }
 }
+
+void rgb_strand_effect_error(uint8_t strand, rgb_strand_anim_status_t *status, uint16_t now) {
+    if (status->config.num_times > 0 && status->current.count >= status->config.num_times) {
+        rgb_strand_animation_set_state(strand, RGB_STRAND_ANIM_STATE_OFF);
+        return;
+    }
+    switch(status->current.state) {
+        case RGB_STRAND_ANIM_STATE_BLINKY_BLINKON:
+            rgb_strand_set_same_color(strand, status->config.color.h, status->config.color.s, status->config.color.v);
+            if (timer_expired(now, status->nexttime)) {
+                rgb_strand_animation_set_state(strand, RGB_STRAND_ANIM_STATE_BLINKY_BLINKOFF);
+            }
+            break;
+        case RGB_STRAND_ANIM_STATE_BLINKY_BLINKOFF:
+            rgb_strand_set_same_color(strand, HSV_OFF);
+            if (timer_expired(now, status->nexttime)) {
+                status->current.count++;
+                rgb_strand_animation_set_state(strand, RGB_STRAND_ANIM_STATE_BLINKY_BLINKON);
+            }
+            break;
+    }
+}
+
+void rgb_strand_set_state_error(uint8_t strand, rgb_strand_anim_state_t state, rgb_strand_anim_status_t *status, uint16_t now) {
+    switch(state) {
+        case RGB_STRAND_ANIM_STATE_BLINKY_BLINKON:
+        case RGB_STRAND_ANIM_STATE_BLINKY_BLINKOFF:
+            status->nexttime = now + status->config.period/2;
+            break;
+        default:
+            status->current.count = 0;
+            break;
+    }
+}
+
 
 uint8_t rgb_strand_get_num_leds(uint8_t strand) {
     switch (strand) {
