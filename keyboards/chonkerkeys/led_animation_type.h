@@ -7,4 +7,5 @@ enum led_animation_type {
     led_animation_type_like,
     led_animation_type_leave_meeting,
     led_animation_type_momentary,
+    led_animation_type_error,
 };

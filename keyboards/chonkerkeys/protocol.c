@@ -69,7 +69,10 @@ void on_set_led(struct command_set_led *set_led) {
         set_led_like(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->b);
     } else if (set_led->type == led_animation_type_leave_meeting) {
         set_led_leave_meeting(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->b);
-    } else if (set_led->type == led_animation_type_momentary) {
+    } else if (set_led->type == led_animation_type_error) {
+        set_led_error(set_led->key_x, set_led->key_y, set_led->r, set_led->g, set_led->b, set_led->animation_data.blink_frequency);
+    }
+    else if (set_led->type == led_animation_type_momentary) {
         // TODO: Is this conversion needed? If 10ms is easier to calculate due to processor clock speed etc, skip this
         // conversion.
         float duration_10ms = set_led->animation_data.momentary_duration_10ms;
