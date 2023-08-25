@@ -68,6 +68,7 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_NO, KC_NO, KC_NO },        // teams thumbs up
     { KC_NO, KC_NO, KC_NO },        // skype chat
     { KC_NO, KC_NO, KC_NO },        // skype record
+    { KC_NO, KC_NO, KC_NO },        // meet record
 };
 
 const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
@@ -117,7 +118,7 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_NO, KC_NO, KC_NO },        // teams thumbs up
     { KC_NO, KC_NO, KC_NO },        // skype chat
     { KC_NO, KC_NO, KC_NO },        // skype record
-
+    { KC_NO, KC_NO, KC_NO },        // meet record
 };
 
 bool is_connected = false;
