@@ -26,6 +26,8 @@ void set_led_leave_meeting(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, u
 
 void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint32_t duration_ms);
 
+void set_led_error(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint8_t frequency_tbc);
+
 void on_switch_layer(uint8_t index);
 
 uint8_t get_current_layer_index(void);

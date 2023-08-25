@@ -59,9 +59,16 @@ const uint16_t windows_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LCTRL, KC_Z, KC_NO },
     { KC_BTN1, KC_NO, KC_NO },
     // meeting utility
-    { KC_LCTRL, KC_H, KC_NO },
-    { KC_LCTRL, KC_R, KC_NO },
-    { KC_LCTRL, KC_LALT, KC_C },
+    { KC_LCTRL, KC_H, KC_NO },      // zoom chat
+    { KC_LCTRL, KC_R, KC_NO },      // zoom record
+    { KC_LCTRL, KC_LALT, KC_C },    // meet chat
+    { KC_NO, KC_NO, KC_NO },        // zoom thumbs up
+    { KC_NO, KC_NO, KC_NO },        // teams chat
+    { KC_NO, KC_NO, KC_NO },        // teams record
+    { KC_NO, KC_NO, KC_NO },        // teams thumbs up
+    { KC_NO, KC_NO, KC_NO },        // skype chat
+    { KC_NO, KC_NO, KC_NO },        // skype record
+    { KC_NO, KC_NO, KC_NO },        // meet record
 };
 
 const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
@@ -102,9 +109,16 @@ const uint16_t macos_configs[KEYCODE_COUNT][KEY_MACROS_MAX_COUNT] = {
     { KC_LGUI, KC_Z, KC_NO },
     { KC_BTN1, KC_NO, KC_NO},
     // meeting utility
-    { KC_LGUI, KC_LSHIFT, KC_H },
-    { KC_LGUI, KC_LSHIFT, KC_R },
-    { KC_LGUI, KC_LCTRL, KC_C },
+    { KC_LGUI, KC_LSHIFT, KC_H },   // zoom chat
+    { KC_LGUI, KC_LSHIFT, KC_R },   // zoom record
+    { KC_LGUI, KC_LCTRL, KC_C },    // meet chat
+    { KC_NO, KC_NO, KC_NO },        // zoom thumbs up
+    { KC_NO, KC_NO, KC_NO },        // teams chat
+    { KC_NO, KC_NO, KC_NO },        // teams record
+    { KC_NO, KC_NO, KC_NO },        // teams thumbs up
+    { KC_NO, KC_NO, KC_NO },        // skype chat
+    { KC_NO, KC_NO, KC_NO },        // skype record
+    { KC_NO, KC_NO, KC_NO },        // meet record
 };
 
 bool is_connected = false;
@@ -309,12 +323,16 @@ void set_led_momentary(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8
     start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_MOMENTARY, r, g, b);
 }
 
+void set_led_error(uint8_t key_x, uint8_t key_y, uint8_t r, uint8_t g, uint8_t b, uint8_t frequency_tbc) {
+    start_key_anim(key_x, key_y, RGB_STRAND_EFFECT_ERROR, r, g, b);
+}
+
 void on_switch_layer(uint8_t index) {
     switch_layer(index);
 }
 
 bool is_common_action(uint16_t keycode) {
-    return (keycode >= CH_VOLUME_UP && (keycode < CH_ZOOM_CHAT_TOGGLE || keycode > CH_GOOGLE_MEET_CHAT_TOGGLE));
+    return (keycode >= CH_VOLUME_UP && (keycode < CH_ZOOM_CHAT_TOGGLE || keycode >= CH_LAST_KEYCODE));
 }
 
 bool is_custom_layer(uint8_t index) {
