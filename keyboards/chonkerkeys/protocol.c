@@ -40,6 +40,11 @@ void _get_config_data_writer(void* user_data) {
     }
     const uint8_t default_locale = get_default_locale();
     send_protocol(default_locale);
+    for (int8_t y = 8 - 1; y >= 0; --y) {
+        for (int8_t x = 8 - 1; x >= 0; --x) {
+            _send_uint64(get_app_path(x,y));
+        }
+    }
 }
 
 #define LAYER_COUNT_SIZE 1

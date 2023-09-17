@@ -228,6 +228,28 @@ def add_layout_data(new_keymap, keymap_json):
     else:
         new_keymap = new_keymap.replace('__DEFAULT_LOCALE_GOES_HERE__', '%s' % ('0'))
 
+    if keymap_json.get('app_paths'):
+        path_val_txt = []
+        count = 1
+        for path_val in keymap_json.get('app_paths'):
+            if (count == 1):
+                path_val_txt.append('-+')
+            path_val = map(_remove_unsafe_chars, path_val)
+            path_val_str = ', '.join(path_val)
+            path_val_txt.append('%s' % (path_val_str))
+            count += 1
+            if (count == 9):
+                path_val_txt.append('+-')
+                count = 1
+        path_val_txt = str(path_val_txt)[1:-1]
+        print(path_val_txt)
+        print(type(path_val_txt))
+        p2 = path_val_txt.replace("'-+',", "{")
+        p3 = p2.replace("'+-',", "}, ")
+        p4 = p3.replace("'+-'", "}")
+        print(p4)
+        new_keymap = new_keymap.replace('__app_paths__', '{%s}' % (p4))
+
     return new_keymap
 
 

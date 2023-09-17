@@ -6,6 +6,7 @@
 #include <math.h>
 
 #define KEY_MACROS_MAX_COUNT  3
+#define APP_PATHS_MAX_COUNT 8
 
 extern const uint8_t layer_count;
 extern const uint32_t firmware_version;
@@ -18,6 +19,7 @@ extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MACROS_MAX_COUNT];
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint8_t PROGMEM default_locale;
+extern const uint64_t app_paths[APP_PATHS_MAX_COUNT][8];
 
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
@@ -167,6 +169,10 @@ uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index
 
 uint8_t get_default_locale() {
     return (uint8_t) pgm_read_byte(&default_locale);
+}
+
+uint64_t get_app_path(uint8_t x, uint8_t y) {
+    return app_paths[y][x];
 }
 
 bool is_windows(uint8_t layer_type) {
