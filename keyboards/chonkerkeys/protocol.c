@@ -40,9 +40,9 @@ void _get_config_data_writer(void* user_data) {
     }
     const uint8_t default_locale = get_default_locale();
     send_protocol(default_locale);
-    for (int8_t y = 8 - 1; y >= 0; --y) {
-        for (int8_t x = 8 - 1; x >= 0; --x) {
-            _send_uint64(get_app_path(x,y));
+    for (int8_t y = 0; y < 8; y++) {
+        for (int8_t x = 0; x < 16; x++) {
+            _send_uint64_be(get_app_path(y,x));
         }
     }
 }
@@ -232,6 +232,17 @@ void _send_uint64(uint64_t buffer) {
     send_protocol(buffer >> 40);
     send_protocol(buffer >> 48);
     send_protocol(buffer >> 56);
+}
+
+void _send_uint64_be(uint64_t buffer) {
+    send_protocol(buffer);
+    send_protocol(buffer << 8);
+    send_protocol(buffer << 16);
+    send_protocol(buffer << 24);
+    send_protocol(buffer << 32);
+    send_protocol(buffer << 40);
+    send_protocol(buffer << 48);
+    send_protocol(buffer << 56);
 }
 
 void _dispatch_command(void) {

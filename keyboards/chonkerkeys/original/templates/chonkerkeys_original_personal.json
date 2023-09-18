@@ -1,61 +1,13 @@
 {
     "keyboard": "chonkerkeys/original",
-    "keymap": "example",
+    "keymap": "default",
     "keyboard_name": "Chonkerkeys Original",
     "layout": "LAYOUT",
     "layout_data": {
-        "icons": [
-            "0x400",
-            "0x500",
-            "0",
-            "0",
-            "0x100",
-            "0x200",
-            "0",
-            "0x300"
-        ],
-        "size_ordinals": [
-            "1",
-            "193",
-            "0",
-            "0",
-            "65",
-            "67",
-            "0",
-            "1"
-        ]
+        "icons": ["0x400", "0x500", "0", "0", "0x100", "0x200", "0", "0x300"],
+        "size_ordinals": ["1", "193", "0", "0", "65", "67", "0", "1"]
     },
     "layers": [
-        [
-            "CH_CUSTOM",
-            "CH_CUSTOM",
-            "KC_NO",
-            "KC_NO",
-            "CH_CUSTOM",
-            "CH_CUSTOM",
-            "KC_NO",
-            "CH_CUSTOM"
-        ],
-        [
-            "CH_TEAMS_REACTION_THUMBSUP",
-            "CH_TEAMS_LEAVE_MEETING",
-            "KC_NO",
-            "KC_NO",
-            "CH_TEAMS_MUTE_TOGGLE",
-            "CH_TEAMS_VIDEO_TOGGLE",
-            "KC_NO",
-            "CH_TEAMS_CHAT_TOGGLE"
-        ],
-        [
-            "CH_ZOOM_REACTION_THUMBSUP",
-            "CH_ZOOM_LEAVE_MEETING",
-            "KC_NO",
-            "KC_NO",
-            "CH_ZOOM_MUTE_TOGGLE",
-            "CH_ZOOM_VIDEO_TOGGLE",
-            "KC_NO",
-            "CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE"
-        ],
         [
             "CH_ZOOM_RAISE_HAND_TOGGLE",
             "CH_ZOOM_LEAVE_MEETING",
@@ -67,24 +19,24 @@
             "CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE"
         ],
         [
-            "CH_GOOGLE_MEET_RAISE_HAND_TOGGLE",
-            "CH_GOOGLE_MEET_LEAVE_MEETING",
+            "CH_OPEN_APP_1",
+            "CH_ZOOM_LEAVE_MEETING",
             "KC_NO",
             "KC_NO",
-            "CH_GOOGLE_MEET_MUTE_TOGGLE",
-            "CH_GOOGLE_MEET_VIDEO_TOGGLE",
+            "CH_ZOOM_MUTE_TOGGLE",
+            "CH_ZOOM_VIDEO_TOGGLE",
             "KC_NO",
-            "CH_GOOGLE_MEET_SHARE_SCREEN_START_STOP_TOGGLE"
+            "CH_ZOOM_SHARE_SCREEN_START_STOP_TOGGLE"
         ],
         [
-            "CH_SKYPE_RECORD_TOGGLE",
-            "CH_SKYPE_LEAVE_MEETING",
+            "CH_OPEN_APP_2",
+            "CH_CUSTOM",
             "KC_NO",
             "KC_NO",
-            "CH_SKYPE_MUTE_TOGGLE",
-            "CH_SKYPE_VIDEO_TOGGLE",
+            "CH_CUSTOM",
+            "CH_CUSTOM",
             "KC_NO",
-            "CH_SKYPE_CHAT_TOGGLE"
+            "CH_CUSTOM"
         ],
         [
             "CH_TEAMS_RAISE_HAND_TOGGLE",
@@ -95,26 +47,58 @@
             "CH_TEAMS_VIDEO_TOGGLE",
             "KC_NO",
             "CH_TEAMS_SHARE_SCREEN_START_STOP_TOGGLE"
+        ],
+        [
+            "CH_TEAMS_RAISE_HAND_TOGGLE",
+            "CH_TEAMS_LEAVE_MEETING",
+            "KC_NO",
+            "KC_NO",
+            "CH_TEAMS_MUTE_TOGGLE",
+            "CH_TEAMS_VIDEO_TOGGLE",
+            "KC_NO",
+            "CH_TEAMS_SHARE_SCREEN_START_STOP_TOGGLE"
+        ],
+        [
+            "CH_SKYPE_RAISE_HAND_TOGGLE",
+            "CH_SKYPE_LEAVE_MEETING",
+            "KC_NO",
+            "KC_NO",
+            "CH_SKYPE_MUTE_TOGGLE",
+            "CH_SKYPE_VIDEO_TOGGLE",
+            "KC_NO",
+            "CH_SKYPE_SHARE_SCREEN_START_STOP_TOGGLE"
+        ],
+        [
+            "CH_GOOGLE_MEET_RAISE_HAND_TOGGLE",
+            "CH_GOOGLE_MEET_LEAVE_MEETING",
+            "KC_NO",
+            "KC_NO",
+            "CH_GOOGLE_MEET_MUTE_TOGGLE",
+            "CH_GOOGLE_MEET_VIDEO_TOGGLE",
+            "KC_NO",
+            "CH_GOOGLE_MEET_SHARE_SCREEN_START_STOP_TOGGLE"
         ]
     ],
     "layer_data": {
-        "layer_types": [
-            "0",
-            "4",
-            "2",
-            "3",
-            "8",
-            "6",
-            "5"
-        ],
+        "layer_types": ["2", "3", "1", "4", "5", "6", "8"],
         "key_off_colors": [
             [
                 "0x000000FF",
                 "0x000000FF",
                 "0",
                 "0",
-                "0xff0000FF",
-                "0xff0000FF",
+                "0x110000FF",
+                "0x110000FF",
+                "0",
+                "0xffff00FF"
+            ],
+            [
+                "0x000000FF",
+                "0x000000FF",
+                "0",
+                "0",
+                "0x110000FF",
+                "0x110000FF",
                 "0",
                 "0xffff00FF"
             ],
@@ -133,8 +117,8 @@
                 "0x000000FF",
                 "0",
                 "0",
-                "0xff0000FF",
-                "0xff0000FF",
+                "0x110000FF",
+                "0x110000FF",
                 "0",
                 "0xffff00FF"
             ],
@@ -143,18 +127,8 @@
                 "0x000000FF",
                 "0",
                 "0",
-                "0xff0000FF",
-                "0xff0000FF",
-                "0",
-                "0xffff00FF"
-            ],
-            [
-                "0x000000FF",
-                "0x000000FF",
-                "0",
-                "0",
-                "0xff0000FF",
-                "0xff0000FF",
+                "0x110000FF",
+                "0x110000FF",
                 "0",
                 "0xffff00FF"
             ],
@@ -185,10 +159,20 @@
                 "0xff0000FF",
                 "0",
                 "0",
-                "0x00ff00FF",
-                "0x00ff00FF",
+                "0x001100FF",
+                "0x001100FF",
                 "0",
-                "0x00ff00FF"
+                "0x001100FF"
+            ],
+            [
+                "0x00ff00FF",
+                "0xff0000FF",
+                "0",
+                "0",
+                "0x001100FF",
+                "0x001100FF",
+                "0",
+                "0x001100FF"
             ],
             [
                 "0x00ff00FF",
@@ -205,30 +189,20 @@
                 "0xff0000FF",
                 "0",
                 "0",
-                "0x00ff00FF",
-                "0x00ff00FF",
+                "0x001100FF",
+                "0x001100FF",
                 "0",
                 "0x00ff00FF"
             ],
             [
-                "0x00ff00FF",
+                "0x001100FF",
                 "0xff0000FF",
                 "0",
                 "0",
-                "0x00ff00FF",
-                "0x00ff00FF",
+                "0x001100FF",
+                "0x001100FF",
                 "0",
-                "0x00ff00FF"
-            ],
-            [
-                "0x00ff00FF",
-                "0xff0000FF",
-                "0",
-                "0",
-                "0x00ff00FF",
-                "0x00ff00FF",
-                "0",
-                "0x00ff00FF"
+                "0x001100FF"
             ],
             [
                 "0x00ff00FF",
@@ -253,12 +227,62 @@
         ],
         "key_animations": [
             [
-                "RGB_STRAND_EFFECT_ERROR",
-                "RGB_STRAND_EFFECT_ERROR",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_DRAINSWIRL",
                 "RGB_STRAND_EFFECT_NONE",
                 "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_BLINKY"
+            ],
+            [
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_DRAINSWIRL",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_BLINKY"
+            ],
+            [
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_MOMENTARY"
+            ],
+            [
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_DRAINSWIRL",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_BLINKY"
+            ],
+            [
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_DRAINSWIRL",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_BLINKY"
+            ],
+            [
                 "RGB_STRAND_EFFECT_ERROR",
-                "RGB_STRAND_EFFECT_ERROR",
+                "RGB_STRAND_EFFECT_DRAINSWIRL",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_NONE",
+                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_MOMENTARY",
                 "RGB_STRAND_EFFECT_NONE",
                 "RGB_STRAND_EFFECT_ERROR"
             ],
@@ -270,66 +294,12 @@
                 "RGB_STRAND_EFFECT_MOMENTARY",
                 "RGB_STRAND_EFFECT_MOMENTARY",
                 "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_BLINKY"
-            ],
-            [
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_DRAINSWIRL",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_BLINKY"
-            ],
-            [
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_DRAINSWIRL",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_BLINKY"
-            ],
-            [
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_DRAINSWIRL",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_NONE",
                 "RGB_STRAND_EFFECT_ERROR"
-            ],
-            [
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_DRAINSWIRL",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_BLINKY"
-            ],
-            [
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_DRAINSWIRL",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_MOMENTARY",
-                "RGB_STRAND_EFFECT_NONE",
-                "RGB_STRAND_EFFECT_BLINKY"
             ]
         ]
     },
     "layer_custom_keys": [
         [
-            "226",
-            "67",
-            "KC_NO",
-            "23",
             "KC_NO",
             "KC_NO",
             "KC_NO",
@@ -338,7 +308,6 @@
             "KC_NO",
             "KC_NO",
             "KC_NO",
-            "111",
             "KC_NO",
             "KC_NO",
             "KC_NO",
@@ -347,7 +316,12 @@
             "KC_NO",
             "KC_NO",
             "KC_NO",
-            "227",
+            "KC_NO",
+            "KC_NO",
+            "KC_NO",
+            "KC_NO",
+            "KC_NO",
+            "KC_NO",
             "KC_NO",
             "KC_NO"
         ],
@@ -508,5 +482,15 @@
             "KC_NO"
         ]
     ],
-    "default_locale": "0"
+    "default_locale": "0",
+    "app_paths": [
+        "7379548646446935855", "6014965721085062977", "8102094929534219369", "8029481832447046767", "7881708844880912752", "28719", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",
+        "7526768903561293615", "7163097727371670123", "7312002113086647599", "111523881374511", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0",
+        "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"
+    ]
 }

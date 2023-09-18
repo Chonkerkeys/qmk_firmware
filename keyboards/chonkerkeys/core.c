@@ -171,7 +171,7 @@ uint8_t get_default_locale() {
     return (uint8_t) pgm_read_byte(&default_locale);
 }
 
-uint64_t get_app_path(uint8_t x, uint8_t y) {
+uint64_t get_app_path(uint8_t y, uint8_t x) {
     return app_paths[y][x];
 }
 

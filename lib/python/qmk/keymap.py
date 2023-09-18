@@ -210,7 +210,6 @@ def add_layout_data(new_keymap, keymap_json):
                     layer_data_txt.append('\t' + _remove_unsafe_chars(layer_data))
             data_name_txt = '__REPLACE_%s__' % _remove_unsafe_chars(data_name)
             new_keymap = new_keymap.replace(data_name_txt, '\n'.join(layer_data_txt))
-
     if keymap_json.get('layer_custom_keys'):
         layer_keys_txt = []
         c_macro = keymap_json['layout'] + '_CUSTOM_KEYS'
@@ -247,12 +246,15 @@ def add_layout_data(new_keymap, keymap_json):
         print(path_val_txt)
         print(type(path_val_txt))
         p2 = path_val_txt.replace("'-+',", "{")
-        p3 = p2.replace("'+-',", "}, ")
-        p4 = p3.replace("'+-'", "}")
+        print("P2\n\n" + p2)
+        p3 = p2.replace(", '+-',", "}, ")
+        print("P3\n\n" + p3)
+        p4 = p3.replace(", '+-'", "}")
+        print("P4\n\n" + p4)
         p5 = p4.replace("'", "")
-        print(p5)
+        print("P5\n\n" + p5)
         new_keymap = new_keymap.replace('__app_paths__', '{%s}' % (p5))
-
+    print(new_keymap)
     return new_keymap
 
 
