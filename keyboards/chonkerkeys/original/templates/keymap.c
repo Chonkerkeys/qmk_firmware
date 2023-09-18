@@ -36,7 +36,7 @@ __CUSTOM_KEYS_GO_HERE__
 
 const uint8_t PROGMEM default_locale = __DEFAULT_LOCALE_GOES_HERE__;
 
-const uint64_t app_paths[8][8] = __app_paths__;
+const uint64_t app_paths[8][16] = __app_paths__;
 
 const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS] = {
 __REPLACE_key_animations__

@@ -6,7 +6,7 @@
 #include <math.h>
 
 #define KEY_MACROS_MAX_COUNT  3
-#define APP_PATHS_MAX_COUNT 8
+#define APP_PATHS_MAX_COUNT 16
 
 extern const uint8_t layer_count;
 extern const uint32_t firmware_version;
@@ -19,7 +19,7 @@ extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MACROS_MAX_COUNT];
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint8_t PROGMEM default_locale;
-extern const uint64_t app_paths[APP_PATHS_MAX_COUNT][8];
+extern const uint64_t app_paths[8][APP_PATHS_MAX_COUNT];
 
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
@@ -337,8 +337,12 @@ void on_switch_layer(uint8_t index) {
     switch_layer(index);
 }
 
+bool is_open_app(uint16_t keycode) {
+    return (keycode >= CH_OPEN_APP_1 && keycode <= CH_OPEN_APP_8);
+}
+
 bool is_common_action(uint16_t keycode) {
-    return (keycode >= CH_VOLUME_UP && (keycode < CH_ZOOM_CHAT_TOGGLE || keycode >= CH_LAST_KEYCODE));
+    return (keycode >= CH_VOLUME_UP && (keycode < CH_ZOOM_CHAT_TOGGLE || keycode >= CH_LAST_KEYCODE) && (!is_open_app(keycode)));
 }
 
 bool is_custom_layer(uint8_t index) {

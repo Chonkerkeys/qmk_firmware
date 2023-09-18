@@ -197,7 +197,6 @@ def add_layout_data(new_keymap, keymap_json):
             data_val = map(_remove_unsafe_chars, data_val)
             data_name_txt = '__REPLACE_%s__' % _remove_unsafe_chars(data_name)
             new_keymap = new_keymap.replace(data_name_txt, '%s(%s)' % (layout_macro, ', '.join(data_val)))
-
     if keymap_json.get('layer_data'):
         for (data_name, data_val) in keymap_json.get('layer_data').items():
             layer_data_txt = []
@@ -235,10 +234,13 @@ def add_layout_data(new_keymap, keymap_json):
             if (count == 1):
                 path_val_txt.append('-+')
             path_val = map(_remove_unsafe_chars, path_val)
-            path_val_str = ', '.join(path_val)
+            if (path_val == '\''):
+                path_val_str = ', '.join(path_val)
+            else:
+                path_val_str = ''.join(path_val)
             path_val_txt.append('%s' % (path_val_str))
             count += 1
-            if (count == 9):
+            if (count == 17):
                 path_val_txt.append('+-')
                 count = 1
         path_val_txt = str(path_val_txt)[1:-1]
@@ -247,8 +249,9 @@ def add_layout_data(new_keymap, keymap_json):
         p2 = path_val_txt.replace("'-+',", "{")
         p3 = p2.replace("'+-',", "}, ")
         p4 = p3.replace("'+-'", "}")
-        print(p4)
-        new_keymap = new_keymap.replace('__app_paths__', '{%s}' % (p4))
+        p5 = p4.replace("'", "")
+        print(p5)
+        new_keymap = new_keymap.replace('__app_paths__', '{%s}' % (p5))
 
     return new_keymap
 
