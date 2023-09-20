@@ -38,11 +38,10 @@ void _get_config_data_writer(void* user_data) {
             }
         }
     }
-    const uint8_t default_locale = get_default_locale();
-    send_protocol(default_locale);
+    send_protocol(get_default_locale());
     for (int8_t y = 0; y < 8; y++) {
         for (int8_t x = 0; x < 16; x++) {
-            _send_uint64_be(get_app_path(y,x));
+            _send_uint64(get_app_path(y,x));
         }
     }
 }
@@ -52,10 +51,14 @@ void _get_config_data_writer(void* user_data) {
 #define LAYER_TYPE_SIZE 1
 // size ordinal = 1, key action type = 1, icon = 8, color = 4 * 2, custom macros = 3
 #define KEY_SIZE 21
+#define APP_PATH_LENGTH 16
+#define APP_PATH_SIZE 8
+#define BYTE_SIZE 8
+#define LOCALE_SIZE 1
 
 void on_get_config() {
     const uint8_t layer_count = get_layer_count();
-    const uint16_t data_length = LAYER_COUNT_SIZE + CURRENT_LAYER_SIZE + ((LAYER_TYPE_SIZE + (MATRIX_ROWS * MATRIX_COLS * KEY_SIZE)) * layer_count);
+    const uint16_t data_length = LAYER_COUNT_SIZE + CURRENT_LAYER_SIZE + ((LAYER_TYPE_SIZE + (MATRIX_ROWS * MATRIX_COLS * KEY_SIZE)) * layer_count) + LOCALE_SIZE + (APP_PATH_LENGTH * APP_PATH_SIZE * BYTE_SIZE);
     _send_event_raw(event_type_get_config_response, data_length, &_get_config_data_writer, 0);
 }
 
@@ -232,17 +235,6 @@ void _send_uint64(uint64_t buffer) {
     send_protocol(buffer >> 40);
     send_protocol(buffer >> 48);
     send_protocol(buffer >> 56);
-}
-
-void _send_uint64_be(uint64_t buffer) {
-    send_protocol(buffer);
-    send_protocol(buffer << 8);
-    send_protocol(buffer << 16);
-    send_protocol(buffer << 24);
-    send_protocol(buffer << 32);
-    send_protocol(buffer << 40);
-    send_protocol(buffer << 48);
-    send_protocol(buffer << 56);
 }
 
 void _dispatch_command(void) {
