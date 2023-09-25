@@ -237,7 +237,7 @@
                 "RGB_STRAND_EFFECT_BLINKY"
             ],
             [
-                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_ERROR",
                 "RGB_STRAND_EFFECT_DRAINSWIRL",
                 "RGB_STRAND_EFFECT_NONE",
                 "RGB_STRAND_EFFECT_NONE",
@@ -247,7 +247,7 @@
                 "RGB_STRAND_EFFECT_BLINKY"
             ],
             [
-                "RGB_STRAND_EFFECT_MOMENTARY",
+                "RGB_STRAND_EFFECT_ERROR",
                 "RGB_STRAND_EFFECT_MOMENTARY",
                 "RGB_STRAND_EFFECT_NONE",
                 "RGB_STRAND_EFFECT_NONE",

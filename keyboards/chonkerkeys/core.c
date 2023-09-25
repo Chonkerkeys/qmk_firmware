@@ -457,7 +457,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t app_y = record->event.key.row;
     // QMK uses top left as origin, but the app uses KU origin (i.e. bottom left) for switching layer
     from_firmware_to_app_origin(&app_x, &app_y);
-    const bool should_bypass = is_custom_layer(layers[get_current_layer_index()]);
+    const bool should_bypass = is_custom_layer(layers[get_current_layer_index()]) && keycode < CH_OPEN_APP_1 && keycode > CH_OPEN_APP_8;
     // Requirement is, use the bottom row and left-most keys as key-switching hotkey
     if (app_y == 0 && app_x <= 1) {
         if (record->event.pressed) {
