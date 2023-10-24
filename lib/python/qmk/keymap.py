@@ -254,6 +254,14 @@ def add_layout_data(new_keymap, keymap_json):
         p5 = p4.replace("'", "")
         print("P5\n\n" + p5)
         new_keymap = new_keymap.replace('__app_paths__', '{%s}' % (p5))
+    else:
+        p1 = ''
+        for p in range(8):
+            p1 += '{'
+            for p in range(16):
+                p1 += '0, '
+            p1 += '}, '
+        new_keymap = new_keymap.replace('__app_paths__', '{%s}' % (p1))
     print(new_keymap)
     return new_keymap
 
