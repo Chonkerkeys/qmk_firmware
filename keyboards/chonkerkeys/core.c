@@ -6,7 +6,6 @@
 #include <math.h>
 
 #define KEY_MACROS_MAX_COUNT  3
-#define APP_PATHS_MAX_COUNT 16
 
 extern const uint8_t layer_count;
 extern const uint32_t firmware_version;
@@ -19,7 +18,6 @@ extern const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t PROGMEM custom_actions[][MATRIX_ROWS][MATRIX_COLS][KEY_MACROS_MAX_COUNT];
 extern const uint8_t PROGMEM key_anim[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint8_t PROGMEM default_locale;
-extern const uint64_t app_paths[8][APP_PATHS_MAX_COUNT];
 
 #define KEYCODE_COUNT (CH_LAST_KEYCODE - CH_CUSTOM)
 
@@ -169,10 +167,6 @@ uint8_t get_key_custom_action(uint8_t layer, uint8_t x, uint8_t y, uint8_t index
 
 uint8_t get_default_locale() {
     return (uint8_t) pgm_read_byte(&default_locale);
-}
-
-uint64_t get_app_path(uint8_t y, uint8_t x) {
-    return app_paths[y][x];
 }
 
 bool is_windows(uint8_t layer_type) {
@@ -337,12 +331,8 @@ void on_switch_layer(uint8_t index) {
     switch_layer(index);
 }
 
-bool is_open_app(uint16_t keycode) {
-    return (keycode >= CH_OPEN_APP_1 && keycode <= CH_OPEN_APP_8);
-}
-
 bool is_common_action(uint16_t keycode) {
-    return (keycode >= CH_VOLUME_UP && (keycode < CH_ZOOM_CHAT_TOGGLE || keycode >= CH_LAST_KEYCODE) && (!is_open_app(keycode)));
+    return (keycode >= CH_VOLUME_UP && (keycode < CH_ZOOM_CHAT_TOGGLE || keycode >= CH_LAST_KEYCODE));
 }
 
 bool is_custom_layer(uint8_t index) {
@@ -457,7 +447,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t app_y = record->event.key.row;
     // QMK uses top left as origin, but the app uses KU origin (i.e. bottom left) for switching layer
     from_firmware_to_app_origin(&app_x, &app_y);
-    const bool should_bypass = is_custom_layer(layers[get_current_layer_index()]) && keycode < CH_OPEN_APP_1 && keycode > CH_OPEN_APP_8;
+    const bool should_bypass = is_custom_layer(layers[get_current_layer_index()]);
     // Requirement is, use the bottom row and left-most keys as key-switching hotkey
     if (app_y == 0 && app_x <= 1) {
         if (record->event.pressed) {
