@@ -197,7 +197,6 @@ def add_layout_data(new_keymap, keymap_json):
             data_val = map(_remove_unsafe_chars, data_val)
             data_name_txt = '__REPLACE_%s__' % _remove_unsafe_chars(data_name)
             new_keymap = new_keymap.replace(data_name_txt, '%s(%s)' % (layout_macro, ', '.join(data_val)))
-
     if keymap_json.get('layer_data'):
         for (data_name, data_val) in keymap_json.get('layer_data').items():
             layer_data_txt = []
@@ -211,7 +210,6 @@ def add_layout_data(new_keymap, keymap_json):
                     layer_data_txt.append('\t' + _remove_unsafe_chars(layer_data))
             data_name_txt = '__REPLACE_%s__' % _remove_unsafe_chars(data_name)
             new_keymap = new_keymap.replace(data_name_txt, '\n'.join(layer_data_txt))
-
     if keymap_json.get('layer_custom_keys'):
         layer_keys_txt = []
         c_macro = keymap_json['layout'] + '_CUSTOM_KEYS'
@@ -228,6 +226,43 @@ def add_layout_data(new_keymap, keymap_json):
     else:
         new_keymap = new_keymap.replace('__DEFAULT_LOCALE_GOES_HERE__', '%s' % ('0'))
 
+    if keymap_json.get('app_paths'):
+        path_val_txt = []
+        count = 1
+        for path_val in keymap_json.get('app_paths'):
+            if (count == 1):
+                path_val_txt.append('-+')
+            path_val = map(_remove_unsafe_chars, path_val)
+            if (path_val == '\''):
+                path_val_str = ', '.join(path_val)
+            else:
+                path_val_str = ''.join(path_val)
+            path_val_txt.append('%s' % (path_val_str))
+            count += 1
+            if (count == 17):
+                path_val_txt.append('+-')
+                count = 1
+        path_val_txt = str(path_val_txt)[1:-1]
+        print(path_val_txt)
+        print(type(path_val_txt))
+        p2 = path_val_txt.replace("'-+',", "{")
+        print("P2\n\n" + p2)
+        p3 = p2.replace(", '+-',", "}, ")
+        print("P3\n\n" + p3)
+        p4 = p3.replace(", '+-'", "}")
+        print("P4\n\n" + p4)
+        p5 = p4.replace("'", "")
+        print("P5\n\n" + p5)
+        new_keymap = new_keymap.replace('__app_paths__', '{%s}' % (p5))
+    else:
+        p1 = ''
+        for p in range(8):
+            p1 += '{'
+            for p in range(16):
+                p1 += '0, '
+            p1 += '}, '
+        new_keymap = new_keymap.replace('__app_paths__', '{%s}' % (p1))
+    print(new_keymap)
     return new_keymap
 
 
